@@ -1,0 +1,123 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sendlane": "https://www.sendlane.com/",
+    "api": "https://api.sendlane.com/v2/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "email": "schema:email",
+    "provider": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    },
+    "contact": {
+      "@id": "schema:ContactPoint"
+    },
+    "Campaign": {
+      "@id": "sendlane:campaign",
+      "@type": "@id"
+    },
+    "Contact": {
+      "@id": "sendlane:contact",
+      "@type": "@id"
+    },
+    "List": {
+      "@id": "sendlane:list",
+      "@type": "@id"
+    },
+    "Automation": {
+      "@id": "sendlane:automation",
+      "@type": "@id"
+    },
+    "Tag": {
+      "@id": "sendlane:tag",
+      "@type": "@id"
+    },
+    "Form": {
+      "@id": "sendlane:form",
+      "@type": "@id"
+    },
+    "SenderProfile": {
+      "@id": "sendlane:sender-profile",
+      "@type": "@id"
+    },
+    "CustomField": {
+      "@id": "sendlane:custom-field",
+      "@type": "@id"
+    },
+    "Segment": {
+      "@id": "sendlane:segment",
+      "@type": "@id"
+    },
+    "Report": {
+      "@id": "sendlane:report",
+      "@type": "@id"
+    },
+    "emailMarketing": {
+      "@id": "sendlane:email-marketing",
+      "@type": "schema:Service"
+    },
+    "smsMarketing": {
+      "@id": "sendlane:sms-marketing",
+      "@type": "schema:Service"
+    }
+  },
+  "@graph": [
+    {
+      "@type": "schema:Organization",
+      "@id": "https://www.sendlane.com/",
+      "name": "Sendlane",
+      "description": "Email and SMS marketing platform for e-commerce with a REST API for managing contacts, lists, campaigns, automations, forms, and revenue-driven email analytics.",
+      "url": "https://www.sendlane.com/",
+      "schema:sameAs": [
+        "https://github.com/sendlane",
+        "https://twitter.com/sendlane",
+        "https://www.linkedin.com/company/sendlane/"
+      ],
+      "schema:hasOfferCatalog": {
+        "@type": "schema:OfferCatalog",
+        "name": "Sendlane API",
+        "url": "https://api.sendlane.com/v2",
+        "schema:itemListElement": [
+          {
+            "@type": "schema:Offer",
+            "name": "Contacts API",
+            "description": "Manage contact records, custom fields, and subscriber data."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Lists API",
+            "description": "Manage subscriber lists and list memberships."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Campaigns API",
+            "description": "Create, manage, and send email and SMS campaigns."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Automations API",
+            "description": "Manage marketing automation workflows and triggers."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Tags API",
+            "description": "Manage contact tags for segmentation."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Forms API",
+            "description": "Manage opt-in and subscription forms."
+          },
+          {
+            "@type": "schema:Offer",
+            "name": "Sender Profiles API",
+            "description": "Manage sender identities and email sending profiles."
+          }
+        ]
+      }
+    }
+  ]
+}
