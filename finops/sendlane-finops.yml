@@ -1,0 +1,46 @@
+name: Sendlane FinOps
+description: Financial operations guidance for Sendlane API and platform usage, covering cost optimization strategies for email and SMS marketing spend at scale.
+url: https://www.sendlane.com/pricing
+created: '2026-06-13'
+modified: '2026-06-13'
+costDrivers:
+  - name: Email Send Credits
+    description: Primary cost driver. Plans are priced based on monthly email send volume, starting at 500,000 credits/month for the Professional plan.
+    unit: Per 1,000 emails sent
+    overageRate: $1.20 per 1,000 emails over plan allowance
+    notes:
+      - Unused credits do not roll over to the next month
+      - Volume ranges from 500,000 to 60,000,000 emails per month
+  - name: SMS Send Credits
+    description: Optional add-on for SMS marketing. 1 SMS = 1 credit; 1 MMS = 3 credits.
+    unit: Per credit
+    startingPrice: $50/month for 2,500 credits
+    notes:
+      - SMS plans range from 2,500 to 10,000,000 credits per month
+      - Optional dedicated short code adds $500/month
+  - name: Support Tier
+    description: Higher-tier plans include enhanced support (dedicated manager, Slack channel, account reviews, proactive deliverability monitoring) as part of plan pricing.
+    notes:
+      - Professional includes standard 24/7/365 support
+      - Enterprise adds dedicated manager and Slack channel
+      - Enterprise Plus adds twice-monthly reviews and optional dedicated IP
+optimizationStrategies:
+  - name: Annual Billing
+    description: Commit to annual billing to receive 2 months free, reducing effective monthly cost by ~17%.
+    savings: ~17% vs. monthly billing
+  - name: Right-size Email Volume
+    description: Monitor actual monthly send volume and adjust your plan accordingly. Overages at $1.20/1,000 emails can add up quickly if your sends consistently exceed your plan.
+  - name: Segment and Suppress
+    description: Use Sendlane's segmentation and suppression lists to avoid sending to unengaged contacts, reducing send volume and improving deliverability.
+  - name: Combine Email and SMS
+    description: Leverage both email and SMS within one Sendlane account rather than using separate platforms, avoiding redundant platform costs.
+  - name: Free Trial Evaluation
+    description: Use the 60-day free trial (no credit card required) to validate the platform and forecast volume before committing to a paid plan.
+  - name: Monitor API Usage
+    description: Track API call volume to avoid unexpected integrations driving unnecessary email sends or contact operations that inflate costs.
+budgetingGuidance:
+  - Baseline cost starts at $600/month (Professional) or ~$500/month on annual billing
+  - Factor in SMS credits separately if using SMS marketing
+  - Plan for overage headroom — set alerts when approaching 90% of monthly send credit quota
+  - Enterprise and Enterprise Plus are custom-quoted based on volume; negotiate volume discounts for high-send accounts
+  - Include Sendlane in your martech stack cost review alongside ESP (email service provider) and CDP (customer data platform) spend

@@ -1,0 +1,77 @@
+name: Sendlane Plans and Pricing
+description: Sendlane uses a custom, usage-based pricing model for its unified email, SMS, reviews, and forms platform. Plans are built around email send credits, SMS credits, and billing frequency. All plans include unlimited contacts and 24/7/365 customer support.
+url: https://www.sendlane.com/pricing
+created: '2026-06-13'
+modified: '2026-06-13'
+plans:
+  - name: Free Trial
+    description: Full-featured 60-day free trial with no credit card required, allowing teams to evaluate Sendlane before committing to a paid plan.
+    price: $0
+    billing: Trial
+    features:
+      - 60-day free trial
+      - Up to 100 contacts
+      - Up to 500 emails
+      - No credit card required
+      - Access to all platform features
+      - Email and SMS marketing
+      - Forms and automation
+  - name: Professional
+    description: Entry-level paid plan for growing e-commerce brands with high-volume email sending, unlimited contacts, and around-the-clock support.
+    price: Starting at $600/month
+    billing: Monthly
+    features:
+      - 500,000 Email Send Credits per month (starting)
+      - Unlimited contacts
+      - 24/7/365 customer support
+      - Standard onboarding
+      - Email marketing
+      - SMS marketing (add-on)
+      - Automation workflows
+      - Revenue analytics
+      - eCommerce Academy Pro Bundle (50+ video lessons, 25 quizzes, ebooks)
+      - Overage rate: $1.20 per additional 1,000 emails
+  - name: Enterprise
+    description: Mid-tier plan for established e-commerce brands needing higher send volumes, dedicated support, and white-glove onboarding.
+    price: Starting at $1,550/month
+    billing: Monthly
+    features:
+      - 1,500,000 Email Send Credits per month (starting)
+      - Unlimited contacts
+      - 24/7/365 customer support
+      - White-glove, custom onboarding
+      - Dedicated support manager
+      - Slack channel support
+      - Monthly account reviews
+      - Proactive deliverability monitoring
+      - Email marketing
+      - SMS marketing (add-on)
+      - Automation workflows
+      - Revenue analytics
+      - eCommerce Academy Pro Bundle
+  - name: Enterprise Plus
+    description: Top-tier plan for large-scale e-commerce operations with very high email volumes, enhanced white-glove support, and optional dedicated IP.
+    price: Starting at $4,545/month
+    billing: Monthly
+    features:
+      - 7,000,000 Email Send Credits per month (starting)
+      - Unlimited contacts
+      - 24/7/365 customer support
+      - Enhanced white-glove, custom onboarding
+      - Dedicated support manager
+      - Slack channel support
+      - Twice-monthly account reviews
+      - Proactive deliverability monitoring
+      - Optional dedicated IP address
+      - Email marketing
+      - SMS marketing (add-on)
+      - Automation workflows
+      - Revenue analytics
+      - eCommerce Academy Pro Bundle
+notes:
+  - Annual billing available — saves 2 months compared to monthly billing (e.g., $600/month drops to ~$500/month annually)
+  - SMS plans start at $50/month for 2,500 send credits (1 SMS = 1 credit; 1 MMS = 3 credits)
+  - Optional short code: $500/month add-on
+  - Plans are fully customizable — email send volume ranges from 500,000 to 60,000,000 per month
+  - SMS credit volume ranges from 2,500 to 10,000,000 per month
+  - Plan can be changed at any time

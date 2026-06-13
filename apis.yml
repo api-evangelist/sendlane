@@ -1,0 +1,63 @@
+aid: sendlane
+name: Sendlane
+description: Email and SMS marketing platform for e-commerce with a REST API for managing contacts, lists, campaigns, automations, forms, and revenue-driven email analytics.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/sendlane/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Email Marketing
+  - SMS Marketing
+  - E-Commerce
+  - Marketing Automation
+  - Contacts
+  - Campaigns
+apis:
+  - aid: sendlane:sendlane-api
+    name: Sendlane API
+    description: REST API for managing contacts, lists, campaigns, automations, custom fields, sender profiles, tags, and custom integration events for e-commerce email and SMS marketing.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+    baseURL: https://api.sendlane.com/v2
+    tags:
+      - Email Marketing
+      - SMS Marketing
+      - Contacts
+      - Campaigns
+      - Automations
+      - Lists
+      - Tags
+    properties:
+      - type: Documentation
+        url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+      - type: PostmanCollection
+        url: https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+      - type: RateLimits
+        url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+common:
+  - type: Website
+    url: https://www.sendlane.com/
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: GitHubOrg
+    url: https://github.com/sendlane
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/sendlane/
+  - type: Blog
+    url: https://www.sendlane.com/blog
+  - type: Pricing
+    url: https://www.sendlane.com/pricing
+  - type: StatusPage
+    url: https://status.sendlane.com/
+  - type: X
+    url: https://twitter.com/sendlane
+  - type: Plans
+    url: plans/sendlane-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/sendlane-rate-limits.yml
+  - type: FinOps
+    url: finops/sendlane-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,29 @@
+name: Sendlane API Rate Limits
+description: Sendlane applies rate limits on all API v2 endpoints. Limits are enforced per user account and are totaled across all API usage for that account, regardless of how many integrations or API keys are active.
+url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+created: '2026-06-13'
+modified: '2026-06-13'
+rateLimits:
+  - scope: Account
+    description: Rate limits apply per user account and are aggregated across all API usage for that account.
+    notes:
+      - All API v2 endpoints are subject to rate limiting
+      - Limits are enforced at the account level, not per API key
+      - Total request volume across all integrations counts against the same quota
+  - scope: Endpoint
+    description: Individual endpoint rate limits may vary; consult the Sendlane API documentation for per-endpoint details.
+    notes:
+      - Specific per-minute or per-hour numeric limits are not publicly documented
+      - Exceeding rate limits results in HTTP 429 Too Many Requests responses
+      - Retry after the rate limit window resets before resubmitting requests
+headers:
+  - name: Retry-After
+    description: Indicates how long to wait (in seconds) before retrying after a rate limit error response.
+responses:
+  - statusCode: 429
+    description: Too Many Requests — the API rate limit for the account has been exceeded. Wait before retrying.
+bestPractices:
+  - Implement exponential backoff when receiving 429 responses
+  - Aggregate API calls where possible to reduce total request volume
+  - Monitor usage across all integrations sharing the same Sendlane account
+  - Contact Sendlane support for enterprise-level rate limit adjustments
