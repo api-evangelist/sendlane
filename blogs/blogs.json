@@ -6,68 +6,101 @@
     {
       "title": "Sendlane Has Been Acquired by Privy",
       "url": "https://www.sendlane.com/blog/privy-acquires-sendlane",
-      "categories": ["News", "eCommerce"],
+      "categories": [
+        "News",
+        "eCommerce"
+      ],
       "description": "Announcement of Privy's acquisition of Sendlane."
     },
     {
       "title": "A New Era for Deliverability: Scaling the Core of Sendlane",
       "url": "https://www.sendlane.com/blog/a-new-era-for-deliverability-scaling-the-core-of-sendlane",
-      "categories": ["Email Marketing", "SMS/MMS Marketing"],
+      "categories": [
+        "Email Marketing",
+        "SMS/MMS Marketing"
+      ],
       "description": "Infrastructure improvements for email delivery reliability."
     },
     {
       "title": "7 Consumer Shopping Trends to Inform Your Black Friday and Cyber Monday Strategies",
       "url": "https://www.sendlane.com/blog/7-trends-bfcm-2024",
-      "categories": ["eCommerce"],
+      "categories": [
+        "eCommerce"
+      ],
       "description": "Retail insights for holiday season planning."
     },
     {
       "title": "How to Monitor Performance Using Revenue Attribution",
       "url": "https://www.sendlane.com/blog/revenue-attribution",
-      "categories": ["eCommerce"],
+      "categories": [
+        "eCommerce"
+      ],
       "description": "Analytics methodology for tracking marketing results."
     },
     {
       "title": "How to Create Evergreen Content to Warm Up Customers",
       "url": "https://www.sendlane.com/blog/evergreen-email-content",
-      "categories": ["eCommerce"],
+      "categories": [
+        "eCommerce"
+      ],
       "description": "Strategy for developing timeless marketing materials."
     },
     {
       "title": "Navigating Deliverability Challenges and Maximizing Email Impact",
       "url": "https://www.sendlane.com/blog/navigating-deliverability-challenges",
-      "categories": ["Email Marketing"],
+      "categories": [
+        "Email Marketing"
+      ],
       "description": "Best practices for improving inbox placement."
     },
     {
       "title": "10 Re-Engagement Email Examples to Win Back Customers",
       "url": "https://www.sendlane.com/blog/re-engagement-emails",
-      "categories": ["Email Marketing"],
+      "categories": [
+        "Email Marketing"
+      ],
       "description": "Campaign templates for dormant subscriber activation."
     },
     {
       "title": "How To Maximize Your Pop-up Marketing Strategy",
       "url": "https://www.sendlane.com/blog/maximize-your-pop-up-marketing-strategy-",
-      "categories": ["Best Practices"],
+      "categories": [
+        "Best Practices"
+      ],
       "description": "Optimization techniques for pop-up marketing with practical examples."
     },
     {
       "title": "7 Effective eCommerce Customer Retention Strategies",
       "url": "https://www.sendlane.com/blog/ecommerce-retention-strategies",
-      "categories": ["Best Practices"],
+      "categories": [
+        "Best Practices"
+      ],
       "description": "Methods for maintaining customer lifetime value."
     },
     {
       "title": "How to Use Email And SMS Marketing to Grow Your eCommerce Store",
       "url": "https://www.sendlane.com/blog/email-and-sms-marketing",
-      "categories": ["SMS/MMS Marketing"],
+      "categories": [
+        "SMS/MMS Marketing"
+      ],
       "description": "Integrated messaging approach for business expansion."
     },
     {
       "title": "5 Steps to Improve Email Deliverability",
       "url": "https://www.sendlane.com/blog/5-steps-to-improve-email-deliverability",
-      "categories": ["Email Marketing"],
+      "categories": [
+        "Email Marketing"
+      ],
       "description": "Technical and strategic improvements for sender reputation."
     }
-  ]
+  ],
+  "repo": "sendlane",
+  "feeds": [
+    {
+      "source": "https://www.linkedin.com/company/sendlane/",
+      "error": "HTTPError"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-14T20:42:17Z"
 }
