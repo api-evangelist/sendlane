@@ -36,6 +36,8 @@ apis:
       - type: RateLimits
         url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
 common:
+  - type: DomainSecurity
+    url: security/sendlane-domain-security.yml
   - type: Website
     url: https://www.sendlane.com/
   - type: Documentation
