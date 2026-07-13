@@ -2,13 +2,11 @@
   "repo": "sendlane",
   "feeds": [
     {
-      "source": "https://www.sendlane.com/blog",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/sendlane/",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T13:09:16Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0,
   "agent_pulled": "2026-06-27"
 }
