@@ -1,6 +1,6 @@
 aid: sendlane
 name: Sendlane
-description: Email and SMS marketing platform for e-commerce with a REST API for managing contacts, lists, campaigns, automations, forms, and revenue-driven email analytics.
+description: Email and SMS marketing platform built for e-commerce brands, unifying email, SMS, reviews and forms in one account. The Sendlane v2 REST API manages contacts, lists, segments, tags, custom fields, sender profiles, suppression lists and email and SMS consent, returns campaign and SMS performance and revenue reporting, and ingests e-commerce behaviour events such as product views, cart abandonment and orders placed to drive automations and revenue attribution.
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -16,7 +16,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sendlane.png
 url: https://raw.githubusercontent.com/api-evangelist/sendlane/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
   - Email Marketing
@@ -25,6 +25,11 @@ tags:
   - Marketing Automation
   - Contacts
   - Campaigns
+  - Segmentation
+  - Consent Management
+  - Suppression
+  - Event Tracking
+  - Revenue Attribution
 apis:
   - aid: sendlane:sendlane-api
     name: Sendlane API
@@ -43,11 +48,25 @@ apis:
     properties:
       - type: Documentation
         url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+      - type: APIReference
+        url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+      - type: OpenAPI
+        url: openapi/sendlane-openapi.yml
+      - type: Overlay
+        url: overlays/sendlane-openapi-overlay.yaml
       - type: PostmanCollection
         url: https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
       - type: RateLimits
         url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+      - type: Authentication
+        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+      - type: ErrorCodes
+        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+      - type: Pagination
+        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
 common:
+  - type: Authentication
+    url: authentication/sendlane-authentication.yml
   - type: DomainSecurity
     url: security/sendlane-domain-security.yml
   - type: Website
@@ -72,6 +91,59 @@ common:
     url: rate-limits/sendlane-rate-limits.yml
   - type: FinOps
     url: finops/sendlane-finops.yml
+  - type: Conventions
+    url: conventions/sendlane-conventions.yml
+  - type: ErrorCatalog
+    url: errors/sendlane-problem-types.yml
+  - type: DataModel
+    url: data-model/sendlane-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/sendlane-lifecycle.yml
+  - type: Conformance
+    url: conformance/sendlane-conformance.yml
+  - type: Webhooks
+    url: asyncapi/sendlane-webhooks.yml
+  - type: Sandbox
+    url: sandbox/sendlane-sandbox.yml
+  - type: Components
+    url: components/sendlane-components.yml
+  - type: ChangeLog
+    url: changelog/sendlane-changelog.yml
+  - type: Packages
+    url: packages/sendlane-packages.yml
+  - type: MCPServer
+    url: mcp/sendlane-mcp.yml
+  - type: LLMsTxt
+    url: llms/sendlane-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: JSONLDContext
+    url: json-ld/sendlane-context.jsonld
+  - type: DeveloperPortal
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: GettingStarted
+    url: https://help.sendlane.com/articles/3807111349-sendlane-custom-integration-setup-api-v2
+  - type: Support
+    url: https://www.sendlane.com/contact-us
+  - type: HelpCenter
+    url: https://help.sendlane.com/
+  - type: GitHubOrganization
+    url: https://github.com/sendlane
+  - type: PostmanWorkspace
+    url: https://www.postman.com/sendlane/sendlane-s-public-workspace
+  - type: SignUp
+    url: https://auth.sendlane.com/register
+  - type: Login
+    url: https://auth.sendlane.com/login
+  - type: TermsOfService
+    url: https://www.sendlane.com/terms
+  - type: PrivacyPolicy
+    url: https://www.sendlane.com/privacy
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
