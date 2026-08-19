@@ -1,0 +1,1674 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Api Reference",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "List Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/lists/:listId/contacts",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Get contacts from list"
+        },
+        {
+          "info": {
+            "name": "Create List Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/lists/:listId/contacts",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a contact to a list (In order to add **SMS Consent** to the request, the **Contact SMS Consent** endpoint must first be enabled in your account by contacting support)"
+        },
+        {
+          "info": {
+            "name": "Get List Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/lists/:listId/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get List Contact"
+        },
+        {
+          "info": {
+            "name": "Delete Contact from List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/lists/:listId/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Contact from List"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/lists",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to return"
+              }
+            ]
+          },
+          "docs": "Returns the lists for the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Create List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a list"
+        },
+        {
+          "info": {
+            "name": "Get List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/lists/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get list"
+        },
+        {
+          "info": {
+            "name": "Update List",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sendlane.com/v2/lists/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update list"
+        },
+        {
+          "info": {
+            "name": "Delete List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/lists/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete list"
+        },
+        {
+          "info": {
+            "name": "Lists Unsubscribed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/lists/:listId/unsubscribed",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Get Lists Unsubscribed"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Automation Copy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/automations/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Copy Automations"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/tags"
+          },
+          "docs": "Get tags for account"
+        },
+        {
+          "info": {
+            "name": "Create Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a tag"
+        },
+        {
+          "info": {
+            "name": "Get Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get tag"
+        },
+        {
+          "info": {
+            "name": "Update Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendlane.com/v2/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update tags"
+        },
+        {
+          "info": {
+            "name": "Delete Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete tag"
+        },
+        {
+          "info": {
+            "name": "Tag Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/tags/:tagId/contacts",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to return"
+              }
+            ]
+          },
+          "docs": "Returns contacts for the tag"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/custom-fields",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to return"
+              }
+            ]
+          },
+          "docs": "Returns custom fields"
+        },
+        {
+          "info": {
+            "name": "Create Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/custom-fields",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create custom field"
+        },
+        {
+          "info": {
+            "name": "Get Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/custom-fields/:customFieldId",
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns custom field"
+        },
+        {
+          "info": {
+            "name": "Update Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendlane.com/v2/custom-fields/:customFieldId",
+            "params": [
+              {
+                "name": "customFieldId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update custom field"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Senders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sender Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/senders",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to return"
+              }
+            ]
+          },
+          "docs": "Get sender profiles"
+        },
+        {
+          "info": {
+            "name": "Create Sender Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/senders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create sender profile"
+        },
+        {
+          "info": {
+            "name": "Sender Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/senders/:senderId",
+            "params": [
+              {
+                "name": "senderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get sender profile"
+        },
+        {
+          "info": {
+            "name": "Update Sender Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sendlane.com/v2/senders/:senderId",
+            "params": [
+              {
+                "name": "senderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update sender profile"
+        },
+        {
+          "info": {
+            "name": "Delete Sender Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/senders/:senderId",
+            "params": [
+              {
+                "name": "senderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete sender profile"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SMS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SMS Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/sms-messages"
+          },
+          "docs": "SMS Messages"
+        },
+        {
+          "info": {
+            "name": "Get SMS Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/sms-messages/:messageId",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Get SMS Message"
+        },
+        {
+          "info": {
+            "name": "SMS Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/sms-messages/:messageId/report",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "SMS Report"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Suppression",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete Domain Suppression",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/suppression/domains/:suppressionId",
+            "params": [
+              {
+                "name": "suppressionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a domain from the suppression list"
+        },
+        {
+          "info": {
+            "name": "Domain Suppressions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/suppression/domains"
+          },
+          "docs": "Get domain suppressions"
+        },
+        {
+          "info": {
+            "name": "Create Domain Suppression",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/suppression/domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a domain to the suppression list"
+        },
+        {
+          "info": {
+            "name": "Email Suppressions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/suppression/emails"
+          },
+          "docs": "Get emails in the suppression list"
+        },
+        {
+          "info": {
+            "name": "Create Email Suppression",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/suppression/emails",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an email to the suppression list"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts",
+            "params": [
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Get Contacts"
+        },
+        {
+          "info": {
+            "name": "Get Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact"
+        },
+        {
+          "info": {
+            "name": "Delete Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete contact"
+        },
+        {
+          "info": {
+            "name": "Contacts Unsubscribed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/unsubscribed",
+            "params": [
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Get Contacts Unsubscribed"
+        },
+        {
+          "info": {
+            "name": "Get Contact Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/custom-fields",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact Custom Fields"
+        },
+        {
+          "info": {
+            "name": "Add Contact Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/custom-fields",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Custom Field(s) To Contact"
+        },
+        {
+          "info": {
+            "name": "Get Contact Custom Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/custom-fields/:contactCustomFieldId",
+            "params": [
+              {
+                "name": "contactCustomFieldId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact Custom Field"
+        },
+        {
+          "info": {
+            "name": "Remove Custom Field  from Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/custom-fields/:contactCustomFieldId",
+            "params": [
+              {
+                "name": "contactCustomFieldId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove Custom Field from Contact"
+        },
+        {
+          "info": {
+            "name": "Contact Email Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/email-consent",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add/Remove email consent to a contact *(This endpoint must first be enabled in your account by contacting support)*. Omit **list_ids** for global contacts."
+        },
+        {
+          "info": {
+            "name": "Contact History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/history",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Contact History"
+        },
+        {
+          "info": {
+            "name": "Contact Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Contact Search"
+        },
+        {
+          "info": {
+            "name": "Contact Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/segments",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Contact Segments"
+        },
+        {
+          "info": {
+            "name": "Contact Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/subscriptions",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Contact Subscriptions"
+        },
+        {
+          "info": {
+            "name": "Contact Search Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Contact Search Subscriptions"
+        },
+        {
+          "info": {
+            "name": "Get Contact SMS Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/sms-consent",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact SMS Consent"
+        },
+        {
+          "info": {
+            "name": "Contact Add SMS Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/sms-consent",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add SMS Consent to a contact (This endpoint must first be enabled in your account by contacting support)"
+        },
+        {
+          "info": {
+            "name": "Remove SMS Consent from Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/sms-consent",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove SMS Consent from Contact"
+        },
+        {
+          "info": {
+            "name": "Contact Search and Add SMS Consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/sms-consent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for a contact by email or phone to add SMS Consent"
+        },
+        {
+          "info": {
+            "name": "Get Contact Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/tags",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact Tags"
+        },
+        {
+          "info": {
+            "name": "Add Contact Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/tags",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Tag To Contact"
+        },
+        {
+          "info": {
+            "name": "Get Contact Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Contact Tag"
+        },
+        {
+          "info": {
+            "name": "Remove Tag from Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove Tag from Contact"
+        },
+        {
+          "info": {
+            "name": "Contact Unsubscribe",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/contacts/:contactId/unsubscribe",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Contact Unsubscribe"
+        },
+        {
+          "info": {
+            "name": "Back In Stock Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/back-in-stock-contacts"
+          },
+          "docs": "Get Back In Stock Contacts"
+        },
+        {
+          "info": {
+            "name": "Get Back In Stock Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/back-in-stock-contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Back In Stock Contact"
+        },
+        {
+          "info": {
+            "name": "Delete Back In Stock Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/back-in-stock-contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Back In Stock Contact"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/campaigns"
+          },
+          "docs": "Get Campaigns"
+        },
+        {
+          "info": {
+            "name": "Get Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/campaigns/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get campaign"
+        },
+        {
+          "info": {
+            "name": "Campaign Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/campaigns/:campaignId/report",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Starting datetime. Required if the \"to\" parameter is in the query."
+              },
+              {
+                "name": "to",
+                "value": "`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`",
+                "type": "query",
+                "description": "Ending datetime."
+              }
+            ]
+          },
+          "docs": "Campaign Report"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Segments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Segment Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/segments/:segmentId/contacts",
+            "params": [
+              {
+                "name": "segmentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Segment Contacts"
+        },
+        {
+          "info": {
+            "name": "Get Segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/segments"
+          },
+          "docs": "Get segments"
+        },
+        {
+          "info": {
+            "name": "Get Segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/segments/:segmentId",
+            "params": [
+              {
+                "name": "segmentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Segment"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Integration Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Added To Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/added-to-cart",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Added To Cart"
+        },
+        {
+          "info": {
+            "name": "Back In Stock",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/back-in-stock",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Back In Stock"
+        },
+        {
+          "info": {
+            "name": "Category Added",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/category-added",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Category Added"
+        },
+        {
+          "info": {
+            "name": "Checkout Started",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/checkout-started",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checkout Started"
+        },
+        {
+          "info": {
+            "name": "Customer Added",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/customer-added",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Customer Added"
+        },
+        {
+          "info": {
+            "name": "Order Placed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/order-placed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order Placed"
+        },
+        {
+          "info": {
+            "name": "Product Added",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/product-added",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Product Added"
+        },
+        {
+          "info": {
+            "name": "Product Viewed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/product-viewed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Product Viewed"
+        },
+        {
+          "info": {
+            "name": "Custom Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/tracking/event",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Custom Event - This Call can be used to send an arbitrary payload to Sendlane to be used within automation sequences.  The data component of the payload is made available to emails and sms messages within automations that are setup as triggers for the custom-event.  Custom events can be created and given a name withing the Custom Integration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/integrations/custom"
+          },
+          "docs": "Get integrations"
+        },
+        {
+          "info": {
+            "name": "Create Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/integrations/custom",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a custom integration"
+        },
+        {
+          "info": {
+            "name": "Delete Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/integrations/custom/:integrationToken",
+            "params": [
+              {
+                "name": "integrationToken",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a custom integration"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Integration Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/integrations/custom/:integrationToken/events"
+          },
+          "docs": "List custom events related to an custom integration"
+        },
+        {
+          "info": {
+            "name": "Create Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sendlane.com/v2/integrations/custom/:integrationToken/events",
+            "params": [
+              {
+                "name": "integrationToken",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a custom integration event"
+        },
+        {
+          "info": {
+            "name": "Show Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sendlane.com/v2/integrations/custom/:integrationToken/events/:eventId",
+            "params": [
+              {
+                "name": "integrationToken",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show a custom integration event related to a custom integration"
+        },
+        {
+          "info": {
+            "name": "Delete Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sendlane.com/v2/integrations/custom/:integrationToken/events/:eventId",
+            "params": [
+              {
+                "name": "integrationToken",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a custom integration event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every host named in apis.yml and openapi/sendlane-openapi.yml
+name: Sendlane Well-Known Probe
+description: >-
+  Probe of the standard /.well-known/ discovery paths across every Sendlane host.
+  Every path returned 404. No WellKnown or SecurityTxt pointer is emitted in
+  apis.yml, because none of these documents is served — this file records a
+  measured absence, not a presence.
+result: none
+hits: 0
+hosts:
+  - host: www.sendlane.com
+    paths:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: api.sendlane.com
+    paths:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: sendlane.stoplight.io
+    note: >-
+      Docs host is operated by Stoplight, not Sendlane. Every /.well-known/ path
+      returns HTTP 404 with the Stoplight SPA shell body.
+    paths:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+notes:
+  - No security.txt is served on any Sendlane host (RFC 9116 not implemented).
+  - >-
+    No OAuth or OpenID Connect discovery documents exist, which is consistent
+    with the OpenAPI: Sendlane authenticates with a static bearer API token
+    declared as an apiKey security scheme, not with OAuth.
+  - >-
+    No agent card at either the A2A 1.0 path (/.well-known/agent-card.json) or the
+    legacy pre-0.3 path (/.well-known/agent.json). No a2a/ artifact was written.

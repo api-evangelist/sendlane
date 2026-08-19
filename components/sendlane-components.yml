@@ -1,0 +1,60 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://help.sendlane.com/articles/3807111349-sendlane-custom-integration-setup-api-v2,
+  https://www.sendlane.com/features/sendlane-beacon
+name: Sendlane Client-Side Components
+description: >-
+  Embeddable, client-side surfaces Sendlane ships for a merchant's own website —
+  distinct from SDKs (there are none) and from the REST API. One family: the
+  Sendlane Beacon tracking script.
+component_count: 1
+families:
+  - name: Beacon
+    kind: tracking-script
+    description: >-
+      Website and event tracking. Collects on-site customer activity — sign-ups,
+      page and product views, add-to-cart, checkout started, purchases — and feeds
+      the same event stream as the server-side /tracking/* endpoints, so
+      automations can trigger on real-time browsing behaviour.
+    loader: https://sendlane.com/scripts/pusher.js
+    install: '<script src="https://sendlane.com/scripts/pusher.js" async data-token="INTEGRATION_TOKEN"></script>'
+    auth: >-
+      Public integration token, supplied via the data-token attribute. Obtained from
+      the dashboard by selecting Manage next to the Sendlane Integration and copying
+      the code. This is not the v2 API bearer token.
+    registry: cdn
+    version: null
+    published: null
+    version_note: >-
+      The distribution is UNPINNED — the script tag names no version and the URL
+      floats to latest. Probed 2026-08-13: HTTPS 200, application/javascript, 88,500
+      bytes, a webpack bundle. There is no CDN metadata endpoint to query (it is
+      served from Sendlane's own origin, not npm/unpkg/jsDelivr), so no release date
+      is knowable. A merchant embedding this cannot tell what build they are running,
+      and neither can we.
+    constraints:
+      - >-
+        Only one instance of pusher.js may be installed on a site; multiple
+        instances cause tracking issues (provider's own guidance).
+      - Requires backend/theme access to install the tag.
+    events_produced:
+      - Active on Site
+      - identify
+      - product viewed
+      - added to cart
+      - checkout started
+      - order placed
+      - ordered product
+      - order fulfilled / cancelled / refunded
+    see: asyncapi/sendlane-webhooks.yml
+absent:
+  - web-components / custom elements
+  - hosted or prebuilt UI element library (payment-element style)
+  - embedded dashboards or analytics iframes
+  - a documented forms/reviews embed API
+notes:
+  - >-
+    Sendlane markets Forms and Reviews as products, and both necessarily render
+    client-side, but neither publishes a documented embed contract, a loader URL or
+    a configuration API. Only the Beacon loader is documented well enough to record.

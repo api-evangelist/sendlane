@@ -1,0 +1,127 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/sendlane-openapi.yml
+also_searched:
+  - https://sendlane.stoplight.io/docs/api-documentation/37068c432a5f1-custom-integrations
+  - https://help.sendlane.com/articles/3807111349-sendlane-custom-integration-setup-api-v2
+name: Sendlane Event Surface (Custom Integration Webhooks)
+description: >-
+  Sendlane's event surface, which the provider labels "Custom Integration
+  Webhooks". READ THE DIRECTION CAREFULLY — these are INBOUND. The integrator
+  POSTs e-commerce events to Sendlane; Sendlane does not call back out to the
+  integrator. There is no outbound webhook subscription API, no delivery retry
+  policy and no signature-verification scheme.
+direction: inbound
+transport: HTTPS POST
+asyncapi_published: false
+outbound_webhooks: false
+signature_verification: false
+retry_policy: null
+base_url: https://api.sendlane.com/v2
+authentication: 'Authorization: Bearer <SENDLANE_API_TOKEN>'
+event_count: 9
+
+events:
+  - name: Added To Cart
+    operationId: post-tracking-added-to-cart
+    path: /tracking/added-to-cart
+    schema: AddedToCartRequest.v2
+    description: Customer added a product to their cart.
+  - name: Back In Stock
+    operationId: post-tracking-back-in-stock
+    path: /tracking/back-in-stock
+    schema: BackInStockRequest.v2
+    description: >-
+      Customer requested notification for an out-of-stock product. Creates a
+      BackInStockContact tying the contact to a product id.
+  - name: Category Added
+    operationId: post-tracking-category-added
+    path: /tracking/category-added
+    schema: CategoryAddedRequest.v2
+    description: Customer browsed or was assigned a product category.
+  - name: Checkout Started
+    operationId: post-tracking-checkout-started
+    path: /tracking/checkout-started
+    schema: CheckoutStartedRequest.v2
+    description: Customer began checkout — the abandoned-cart trigger.
+  - name: Customer Added
+    operationId: post-tracking-customer-added
+    path: /tracking/customer-added
+    schema: CustomerAddedRequest.v2
+    description: A new customer record was created in the connected store.
+  - name: Order Placed
+    operationId: post-tracking-order-placed
+    path: /tracking/order-placed
+    schema: OrderPlacedRequest.v2
+    description: >-
+      Order completed. Carries line items, discounts and tax lines
+      (LineItems.v2, Discount.v2, TaxLine.v2) — the payload that drives revenue
+      attribution.
+  - name: Product Added
+    operationId: post-tracking-product-added
+    path: /tracking/product-added
+    schema: ProductAddedRequest.v2
+    description: A product was added to the connected store catalog.
+  - name: Product Viewed
+    operationId: post-tracking-product-viewed
+    path: /tracking/product-viewed
+    schema: ProductViewedRequest.v2
+    description: Customer viewed a product page — the browse-abandonment trigger.
+  - name: Custom Event
+    operationId: post-tracking-event
+    path: /tracking/event
+    schema: CustomEventRequest.v2
+    description: >-
+      Arbitrary event, typed by an event registered under a custom integration.
+      The escape hatch for anything not in the eight typed events above.
+
+event_type_registry:
+  description: >-
+    Custom event TYPES are managed as first-class resources under a custom
+    integration, so an integrator can register its own event vocabulary before
+    emitting it.
+  operations:
+    - operationId: list-custom-integrations
+      method: GET
+      path: /integrations/custom
+    - operationId: create-custom-integration
+      method: POST
+      path: /integrations/custom
+    - operationId: delete-custom-integration
+      method: DELETE
+      path: /integrations/custom/{integrationToken}
+    - operationId: index-custom-events
+      method: GET
+      path: /integrations/custom/{integrationToken}/events
+    - operationId: create-custom-event
+      method: POST
+      path: /integrations/custom/{integrationToken}/events
+    - operationId: show-custom-event
+      method: GET
+      path: /integrations/custom/{integrationToken}/events/{eventId}
+    - operationId: delete-custom-event
+      method: DELETE
+      path: /integrations/custom/{integrationToken}/events/{eventId}
+
+browser_ingestion:
+  description: >-
+    The same event stream can be produced client-side by the Sendlane Beacon
+    script instead of server-side POSTs.
+  loader: https://sendlane.com/scripts/pusher.js
+  install: '<script src="https://sendlane.com/scripts/pusher.js" async data-token="INTEGRATION_TOKEN"></script>'
+  see: components/sendlane-components.yml
+
+gaps:
+  - >-
+    No AsyncAPI document is published. The event surface is described only as REST
+    POST operations inside the OpenAPI, so there is no channel/message contract an
+    event tool can consume.
+  - >-
+    No outbound webhooks. A system that needs to react to something happening
+    INSIDE Sendlane (a send completing, a contact unsubscribing, a bounce) has no
+    push option and must poll — e.g. GET /contacts/unsubscribed or
+    GET /campaigns/{campaignId}/report on a schedule.
+  - >-
+    Historical event backfill requires a `time` or `date_created` field on the
+    payload, per the provider's custom-integration setup article; otherwise events
+    are stamped at receipt.

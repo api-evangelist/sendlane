@@ -1,0 +1,112 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, packagist.org, api.github.com/orgs/sendlane
+name: Sendlane Client Packages
+description: >-
+  Registry sweep for Sendlane client libraries. FINDING: Sendlane publishes no
+  first-party API SDK in any language registry. The only package under the
+  sendlane vendor namespace is a Magento 2 storefront module whose source repo has
+  not been pushed since 2019 and which has zero published versions on Packagist.
+  Everything else that wraps the Sendlane API is third-party.
+official_sdk_count: 0
+package_count: 5
+registries_checked:
+  - npm
+  - PyPI
+  - RubyGems
+  - Packagist
+  - GitHub (org: sendlane)
+packages:
+  - name: sendlane/module-ordermanagement
+    registry: packagist
+    language: PHP
+    official: true
+    kind: platform-module
+    url: https://packagist.org/packages/sendlane/module-ordermanagement
+    source: https://github.com/sendlane/module-ordermanagement
+    version: null
+    published: null
+    note: >-
+      Published under Sendlane's own vendor namespace and mirrored from the
+      sendlane GitHub org, so it is first-party — but Packagist reports ZERO
+      released versions (repo.packagist.org p2 metadata returns an empty version
+      list), so there is nothing installable. The GitHub source was last pushed
+      2019-03-15. It is a Magento 2 order-management module, not an API SDK.
+  - name: rewake/sendlane
+    registry: packagist
+    language: PHP
+    official: false
+    kind: sdk
+    url: https://packagist.org/packages/rewake/sendlane
+    source: https://github.com/rewake/sendlane
+    version: v1.0.1
+    published: '2019-06-17'
+    note: >-
+      Third-party PHP SDK, 433 downloads. Last release 2019-06-17 — predates the v2
+      API surface this repo documents, so it almost certainly wraps Sendlane v1.
+  - name: arindam/sendlane-apis
+    registry: packagist
+    language: PHP
+    official: false
+    kind: sdk
+    url: https://packagist.org/packages/arindam/sendlane-apis
+    version: null
+    published: null
+    note: >-
+      Third-party Laravel package advertising Sendlane v2 API coverage. 10 total
+      downloads; no version metadata returned by the Packagist p2 endpoint.
+  - name: '@pipedream/sendlane'
+    registry: npm
+    language: JavaScript
+    official: false
+    kind: integration-components
+    url: https://www.npmjs.com/package/@pipedream/sendlane
+    version: 0.0.3
+    published: '2025-08-22'
+    note: >-
+      Pipedream's connector components for Sendlane. Third-party (published by the
+      Pipedream org), not a general-purpose SDK.
+  - name: '@keystrokehq/sendlane'
+    registry: npm
+    language: TypeScript
+    official: false
+    kind: integration-components
+    url: https://www.npmjs.com/package/@keystrokehq/sendlane
+    version: 0.1.6
+    published: '2026-07-18'
+    note: >-
+      Third-party connector published by Keystroke. The most recently released
+      Sendlane package on any registry, and it is not Sendlane's.
+absent:
+  - registry: npm
+    query: sendlane
+    result: no first-party package under a sendlane scope or name
+  - registry: PyPI
+    query: sendlane
+    result: 404 — no package
+  - registry: RubyGems
+    query: sendlane
+    result: empty result set
+  - registry: crates.io
+    query: sendlane
+    result: not searched — no Rust surface indicated by the docs or GitHub org
+  - registry: Maven Central / NuGet / pkg.go.dev
+    result: not indicated by the docs; Sendlane's own GitHub org is entirely PHP/Shell
+github_org:
+  url: https://github.com/sendlane
+  public_repos: 11
+  note: >-
+    The org's public repositories are almost all forks of third-party PHP tooling
+    (laravel-mongodb, php-graph-sdk, laradock, homestead, settler,
+    laravel-breadcrumbs, php-bandwidth-iris, api-sdk-php). The only Sendlane-authored
+    repos are module-ordermanagement (2019) and sendlane-slides (2018, lunch-and-learn
+    slides). Newest push across the whole org is 2025-06-10, and that is a fork.
+    There is no client library, no CLI, and no OpenAPI in the org.
+findings:
+  - >-
+    No SDKs pointer is emitted in apis.yml: sdk_count would be a fabrication. An
+    integrator writing against the Sendlane v2 API writes raw HTTP.
+  - >-
+    Every third-party PHP wrapper on Packagist dates from 2019 and predates the v2
+    API, so the community fallback is also stale.

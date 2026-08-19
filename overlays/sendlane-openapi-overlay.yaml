@@ -1,0 +1,140 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Sendlane v2 API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: openapi/sendlane-openapi.yml
+  note: >-
+    Captures API Evangelist's enrichment as an OpenAPI Overlay 1.0.0 document
+    rather than mutating the provider's published spec. Every action below adds
+    information we established from Sendlane's own documentation and from live
+    probes — the undocumented status codes, the published rate limit, the
+    pagination contract and the absent-idempotency finding. Apply with any Overlay
+    1.0.0 processor against openapi/sendlane-openapi.yml.
+extends: ../openapi/sendlane-openapi.yml
+actions:
+  - target: $.info
+    description: Record provenance and the docs entry point on the info object.
+    update:
+      x-apis-io-source: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+      x-apis-io-spec-source: https://stoplight.io/api/v1/projects/sendlane/api-documentation/nodes/sendlane-v2.v2.yaml?fromExportButton=true&snapshotType=http_service
+      x-apis-io-harvested: '2026-08-13'
+      x-logo:
+        url: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sendlane.png
+
+  - target: $.info
+    description: >-
+      Attach the license/terms and support links the provider publishes but the spec
+      omits.
+    update:
+      termsOfService: https://www.sendlane.com/terms
+      x-support:
+        email: support@sendlane.com
+        knowledge_base: https://help.sendlane.com/
+        status_page: https://status.sendlane.com/
+
+  - target: $
+    description: >-
+      Document the account-wide rate limit Sendlane publishes on its Rate Limits docs
+      page, and record that no RateLimit-* headers are returned.
+    update:
+      x-rate-limits:
+        - scope: account
+          limit: 240
+          window: 1m
+          note: >-
+            Totalled across all API usage for the account, regardless of how many
+            integrations or API keys are active.
+          exhaustion_status: 429
+          response_headers: []
+          source: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+
+  - target: $
+    description: >-
+      Document the standard pagination contract, which is described in prose on the
+      Pagination docs page but is not expressed uniformly in the spec.
+    update:
+      x-pagination:
+        style: page-number
+        params:
+          limit:
+            default: 100
+            description: Maximum number of results per request.
+          page:
+            default: 1
+            description: Page of results to return.
+        envelope:
+          data: array of resources
+          links: first / last / prev / next
+          meta: current_page / from / last_page / path / per_page / to / total
+        termination: call until links.next is null
+        source: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+
+  - target: $
+    description: >-
+      Record the error statuses documented on the Responses page that appear in no
+      operation's responses block, so a client generator can see them.
+    update:
+      x-undocumented-in-operations:
+        note: >-
+          Only 400 and 422 are declared per-operation. These statuses are documented
+          in prose only.
+        statuses:
+          '401': Unauthorized — invalid or expired access token. Observed live as text/html, not JSON.
+          '403': Forbidden — refused, including blocking after many errors in a time window.
+          '404': Not Found — resource or url-path does not exist.
+          '405': Method Not Allowed.
+          '429': Too Many Requests — rate limit exceeded.
+          '500': Internal Server Error.
+        source: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+
+  - target: $
+    description: >-
+      State the idempotency finding explicitly. Absence is the finding: the write
+      endpoints are not safe to blind-retry.
+    update:
+      x-idempotency:
+        supported: false
+        header: null
+        note: >-
+          No idempotency key, no deduplication guarantee and no retry-safety
+          statement is published. POSTs to /tracking/* and /contacts/* may duplicate
+          on retry.
+
+  - target: $.components.securitySchemes.BearerToken
+    description: Add the token-issuance procedure from the Authentication docs page.
+    update:
+      x-token-issuance: >-
+        Log in to the Sendlane dashboard, navigate to the API section, generate a v2
+        access token, and copy it. Account-scoped, no expiry documented, no scopes.
+      x-docs: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+      x-required-accept-header: application/json
+
+  - target: $.components.securitySchemes.OtherAccountBearerToken
+    description: Explain what the second bearer header is actually for.
+    update:
+      x-purpose: >-
+        Names a SECOND Sendlane account as the destination of a cross-account
+        operation. Used by POST /automations/copy to copy an automation from the
+        account owning the Authorization token into the account owning this one.
+
+  - target: $.paths['/contacts/{contactId}/sms-consent']
+    description: >-
+      Record the support gate the provider states in its own operation descriptions —
+      this endpoint is disabled until Sendlane enables it per account.
+    update:
+      x-access-gate: >-
+        The Contact SMS Consent endpoint must be enabled on the account by
+        contacting Sendlane support before it can be used.
+
+  - target: $.servers
+    description: Add the provider-published Prism mock as a non-production server.
+    update:
+      - url: https://stoplight.io/mocks/sendlane/api-documentation/319114717
+        description: >-
+          Stoplight Prism mock of this document, published from Sendlane's own
+          Stoplight project. Returns static example payloads. Requires any
+          Authorization header value. Not a Sendlane-operated sandbox.
+        x-role: mock

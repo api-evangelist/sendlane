@@ -1,0 +1,4567 @@
+openapi: 3.0.0
+info:
+  title: Api Reference
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: 'https://sendlane.com'
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+  - url: 'https://api.sendlane.com/v2'
+    description: Sendlane
+paths:
+  '/lists/{listId}/contacts':
+    parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+    post:
+      summary: Create List Contact
+      operationId: post-lists-listId-contacts
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      description: 'Add a contact to a list (In order to add **SMS Consent** to the request, the **Contact SMS Consent** endpoint must first be enabled in your account by contacting support)'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                contacts:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    $ref: '#/components/schemas/ListContact.v2'
+              required:
+                - contacts
+            examples:
+              Add Contact:
+                value:
+                  contacts:
+                    - email: user@example.com
+                      first_name: string
+                      last_name: string
+                      phone: '+15555555555'
+                      email_consent: true
+                      sms_consent: []
+                      tag_ids:
+                        - 1
+                      tagNames:
+                        - tag
+                      custom_fields: []
+              Add Multiple Contacts:
+                value:
+                  contacts:
+                    - email: user@example.com
+                      first_name: string
+                      last_name: string
+                      phone: '+15555555555'
+                      email_consent: true
+                      sms_consent: []
+                      tag_ids:
+                        - 1
+                      custom_fields:
+                        - key: birthday
+                          value: '2022-12-12'
+                        - key: alias
+                          value: J.Doe
+        description: array of contact objects
+      tags:
+        - List Contacts
+    get:
+      summary: Get List Contacts
+      operationId: get-lists-listId-contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactIndexResponse.v2'
+      description: Get contacts from list
+      tags:
+        - List Contacts
+  '/lists/{listId}/contacts/{contactId}':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get List Contact
+      description: Get List Contact
+      tags:
+        - List Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse.v2'
+      operationId: get-lists-listId-contacts-contactId
+      parameters: []
+    delete:
+      description: Delete Contact from List
+      summary: Delete Contact from List
+      operationId: delete-lists-listId-contacts-contactId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - List Contacts
+  /lists:
+    get:
+      summary: Get lists
+      tags:
+        - Lists
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/List.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+              examples:
+                Lists:
+                  value:
+                    data:
+                      - id: 1
+                        list_name: string
+                        default_from_name: string
+                        default_from_email: string
+                        default_reply_email: string
+                        default_subject: string
+                        list_key: string
+                        description: string
+                        created_by: string
+                        contact_name: string
+                        contact_email: string
+                        company: string
+                        address: string
+                        city: string
+                        postal_code: string
+                        country: string
+                        state_code: string
+                        phone: string
+                        status: string
+                        date_added: string
+                        deleted_date: null
+      operationId: get-lists
+      description: Returns the lists for the authenticated user
+      parameters:
+        - schema:
+            type: integer
+            format: int64
+            default: 10
+          in: query
+          name: limit
+          description: Maximum number of results
+        - schema:
+            type: integer
+            default: 1
+          in: query
+          name: page
+          description: Page of results to return
+    post:
+      summary: Create List
+      operationId: post-lists
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Store List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      description: Create a list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreListRequest.v2'
+            examples:
+              Create list:
+                value:
+                  id: 1
+                  list_name: string
+                  default_from_name: string
+                  default_from_email: string
+                  default_reply_email: string
+                  default_subject: string
+                  list_key: string
+                  description: string
+                  created_by: string
+                  contact_name: string
+                  contact_email: string
+                  company: string
+                  address: string
+                  city: string
+                  postal_code: string
+                  country: string
+                  state_code: string
+                  phone: string
+                  status: string
+                  date_added: string
+      tags:
+        - Lists
+  '/lists/{listId}':
+    parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+    delete:
+      summary: Delete List
+      operationId: delete-lists-listId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Lists
+      description: Delete list
+    put:
+      summary: Update List
+      operationId: put-lists-listId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Update List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListRequest.v2'
+      description: Update list
+      tags:
+        - Lists
+    get:
+      summary: Get List
+      operationId: get-lists-listId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Get List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      tags:
+        - Lists
+      description: Get list
+  '/lists/{listId}/unsubscribed':
+    get:
+      summary: Lists Unsubscribed
+      parameters:
+        - schema:
+            type: integer
+          name: listId
+          in: path
+          required: true
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      tags:
+        - Lists
+      operationId: get-lists-unsubscribed
+      description: Get Lists Unsubscribed
+  /automations/copy:
+    post:
+      summary: Automation Copy
+      tags:
+        - Automations
+      security:
+        - BearerToken: []
+          OtherAccountBearerToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationCopyRequest.v2'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CreatedResponse.v2'
+      operationId: post-automations-copy
+      description: Copy Automations
+  /tags:
+    get:
+      summary: Get Tags
+      tags:
+        - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-tags
+      description: Get tags for account
+    post:
+      summary: Create Tag
+      operationId: post-tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+              examples:
+                Created Tag:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      status: active
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag.v2'
+            examples:
+              Create tag:
+                value:
+                  name: string
+      description: Create a tag
+      tags:
+        - Tags
+  /custom-fields:
+    get:
+      summary: Get Custom Fields
+      tags:
+        - Custom Fields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomField.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-custom-fields
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+      description: Returns custom fields
+    post:
+      summary: Create Custom Field
+      operationId: post-custom-fields
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomField.v2'
+            examples:
+              Example:
+                value:
+                  name: string
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomField.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      description: Create custom field
+      tags:
+        - Custom Fields
+  /senders:
+    get:
+      summary: Sender Profiles
+      tags:
+        - Senders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Sender.v2'
+                  links:
+                    type: object
+                    required:
+                      - first
+                      - last
+                    properties:
+                      first:
+                        type: string
+                        minLength: 1
+                      last:
+                        type: string
+                        minLength: 1
+                      prev:
+                        type: string
+                        nullable: true
+                      next:
+                        type: string
+                        nullable: true
+                  meta:
+                    type: object
+                    required:
+                      - current_page
+                      - last_page
+                      - path
+                      - per_page
+                      - total
+                    properties:
+                      current_page:
+                        type: integer
+                      from: {}
+                      last_page:
+                        type: integer
+                      path:
+                        type: string
+                        minLength: 1
+                      per_page:
+                        type: integer
+                      to: {}
+                      total:
+                        type: integer
+                required:
+                  - data
+                  - links
+                  - meta
+              examples: {}
+      operationId: get-senders
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+      description: Get sender profiles
+    post:
+      summary: Create Sender Profile
+      operationId: post-senders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                  - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender.v2'
+      tags:
+        - Senders
+      description: Create sender profile
+  /sms-messages:
+    get:
+      summary: SMS Messages
+      tags:
+        - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SmsMessage.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-sms-messages
+      description: SMS Messages
+  '/sms-messages/{messageId}':
+    parameters:
+      - schema:
+          type: integer
+        name: messageId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+    get:
+      summary: Get SMS Message
+      tags:
+        - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SmsMessage.v2'
+      operationId: get-sms-message
+      description: Get SMS Message
+  '/sms-messages/{messageId}/report':
+    parameters:
+      - schema:
+          type: integer
+        name: messageId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+    get:
+      summary: SMS Report
+      tags:
+        - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SmsReport.v2'
+      operationId: get-sms-report
+      description: SMS Report
+  '/senders/{senderId}':
+    parameters:
+      - schema:
+          type: integer
+        name: senderId
+        in: path
+        required: true
+    get:
+      summary: Sender Profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                  - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      operationId: get-senders-senderId
+      tags:
+        - Senders
+      description: Get sender profile
+    patch:
+      summary: Update Sender Profile
+      operationId: patch-senders-senderId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                  - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender.v2'
+      tags:
+        - Senders
+      description: Update sender profile
+    delete:
+      summary: Delete Sender Profile
+      operationId: delete-senders-senderId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Senders
+      description: Delete sender profile
+  '/suppression/domains/{suppressionId}':
+    parameters:
+      - schema:
+          type: number
+        name: suppressionId
+        in: path
+        required: true
+    delete:
+      summary: Delete Domain Suppression
+      operationId: delete-domain-suppression-suppressionId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      description: Remove a domain from the suppression list
+      tags:
+        - Suppression
+  /suppression/domains:
+    get:
+      summary: Domain Suppressions
+      tags:
+        - Suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainSuppressionResponse.v2'
+              examples:
+                Domain Suppression Response:
+                  value:
+                    data:
+                      - id: string
+                        domain: string
+                    links:
+                      first: string
+                      last: string
+                      prev: string
+                      next: string
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      total: 1
+      operationId: get-domain-suppression-suppressionId
+      description: Get domain suppressions
+    parameters: []
+    post:
+      summary: Create Domain Suppression
+      operationId: post-domain-suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreDomainSuppressionResponse.v2'
+              examples:
+                Create Domain Suppression Response:
+                  value:
+                    data:
+                      id: string
+                      domain: string
+      description: Add a domain to the suppression list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainSuppression.v2'
+            examples:
+              Create Domain Suppression:
+                value:
+                  domain: string
+      tags:
+        - Suppression
+  /suppression/emails:
+    get:
+      summary: Email Suppressions
+      tags:
+        - Suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSuppressionResponse.v2'
+              examples:
+                Email Suppression Response:
+                  value:
+                    data:
+                      - id: 1
+                        email: string
+                        list_id: 1
+                    links:
+                      first: string
+                      last: string
+                      prev: string
+                      next: string
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      total: 1
+      operationId: get-suppression
+      description: Get emails in the suppression list
+    post:
+      summary: Create Email Suppression
+      operationId: post-suppression
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSuppression.v2'
+              examples:
+                Store Email Suppression Response:
+                  value:
+                    data:
+                      id: 1
+                      email: string
+                      list_id: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreEmailSuppressionRequest.v2'
+            examples:
+              Add Email to the suppression list:
+                value:
+                  email: string
+                  list_id: 1
+      description: Add an email to the suppression list
+      tags:
+        - Suppression
+    parameters: []
+  '/tags/{tagId}':
+    parameters:
+      - schema:
+          type: integer
+        name: tagId
+        in: path
+        required: true
+    get:
+      description: Get tag
+      summary: Get Tag
+      tags:
+        - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+      operationId: get-tags-tagId
+    patch:
+      description: Update tags
+      summary: Update Tag
+      operationId: patch-tags-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag.v2'
+      tags:
+        - Tags
+    delete:
+      description: Delete tag
+      summary: Delete Tag
+      operationId: delete-tags-tagId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Tags
+  '/custom-fields/{customFieldId}':
+    parameters:
+      - schema:
+          type: integer
+        name: customFieldId
+        in: path
+        required: true
+    get:
+      summary: Get Custom Field
+      tags:
+        - Custom Fields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomField.v2'
+      operationId: get-custom-fields-customFieldId
+      description: Returns custom field
+    patch:
+      summary: Update Custom Field
+      operationId: patch-custom-fields-customFieldId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomField.v2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomField.v2'
+      description: Update custom field
+      tags:
+        - Custom Fields
+  /contacts:
+    get:
+      summary: Contacts
+      parameters:
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-contacts
+      description: Get Contacts
+  '/contacts/{contactId}':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get Contact
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse.v2'
+      operationId: get-contacts-contactId
+      parameters: []
+      description: Get Contact
+    delete:
+      description: Delete contact
+      summary: Delete Contact
+      operationId: delete-contacts-contactId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Contacts
+  /contacts/unsubscribed:
+    get:
+      summary: Contacts Unsubscribed
+      parameters:
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-contacts-unsubscribed
+      description: Get Contacts Unsubscribed
+  '/contacts/{contactId}/custom-fields':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get Contact Custom Fields
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactCustomField.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-contacts-contactId-custom-fields
+      parameters: []
+      description: Get Contact Custom Fields
+    post:
+      description: Add Custom Field(s) To Contact
+      summary: Add Contact Custom Field
+      operationId: post-contacts-contactId-custom-fields
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactCustomFieldStoreRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactCustomField.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      tags:
+        - Contacts
+  '/contacts/{contactId}/custom-fields/{contactCustomFieldId}':
+    parameters:
+      - schema:
+          type: integer
+        name: contactCustomFieldId
+        in: path
+        required: true
+    get:
+      summary: Get Contact Custom Field
+      description: Get Contact Custom Field
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactCustomFieldResponse.v2'
+      operationId: get-contacts-contactId-custom-fields-contactCustomFieldId
+      parameters: []
+    delete:
+      description: Remove Custom Field from Contact
+      summary: Remove Custom Field  from Contact
+      operationId: delete-contacts-contactId-custom-fields-contactCustomFieldId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Contacts
+  '/contacts/{contactId}/email-consent':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    post:
+      summary: Contact Email Consent
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactEmailConsentRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse.v2'
+      operationId: post-contacts-email-consent
+      description: Add/Remove email consent to a contact *(This endpoint must first be enabled in your account by contacting support)*. Omit **list_ids** for global contacts.
+  '/contacts/{contactId}/history':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Contact History
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactHistoryRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactHistory.v2'
+      operationId: get-contacts-history
+      description: Contact History
+  /contacts/search:
+    get:
+      summary: Contact Search
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSearchRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact.v2'
+      operationId: get-contacts-search
+      description: Contact Search
+  '/contacts/{contactId}/segments':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Contact Segments
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment.v2'
+      operationId: get-contacts-segments
+      description: Contact Segments
+  '/contacts/{contactId}/subscriptions':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Contact Subscriptions
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Subscription.v2'
+      operationId: get-contacts-subscriptions
+      description: Contact Subscriptions
+  /contacts/subscriptions:
+    get:
+      summary: Contact Search Subscriptions
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSubscriptionsRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Subscription.v2'
+      operationId: get-search-contacts-subscriptions
+      description: Contact Search Subscriptions
+  '/contacts/{contactId}/sms-consent':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get Contact SMS Consent
+      description: Get Contact SMS Consent
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmsConsentResponse.v2'
+      operationId: get-contacts-contactId-sms-consent
+      parameters: []
+    post:
+      summary: Contact Add SMS Consent
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSmsConsentRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SmsConsent.v2'
+      operationId: post-contacts-sms-consent
+      description: Add SMS Consent to a contact (This endpoint must first be enabled in your account by contacting support)
+    delete:
+      description: Remove SMS Consent from Contact
+      summary: Remove SMS Consent from Contact
+      tags:
+        - Contacts
+      operationId: delete-contacts-contactId-sms-consent
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmsConsentResponse.v2'
+              examples:
+                SMS Consent Response:
+                  value:
+                    data:
+                      - id: 1
+                        phone: string
+                        has_sms_consent: false
+                        sms_consent:
+                          sms_consent: false
+                          unsubscribed_date: '2025-01-01 09:00:00'
+  /contacts/sms-consent:
+    post:
+      summary: Contact Search and Add SMS Consent
+      tags:
+        - Contacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactSearchSmsConsentRequest.v2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      operationId: post-contacts-search-sms-consent
+      description: Search for a contact by email or phone to add SMS Consent
+  '/contacts/{contactId}/tags':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get Contact Tags
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagIndexResponse.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-contacts-contactId-tags
+      parameters: []
+      description: Get Contact Tags
+    post:
+      description: Add Tag To Contact
+      summary: Add Contact Tag
+      operationId: post-contacts-contactId-tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactTagStoreRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagIndexResponse.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      tags:
+        - Contacts
+  '/contacts/{contactId}/tags/{tagId}':
+    parameters:
+      - schema:
+          type: integer
+        name: tagId
+        in: path
+        required: true
+    get:
+      summary: Get Contact Tag
+      description: Get Contact Tag
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse.v2'
+      operationId: get-contacts-contactId-tags-tagId
+      parameters: []
+    delete:
+      description: Remove Tag from Contact
+      summary: Remove Tag from Contact
+      operationId: delete-contacts-contactId-tags-tagId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Contacts
+  '/contacts/{contactId}/unsubscribe':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    post:
+      summary: Contact Unsubscribe
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactUnsubscribeResponse.v2'
+      operationId: post-contacts-unsubscribe
+      description: Contact Unsubscribe
+  /back-in-stock-contacts:
+    get:
+      summary: Back In Stock Contacts
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackInStockContact.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-back-in-stock-contacts
+      description: Get Back In Stock Contacts
+  '/back-in-stock-contacts/{contactId}':
+    parameters:
+      - schema:
+          type: integer
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Get Back In Stock Contact
+      tags:
+        - Contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackInStockContactResponse.v2'
+      operationId: get-back-in-stock-contacts-contactId
+      parameters: []
+      description: Get Back In Stock Contact
+    delete:
+      description: Delete Back In Stock Contact
+      summary: Delete Back In Stock Contact
+      operationId: delete-back-in-stock-contacts-contactId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+        - Contacts
+  /campaigns:
+    get:
+      summary: Campaigns
+      tags:
+        - Campaigns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Campaign.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-campaigns
+      description: Get Campaigns
+  '/campaigns/{campaignId}':
+    parameters:
+      - schema:
+          type: integer
+        name: campaignId
+        in: path
+        required: true
+    get:
+      summary: Get Campaign
+      tags:
+        - Campaigns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Campaign.v2'
+      operationId: get-campaigns-campaignId
+      description: Get campaign
+  '/campaigns/{campaignId}/report':
+    parameters:
+      - schema:
+          type: integer
+        name: campaignId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+    get:
+      summary: Campaign Report
+      tags:
+        - Campaigns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CampaignReport.v2'
+      operationId: get-campaigns-report
+      description: Campaign Report
+  '/segments/{segmentId}/contacts':
+    parameters:
+      - schema:
+          type: integer
+        name: segmentId
+        in: path
+        required: true
+    get:
+      summary: Get Segment Contacts
+      tags:
+        - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentContactsResponse.v2'
+              examples:
+                Segments Contacts Response:
+                  value:
+                    id:
+                      - id: 1
+                        email: string
+                        first_name: string
+                        last_name: string
+                        phone: string
+                    links:
+                      first: 'https://example.com'
+                      last: 'https://example.com'
+                      prev: 'https://example.com'
+                      next: 'https://example.com'
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      to: 1
+                      total: 1
+      operationId: get-segments-segmentId-contacts
+      description: Get Segment Contacts
+  /segments:
+    get:
+      summary: Get Segments
+      tags:
+        - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentIndexResponse.v2'
+              examples:
+                Segments Response:
+                  value:
+                    data:
+                      - id: 1
+                        name: string
+                        list_id: 1
+                        match: string
+                        last_count: 0
+                        processed_at: string
+                        created_at: string
+                    links:
+                      first: 'https://example.com'
+                      last: 'https://example.com'
+                      prev: 'https://example.com'
+                      next: 'https://example.com'
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      to: 1
+                      total: 1
+      operationId: get-segments
+      description: Get segments
+  '/segments/{segmentId}':
+    parameters:
+      - schema:
+          type: integer
+        name: segmentId
+        in: path
+        required: true
+    get:
+      summary: Get Segment
+      tags:
+        - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment.v2'
+      operationId: get-segments-segmentId
+      description: Get Segment
+  '/tags/{tagId}/contacts':
+    parameters:
+      - schema:
+          type: integer
+        name: tagId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+    get:
+      summary: Tag Contacts
+      tags:
+        - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagContactIndexResponse.v2'
+      operationId: get-tags-tagId-contacts
+      description: Returns contacts for the tag
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+  /tracking/added-to-cart:
+    post:
+      summary: Added To Cart
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddedToCartRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-added-to-cart
+      description: Added To Cart
+  /tracking/back-in-stock:
+    post:
+      summary: Back In Stock
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackInStockRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-back-in-stock
+      description: Back In Stock
+  /tracking/category-added:
+    post:
+      summary: Category Added
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-category-added
+      description: Category Added
+  /tracking/checkout-started:
+    post:
+      summary: Checkout Started
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutStartedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-checkout-started
+      description: Checkout Started
+  /tracking/customer-added:
+    post:
+      summary: Customer Added
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-customer-added
+      description: Customer Added
+  /tracking/order-placed:
+    post:
+      summary: Order Placed
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderPlacedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-order-placed
+      description: Order Placed
+  /tracking/product-added:
+    post:
+      summary: Product Added
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-product-added
+      description: Product Added
+  /tracking/product-viewed:
+    post:
+      summary: Product Viewed
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductViewedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-product-viewed
+      description: Product Viewed
+  /tracking/event:
+    post:
+      summary: Custom Event
+      tags:
+        - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomEventRequest.v2'
+            examples:
+              Example 1:
+                value:
+                  token: string
+                  custom_event: string
+                  email: string
+                  data:
+                    field1: value1
+                    field2: value2
+                    list1:
+                      - item1
+                      - item2
+              Example 2:
+                value:
+                  token: string
+                  custom_event: string
+                  email: string
+                  data:
+                    password-reset-url: 'https://website.domain/forgotpassword'
+        description: The data component of the JSON body can be free form and can contain any data that you want to add for downstream use in automations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-event
+      description: Custom Event - This Call can be used to send an arbitrary payload to Sendlane to be used within automation sequences.  The data component of the payload is made available to emails and sms messages within automations that are setup as triggers for the custom-event.  Custom events can be created and given a name withing the Custom Integration.
+  /integrations/custom:
+    get:
+      summary: List Integrations
+      operationId: list-custom-integrations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexCustomIntegrationsResponse.v2'
+      description: Get integrations
+      tags:
+        - Custom Integrations
+    post:
+      summary: Create Integration
+      operationId: create-custom-integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomIntegrationRequest.v2'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateIntegrationResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ErrorResponse.v2'
+      description: Create a custom integration
+      tags:
+        - Custom Integrations
+  '/integrations/custom/{integrationToken}':
+    delete:
+      summary: Delete Integration
+      operationId: delete-custom-integration
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          name: integrationToken
+          in: path
+          required: true
+      responses:
+        '204':
+          description: No Content
+      description: Delete a custom integration
+      tags:
+        - Custom Integrations
+  '/integrations/custom/{integrationToken}/events':
+    get:
+      summary: List Events
+      operationId: index-custom-events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexCustomEventsResponse.v2'
+      description: List custom events related to an custom integration
+      tags:
+        - Custom Integration Events
+    post:
+      summary: Create Event
+      operationId: create-custom-event
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          name: integrationToken
+          in: path
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreCustomIntegrationEventRequest.v2'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomEventResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ErrorResponse.v2'
+      description: Create a custom integration event
+      tags:
+        - Custom Integration Events
+  '/integrations/custom/{integrationToken}/events/{eventId}':
+    get:
+      summary: Show Event
+      operationId: show-custom-event
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          name: integrationToken
+          in: path
+          required: true
+        - schema:
+            type: string
+            format: integer
+          name: eventId
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomEventResponse.v2'
+      description: Show a custom integration event related to a custom integration
+      tags:
+        - Custom Integration Events
+    delete:
+      summary: Delete Event
+      operationId: delete-custom-event
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          name: integrationToken
+          in: path
+          required: true
+        - schema:
+            type: string
+            format: number
+          name: eventId
+          in: path
+          required: true
+      responses:
+        '204':
+          description: No Content
+      description: Delete a custom integration event
+      tags:
+        - Custom Integration Events
+components:
+  schemas:
+    BackInStockContact.v2:
+      description: ''
+      type: object
+      title: BackInStockContact
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        phone:
+          type: string
+        shop:
+          type: string
+        platform:
+          type: string
+        product_id:
+          type: string
+        sku:
+          type: string
+    Campaign.v2:
+      title: Campaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        status:
+          type: string
+        scheduled_at:
+          type: string
+        sent_at:
+          type: string
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    CampaignAutomation.v2:
+      title: CampaignAutomation
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        action_order:
+          type: integer
+    CampaignReport.v2:
+      type: object
+      x-examples:
+        example-1:
+          campaign_id: 1
+          sent: 0
+          opens: 0
+          clicks: 0
+          unique_opens: 0
+          unique_clicks: 0
+          bounced: 0
+          suppressed: 0
+          unsubscribed: 0
+          spam: 0
+          revenue: 0
+          automation:
+            id: 1
+            name: MyAutomation
+      x-internal: false
+      properties:
+        campaign_id:
+          type: integer
+        sent:
+          type: integer
+        opens:
+          type: integer
+        clicks:
+          type: integer
+        unique_opens:
+          type: integer
+        unique_clicks:
+          type: integer
+        bounced:
+          type: integer
+        suppressed:
+          type: integer
+        unsubscribed:
+          type: integer
+        spam:
+          type: integer
+        revenue:
+          type: number
+        automation:
+          type: object
+          properties:
+            id:
+              type: int
+            name:
+              type: string
+    Contact.v2:
+      description: ''
+      type: object
+      title: Contact
+      properties:
+        id:
+          type: integer
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField.v2'
+        email:
+          type: string
+        first_name:
+          type: string
+        integration_customer:
+          type: array
+        last_name:
+          type: string
+        lifetime_value:
+          type: number
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList.v2'
+        phone:
+          type: string
+        sms_consent:
+          type: array
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactTag.v2'
+    ContactCustomField.v2:
+      title: ContactCustomField
+      type: object
+      properties:
+        id:
+          type: integer
+        custom_field_id:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - custom_field_id
+        - value
+    ContactHistory.v2:
+      title: Contact History
+      type: object
+      properties:
+        type:
+          type: string
+        campaign_id:
+          type: integer
+        title:
+          type: string
+        list_id:
+          type: integer
+        list_name:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        event_id:
+          type: integer
+        event_name:
+          type: string
+        event_location:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+        restock:
+          type: boolean
+        processed_at:
+          type: string
+          format: date-time
+        event_date:
+          type: string
+          format: date-time
+    ContactList.v2:
+      title: Contact List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+        - name
+    Discount.v2:
+      description: ''
+      type: object
+      title: Discount
+      x-examples:
+        Discounts:
+          code: string
+          value: string
+      properties:
+        code:
+          type: string
+        value:
+          type: number
+    DomainSuppression.v2:
+      title: Domain Suppression
+      type: object
+      x-examples:
+        Domain Suppression:
+          id: 1
+          domain: example.com
+      properties:
+        id:
+          type: integer
+        domain:
+          type: string
+    EmailSuppression.v2:
+      title: Email Suppression
+      type: object
+      x-examples:
+        Email Suppression:
+          id: 1
+          email: user@example.com
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        list_id:
+          type: integer
+    CustomIntegration.v2:
+      title: Custom Integration
+      type: object
+      x-examples:
+        Integration:
+          token: string
+          name: string
+          url: string
+          status: string
+          created_at: string
+      properties:
+        token:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        url:
+          type: string
+        status:
+          type: string
+          enum:
+            - Initializing
+            - Syncing
+            - Connected
+            - Updating
+            - Failed
+            - Disconnected
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - name
+        - url
+    CustomIntegrationEvent.v2:
+      title: CustomIntegrationEvent
+      type: object
+      x-examples:
+        Integration:
+          id: integer
+          name: string
+          created_at: string
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - name
+    LineItems.v2:
+      description: ''
+      x-stoplight:
+        id: 2d71f04b88fd6
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          quantity: integer
+      properties:
+        product_id:
+          type: string
+          x-stoplight:
+            id: 3ops3ihcv8aeh
+        variant_id:
+          type: string
+          x-stoplight:
+            id: 14f4ibb5n3yk5
+        quantity:
+          type: integer
+      required:
+        - product_id
+    List.v2:
+      title: List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        created:
+          type: string
+        flagged:
+          type: string
+    ListContact.v2:
+      description: ''
+      type: object
+      x-examples:
+        List Contact:
+          email: user@example.com
+          first_name: string
+          last_name: string
+          phone: '+15555555555'
+          email_consent: true
+          sms_consent: array
+          tag_ids:
+            - 1
+          custom_fields:
+            - key: string
+              value: string
+      title: List Contact
+      properties:
+        email:
+          type: string
+          minLength: 1
+          format: email
+        first_name:
+          type: string
+          minLength: 1
+        last_name:
+          type: string
+          minLength: 1
+        phone:
+          type: string
+          example: '+15555555555'
+        email_consent:
+          type: boolean
+          example: true
+        sms_consent:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmsConsentField.v2'
+        tag_ids:
+          type: array
+          uniqueItems: true
+          items:
+            type: integer
+            example: 1
+        custom_fields:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/ListContactCustomField.v2'
+      required-without-phone:
+        - email
+      required-without-email:
+        - phone
+    ListContactCustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    Product.v2:
+      description: ''
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          sku: string
+          product_name: string
+          quantity: integer
+          item_price: number
+          total: number
+          compare_at_price: number
+      properties:
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        sku:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+        item_price:
+          type: number
+        total:
+          type: number
+        compare_at_price:
+          type: number
+      required:
+        - product_id
+    Segment.v2:
+      title: Segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        list_id:
+          type: integer
+        match:
+          type: string
+        last_count:
+          type: integer
+        processed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        is_in_progress:
+          type: boolean
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+    Sender.v2:
+      description: ''
+      type: object
+      x-examples:
+        Create Sender:
+          address_1: string
+          city: string
+          company: optional
+          country: string
+          from_email: user@example.com
+          from_name: string
+          reply_email: user@example.com
+          state_code: string
+          postal_code: string
+          is_default: false
+        Update Single Field:
+          address_1: new address
+        Update Multiple Fields:
+          address_1: string
+          city: string
+          company: string
+          country: string
+          from_email: user@example.com
+          from_name: string
+          reply_email: user@example.com
+          state_code: string
+          postal_code: string
+          is_default: true
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        address_1:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        company:
+          type: string
+          minLength: 1
+        country:
+          type: string
+          minLength: 1
+        from_email:
+          type: string
+          minLength: 1
+          format: email
+        from_name:
+          type: string
+          minLength: 1
+        reply_email:
+          type: string
+          minLength: 1
+          format: email
+        state_code:
+          type: string
+          minLength: 1
+        postal_code:
+          type: string
+          minLength: 1
+        is_default:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          readOnly: true
+      required:
+        - address_1
+        - city
+        - country
+        - from_email
+        - from_name
+        - reply_email
+        - state_code
+        - postal_code
+    SmsCampaign.v2:
+      title: SmsCampaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          type: string
+    SmsConsent.v2:
+      title: SMS Consent
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        has_sms_consent:
+          type: boolean
+        sms_consent:
+          type: object
+          properties:
+            consent_type:
+              type: string
+              example: 'sms_keyword,web_form,integration'
+            ip_address:
+              type: string
+              format: ip
+              example: 12.34.567.89
+            optin_date:
+              type: string
+              format: date-time
+              example: '202X-01-01 09:00:00'
+            sms_consent:
+              type: boolean
+              example: true
+            user_agent:
+              type: string
+              example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+            optin_url:
+              type: string
+              format: url
+              example: 'http://example.com/optin-url'
+            consent_language:
+              type: string
+              description: text snippet or url to language
+              example: 'http://example.com/terms-of-service'
+            cookie_uuid:
+              type: string
+              example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+    SmsConsentField.v2:
+      title: SMS Consent Field
+      type: object
+      properties:
+        consent_type:
+          type: string
+          example: 'sms_keyword,web_form,integration'
+        ip_address:
+          type: string
+          format: ip
+          example: 12.34.567.89
+        optin_date:
+          type: string
+          format: date-time
+          example: '202X-01-01 09:00:00'
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
+          type: string
+          example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+        optin_url:
+          type: string
+          format: url
+          example: 'http://example.com/optin-url'
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: 'http://example.com/terms-of-service'
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+    SmsMessage.v2:
+      title: Sms Message
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        sms_campaign:
+          $ref: '#/components/schemas/SmsCampaign.v2'
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    SmsReport.v2:
+      type: object
+      x-examples:
+        example-1:
+          sms_message_id: 1
+          sent: 0
+          delivered: 0
+          clicks: 0
+          unique_clicks: 0
+          failed: 0
+          replies: 0
+          unsubscribed: 0
+          resubscribed: 0
+          credits: 0
+          revenue: 0
+          automation:
+            id: 1
+            name: MyAutomation
+      x-internal: false
+      properties:
+        sms_message_id:
+          type: integer
+        sent:
+          type: integer
+        delivered:
+          type: integer
+        clicks:
+          type: integer
+        unique_clicks:
+          type: integer
+        failed:
+          type: integer
+        replies:
+          type: integer
+        unsubscribed:
+          type: integer
+        resubscribed:
+          type: integer
+        credits:
+          type: integer
+        revenue:
+          type: number
+        automation:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+    Subscription.v2:
+      title: Subscription
+      type: object
+      properties:
+        id:
+          type: integer
+        subscriber_id:
+          type: integer
+        list_id:
+          type: integer
+        list_name:
+          type: string
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        added_by:
+          type: string
+        date_added:
+          type: string
+          format: date-time
+    Tag.v2:
+      title: Tag
+      type: object
+      x-examples:
+        Create Tag:
+          name: string
+        Update Tag:
+          name: string
+          status: active
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        audience_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - name
+    TaxLine.v2:
+      description: Tax Line Items
+      type: object
+      title: Tax Line
+      x-examples:
+        tax_line:
+          name: California State Tax
+          value: 1.01
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+    VariantProduct.v2:
+      description: ''
+      type: object
+      title: Variant Product
+      x-examples:
+        Variant Product:
+          id: string
+          sku: string
+          price: string
+          image_url: string
+          inventory_level: number
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        price:
+          type: number
+        image_url:
+          type: string
+        inventory_level:
+          type: number
+      required:
+        - id
+    AddedToCartRequest.v2:
+      title: Added To Cart Request
+      type: object
+      x-examples:
+        Cart Request:
+          token: ABCDEFGHIJKLM1234567890
+          cart_id: 123456789
+          email: user@example.com
+          phone: '+15555555555'
+          checkout_url: 'https://www.example.com/checkout/123456789'
+          total_items: 1
+          total: 19.99
+          currency: USD
+          line_items:
+            product_id: 123456789
+            variant_id: 123456789
+            sku: ABC123
+            product_name: string
+            quantity: 1
+            item_price: 19.99
+            total: 19.99
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        cart_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        checkout_url:
+          type: string
+        total_items:
+          type: integer
+        total:
+          type: number
+        currency:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product.v2'
+        time:
+          type: integer
+          format: time-stamp
+      required:
+        - token
+        - cart_id
+    AutomationCopyRequest.v2:
+      title: Automation Copy Request
+      type: object
+      x-examples:
+        Automation Copy Request:
+          automation_ids:
+            - 1
+            - 2
+      properties:
+        automation_ids:
+          type: array
+    BackInStockRequest.v2:
+      title: Back In Stock Request
+      type: object
+      x-examples:
+        Back In Stock Request:
+          token: ABCDEFGHIJKLM1234567890
+          email: user@example.com
+          phone: 11234567890
+          platform: custom
+          other_offers: true
+          product:
+            id: 123456789
+            variant_id: 234567891
+            sku: ABC123
+      properties:
+        token:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        platform:
+          type: string
+        other_offers:
+          type: boolean
+        product:
+          type: object
+          properties:
+            product_id:
+              type: string
+            variant_id:
+              type: string
+            sku:
+              type: string
+      required:
+        - token
+        - product
+    CategoryAddedRequest.v2:
+      title: Product Request
+      type: object
+      x-examples:
+        Product Request:
+          token: ABCDEFGHIJKLM1234567890
+          category_id: ABC123
+          name: string
+          parent_id: ABC123
+      properties:
+        token:
+          type: string
+        category_id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+      required:
+        - token
+        - category_id
+        - name
+    CheckoutStartedRequest.v2:
+      title: Checkout Started Request
+      type: object
+      x-examples:
+        Checkout Request:
+          token: ABCDEFGHIJKLM1234567890
+          checkout_id: 123456789
+          email: user@example.com
+          phone: 15555555555
+          status: pending
+          checkout_url: 'https://www.example.com/checkout/123456789'
+          subtotal: 19.99
+          total_tax: 0
+          total: 19.99
+          total_items: 1
+          currency: USD
+          line_items:
+            product_id: 123456789
+            variant_id: 123456789
+            sku: ABC123
+            product_name: string
+            quantity: 1
+            item_price: 19.99
+            total: 19.99
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        checkout_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+        checkout_url:
+          type: string
+        subtotal:
+          type: number
+        total_tax:
+          type: number
+        total:
+          type: number
+        total_items:
+          type: integer
+        currency:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product.v2'
+        time:
+          type: integer
+          format: time-stamp
+      required:
+        - token
+        - checkout_id
+    ContactCustomFieldStoreRequest.v2:
+      title: Contact Custom Field Store Request
+      type: object
+      x-examples:
+        Contact Custom Field Store Request:
+          custom_fields:
+            - id: 1
+              value: value1
+            - id: 2
+              value: value2
+      properties:
+        custom_fields:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              value:
+                type: string
+      required:
+        - custom_fields
+    ContactHistoryRequest.v2:
+      title: Contact History Request
+      type: object
+      x-examples:
+        Contact History Request:
+          filter: email_open
+      properties:
+        filter:
+          type: string
+          format: 'email, email_open, email_click, subscribe, unsubscribe, global_unsubscribe, tracked_event, conversion, shopify_checkout, shopify_order, shopify_refund'
+      optional:
+        - filter
+    ContactSearchRequest.v2:
+      title: Contact Search Request
+      type: object
+      x-examples:
+        Contact Search Request:
+          email: string
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+    ContactSearchSmsConsentRequest.v2:
+      title: Contact SMS Consent Request
+      type: object
+      x-examples:
+        SMS Consent Request:
+          email: user@example.com
+          phone: 15551234567
+          ip_address: 12.34.567.89
+          optin_date: '202X-01-01 09:00:00'
+          sms_consent: true
+          user_agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+          optin_url: 'http://example.com/optin-url'
+          consent_language: 'http://example.com/terms-of-service'
+          cookie_uuid: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        phone:
+          type: string
+          format: phone
+          example: 15551234567
+        ip_address:
+          type: string
+          format: ip
+          example: 12.34.567.89
+        optin_date:
+          type: string
+          format: date-time
+          example: '202X-01-01 09:00:00'
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
+          type: string
+          example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+        optin_url:
+          type: string
+          format: url
+          example: 'http://example.com/optin-url'
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: 'http://example.com/terms-of-service'
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+      required:
+        - phone
+        - ip_address
+        - optin_date
+        - sms_consent
+        - user_agent
+        - optin_url
+    ContactSmsConsentRequest.v2:
+      title: Contact SMS Consent Request
+      type: object
+      x-examples:
+        SMS Consent Request:
+          phone: 15551234567
+          ip_address: 12.34.567.89
+          optin_date: '202X-01-01 09:00:00'
+          sms_consent: true
+          user_agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+          optin_url: 'http://example.com/optin-url'
+          consent_language: 'http://example.com/terms-of-service'
+          cookie_uuid: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+      properties:
+        phone:
+          type: string
+          format: phone
+          example: 15551234567
+        ip_address:
+          type: string
+          format: ip
+          example: 12.34.567.89
+        optin_date:
+          type: string
+          format: date-time
+          example: '202X-01-01 09:00:00'
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
+          type: string
+          example: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5'
+        optin_url:
+          type: string
+          format: url
+          example: 'http://example.com/optin-url'
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: 'http://example.com/terms-of-service'
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+      required:
+        - phone
+        - ip_address
+        - optin_date
+        - sms_consent
+        - user_agent
+        - optin_url
+    ContactSubscriptionsRequest.v2:
+      title: Contact Subscriptions Request
+      type: object
+      x-examples:
+        Contact Subscriptions Request:
+          email: string
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+    ContactTagStoreRequest.v2:
+      title: Contact Tag Store Request
+      type: object
+      x-examples:
+        Contact Tag Store Request:
+          tag_ids:
+            - 1
+            - 2
+      properties:
+        tag_ids:
+          type: array
+          items:
+            type: integer
+      required:
+        - tag_ids
+    ContactEmailConsentRequest.v2:
+      title: Contact Email Consent Request
+      type: object
+      x-examples:
+        Email Consent Request:
+          email_consent: true
+      properties:
+        email_consent:
+          type: boolean
+          example: true
+        list_ids:
+          type: array
+          example:
+            - 1
+            - 2
+      required:
+        - email_consent
+    CustomEventRequest.v2:
+      title: Custom Event
+      x-stoplight:
+        id: 250f1fcf8a06e
+      type: object
+      x-examples:
+        Custom Event:
+          token: ABCDEFGHIJKLM1234567890
+          custom_event: string
+          email: user@example.com
+          data: {}
+      properties:
+        token:
+          type: string
+        custom_event:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          x-stoplight:
+            id: baj6y2i5tg4b7
+        data:
+          type: object
+      required:
+        - token
+        - custom_event
+    CustomerAddedRequest.v2:
+      title: Customer Added Request
+      type: object
+      x-examples:
+        Customer Request:
+          token: ABCDEFGHIJKLM1234567890
+          customer_id: 123456789
+          billing_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          shipping_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          accepts_marketing: true
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        customer_id:
+          type: string
+        billing_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        shipping_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        accepts_marketing:
+          type: boolean
+        time:
+          type: integer
+          format: time-stamp
+        date-created:
+          type: string
+          format: date-time
+        initial_sync:
+          type: boolean
+      required:
+        - token
+        - customer_id
+    CreateCustomIntegrationRequest.v2:
+      title: Destroy Integration
+      type: object
+      x-examples:
+        Update List Request:
+          name: string
+          url: string
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        default_sync_list:
+          type: integer
+        emailProfile:
+          type: string
+          enum:
+            - Shipping
+            - Billing
+      required:
+        - name
+        - url
+        - default_sync_list
+        - emailProfile
+    StoreCustomIntegrationEventRequest.v2:
+      title: Index Custom Integration Events
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    OrderPlacedRequest.v2:
+      title: Order Placed Request
+      type: object
+      x-examples:
+        Order Request:
+          token: ABCDEFGHIJKLM1234567890
+          order_id: 123456789
+          status: Completed
+          email: user@example.com
+          subtotal: 19.99
+          tax_lines:
+            - name: San Diego County Tax
+              value: 1
+            - name: CA State Tax
+              value: 1
+            - name: Federal Tax
+              value: 1
+          total: 19.99
+          total_items: 1
+          currency: USD
+          discounts:
+            code: ABCDE
+            value: 4.99
+          line_items:
+            product_id: 123456789
+          billing_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state_code: string
+            country_code: string
+            postal_code: string
+            phone: string
+          shipping_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state_code: string
+            country_code: string
+            postal_code: string
+            phone: string
+          customer_id: 123456789
+          accepts_marketing: true
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        order_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+        subtotal:
+          type: number
+        tax_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxLine.v2'
+        total:
+          type: number
+        total_items:
+          type: integer
+        currency:
+          type: string
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount.v2'
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItems.v2'
+        billing_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        shipping_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state_code:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        customer_id:
+          type: string
+        accepts_marketing:
+          type: boolean
+        time:
+          type: integer
+          format: time-stamp
+        date_created:
+          type: string
+          format: date-time
+        initial_sync:
+          type: boolean
+      required:
+        - token
+        - order_id
+    ProductAddedRequest.v2:
+      title: Product Request
+      type: object
+      x-examples:
+        Product Request:
+          token: ABCDEFGHIJKLM1234567890
+          product_id: 123456789
+          sku: ABC123
+          product_name: string
+          item_price: 19.99
+          product_url: 'https://www.example.com/product/123456789'
+          image_url: 'https://www.example.com/product/images/123456789'
+          categories:
+            - string
+          brand: string
+          compare_at_price: 29.99
+          variants:
+            - array
+      properties:
+        token:
+          type: string
+        product_id:
+          type: string
+        sku:
+          type: string
+        product_name:
+          type: string
+        item_price:
+          type: number
+        product_url:
+          type: string
+        image_url:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brand:
+          type: string
+        compare_at_price:
+          type: number
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariantProduct.v2'
+      required:
+        - token
+        - product_id
+        - product_url
+        - image_url
+    ProductViewedRequest.v2:
+      title: Product Viewed Request
+      type: object
+      x-examples:
+        Product Viewed Request:
+          token: ABCDEFGHIJKLM1234567890
+          product_id: 123456789
+          variant_id: 123456789
+          email: user@example.com
+          phone: 15555555555
+      properties:
+        token:
+          type: string
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+      required:
+        - token
+        - product_id
+    StoreEmailSuppressionRequest.v2:
+      title: Store Email Suppression Request
+      type: object
+      x-examples:
+        Store Email Suppression:
+          email: user@example.com
+          list_id: 1
+      properties:
+        email:
+          type: string
+        list_id:
+          type: integer
+      required:
+        - email
+    StoreListRequest.v2:
+      title: Store List Request
+      type: object
+      x-examples:
+        Store List Request:
+          name: string
+          description: string
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    UpdateListRequest.v2:
+      title: Update List Request
+      type: object
+      x-examples:
+        Update List Request:
+          name: string
+          description: string
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+    BackInStockContactResponse.v2:
+      description: ''
+      type: object
+      x-examples:
+        BackInStockContact Response:
+          data:
+            id: 1
+            email: string
+            phone: string
+            shop: string
+            platform: string
+            product_id: string
+            sku: string
+      properties:
+        data:
+          $ref: '#/components/schemas/BackInStockContact.v2'
+      required:
+        - data
+      title: BackInStockContact Response
+    ContactCustomFieldResponse.v2:
+      title: Contact Custom Field Response
+      type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            custom_field_id: 1
+            name: string
+            value: string
+            created_at: string
+      properties:
+        data:
+          $ref: '#/components/schemas/ContactCustomField.v2'
+      required:
+        - data
+    ContactIndexResponse.v2:
+      title: ContactIndexResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+            - id: 1
+              custom_fields: []
+              email: string
+              first_name: string
+              integration_customer: []
+              last_name: string
+              lifetime_value: 0
+              lists: []
+              phone: string
+              subscribed: boolean
+              suppressed: boolean
+              tags: []
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    ContactResponse.v2:
+      title: Contact Response
+      type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            sms_consent: []
+            subscribed: true
+            suppressed: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Contact.v2'
+      required:
+        - data
+    ContactUnsubscribeResponse.v2:
+      title: Contact Unsubscribe Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Contact unsubscribed successfully
+    CreatedResponse.v2:
+      title: Created Response
+      type: object
+      properties:
+        messages:
+          type: array
+      x-examples:
+        Success Response:
+          messages:
+            - 'Successfully created ID: 2'
+    CustomIntegrationErrorResponse.v2:
+      title: Custom Integration Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+      x-examples:
+        Error Response:
+          message: Failed to handle event
+          errors: []
+    CustomIntegrationResponse.v2:
+      title: Custom Integration Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled event
+    DomainSuppressionResponse.v2:
+      title: Domain Suppression Response
+      type: object
+      x-examples:
+        Domain Suppression Response:
+          data:
+            - id: string
+              domain: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            total: 1
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainSuppression.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    EmailSuppressionResponse.v2:
+      title: Email Suppression Response
+      x-examples:
+        Email Suppression Response:
+          data:
+            - id: 1
+              email: string
+              list_id: 1
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            total: 1
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailSuppression.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    ErrorResponse.v2:
+      title: Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+    CreateIntegrationResponse.v2:
+      title: Create Integration Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CustomIntegration.v2'
+      x-examples:
+        Response:
+          data:
+            - token: uuid
+              name: string
+              url: string
+              status: string
+              created_at: string
+    IndexCustomEventsResponse.v2:
+      title: Index Custom Events Response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+            - id: integer
+              name: string
+              created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    SingleCustomEventResponse.v2:
+      title: Single Custom Event Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+      x-examples:
+        Response:
+          data:
+            - id: integer
+              name: string
+              created_at: string
+    IndexCustomIntegrationsResponse.v2:
+      title: Index Custom CustomIntegrations Response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomIntegration.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+            - token: uuid
+              name: string
+              url: string
+              status: string
+              created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 15
+            to: 1
+            total: 1
+    ListResponse.v2:
+      title: List Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/List.v2'
+      x-examples:
+        List Response:
+          data:
+            id: 1
+            name: string
+            description: string
+            status: string
+            created: string
+            flagged: string
+    SegmentContactsResponse.v2:
+      title: Segment Contacts Response
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentContact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    SegmentIndexResponse.v2:
+      title: SegmentsResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+            - id: 1
+              name: string
+              list_id: 1
+              match: All
+              last_count: 0
+              processed_at: string
+              created_at: string
+              is_in_progress: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    SmsConsentResponse.v2:
+      title: SMS Consent Response
+      type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            phone: string
+            has_sms_consent: boolean
+            sms_consent: {}
+      properties:
+        data:
+          $ref: '#/components/schemas/SmsConsent.v2'
+      required:
+        - data
+    StoreDomainSuppressionResponse.v2:
+      title: Store Domain Suppression Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DomainSuppression.v2'
+      x-examples:
+        Store Domain Suppression Response:
+          data:
+            id: string
+            domain: string
+    TagContactIndexResponse.v2:
+      title: TagContactIndexResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+            - id: 1
+              email: string
+              first_name: string
+              last_name: string
+              phone: string
+              subscribed: true
+              suppressed: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    TagIndexResponse.v2:
+      title: TagIndexResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      description: ''
+      x-examples:
+        Response:
+          data:
+            - id: 1
+              name: string
+              audience_count: 1
+              created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    TagResponse.v2:
+      title: TagResponse
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Tag.v2'
+      x-examples:
+        Tag Response:
+          data:
+            id: 1
+            name: string
+            audience_count: 1
+            created_at: string
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: 'API token sent in the Authorization header with the value "Bearer {apiToken}"'
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: 'API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"'
+  responses:
+    error-response:
+      description: Difference in response is that validation errors are keyed on the attribute that failed validation. All other errors will have the errors object as an array of errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse.v2'
+          examples:
+            Validation Error:
+              value:
+                message: The given data was invalid.
+                errors:
+                  failedAttribute:
+                    - error message
+            Standard Error:
+              value:
+                message: string
+                errors:
+                  - An error occurred
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+security:
+  - BearerToken: []
+tags:
+  - name: Automations
+  - name: Campaigns
+  - name: Contacts
+  - name: Contact Tags
+  - name: Custom Fields
+  - name: List Contacts
+  - name: Lists
+  - name: Segments
+  - name: Senders
+  - name: SMS
+  - name: Suppression
+  - name: Tags
+  - name: User
+  - name: Custom Integrations
+  - name: Custom Integration Webhooks
+  - name: Custom Integration Events

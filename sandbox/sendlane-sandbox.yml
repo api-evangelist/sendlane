@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: probed
+source: https://stoplight.io/mocks/sendlane/api-documentation/319114717
+name: Sendlane Sandbox and Test Surface
+description: >-
+  What a developer can exercise before holding a paid Sendlane account. FINDING:
+  Sendlane operates no sandbox — there is no test mode, no test-vs-live key
+  prefix, no fixture tooling and no time simulation. What DOES exist is a live
+  Prism mock server attached to Sendlane's own Stoplight documentation project,
+  which returns schema-shaped example responses without a real account.
+provider_sandbox: false
+test_mode: false
+key_prefixes: []
+test_fixtures: []
+time_simulation: false
+
+mock_server:
+  url: https://stoplight.io/mocks/sendlane/api-documentation/319114717
+  engine: Stoplight Prism
+  operator: >-
+    Stoplight, hosting Sendlane's own published documentation project
+    (workspace sendlane, project api-documentation). Provider-published, but not
+    Sendlane-operated infrastructure.
+  auth_required: true
+  auth_note: >-
+    Prism enforces the spec's security requirement, so an Authorization header must
+    be present — but ANY value satisfies it. Probed 2026-08-13: with no header the
+    mock returns HTTP 401 with a Prism UNAUTHORIZED error document; with
+    `Authorization: Bearer test` GET /lists returns HTTP 200 and a schema-shaped
+    List.v2 payload.
+  probes:
+    - request: 'GET /lists (no Authorization header)'
+      status: 401
+      body: prism UNAUTHORIZED error document
+    - request: 'GET /lists (Authorization: Bearer test)'
+      status: 200
+      body: '{"data":[{"id":1,"list_name":"string", ...}]}'
+  dynamic: false
+  note: >-
+    Responses are static example values from the spec ("string", 1), not generated
+    data. Useful for wiring and contract-shape verification; useless for testing
+    business logic.
+
+evaluation_path:
+  free_trial:
+    available: true
+    length_days: 60
+    credit_card_required: false
+    limits: up to 100 contacts and 500 emails
+    source: https://www.sendlane.com/pricing
+    note: >-
+      The only route to a REAL Sendlane API token without a paid plan. The trial
+      account is a live production account with low quotas, so anything sent from
+      it goes to real inboxes and real phones.
+  demo: https://www.sendlane.com/request-demo
+
+gates:
+  - name: SMS consent endpoint
+    detail: >-
+      Per the spec's own operation description, the Contact SMS Consent endpoint
+      "must first be enabled in your account by contacting support" before SMS
+      consent can be included in a request. A support conversation stands between a
+      developer and part of the API surface.
+
+gaps:
+  - >-
+    No test/live separation means every API call from a developer's machine hits
+    production data and can send real email or SMS. There is no way to run an
+    integration test suite safely against a Sendlane account.
+  - >-
+    No published test values (no test email addresses, no test phone numbers, no
+    seeded contacts), and no fixture or trigger tooling to simulate a bounce, a
+    complaint or an unsubscribe.

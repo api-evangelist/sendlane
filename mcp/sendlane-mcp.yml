@@ -1,0 +1,180 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/sendlane-openapi.yml
+name: Sendlane MCP Server (candidate)
+description: >-
+  Sendlane ships no Model Context Protocol server. This is a CANDIDATE tool list
+  derived from the 82 operations in the published OpenAPI, showing what an MCP
+  server over the Sendlane v2 API would expose. Nothing here is served by
+  Sendlane and no endpoint below is callable.
+status: candidate
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+search_evidence:
+  - probe: https://mcp.sendlane.com/
+    status: 302
+    result: >-
+      Resolves, but 302-redirects to https://auth.sendlane.com/login and then
+      renders the Sendlane account login page. This is the app's wildcard host,
+      NOT an MCP endpoint. A POST of {"jsonrpc":"2.0","id":1,"method":"tools/list"}
+      to https://mcp.sendlane.com/mcp returns the same 302 to the login page.
+      Recorded here explicitly so a later pass does not mistake the 200 for a server.
+  - probe: https://registry.modelcontextprotocol.io/v0/servers?search=sendlane
+    status: 200
+    result: '{"servers":[],"metadata":{"count":0}} — no registered Sendlane server.'
+  - probe: https://www.sendlane.com/.well-known/mcp.json
+    status: 404
+    result: absent
+  - probe: https://github.com/sendlane
+    status: 200
+    result: >-
+      11 public repos, no MCP server. Newest push across the org is 2025-06-10 and
+      it is a fork of laravel-mongodb.
+authentication:
+  scheme: bearer-api-key
+  header: Authorization
+  format: 'Bearer <SENDLANE_API_TOKEN>'
+  note: >-
+    A server built from this list would take one account-scoped Sendlane v2 token as
+    configuration. There are no scopes, so any tool exposed carries full account
+    authority — including destructive deletes. Any implementation should gate the
+    delete tools behind explicit opt-in.
+candidate_tools:
+  - name: list_contacts
+    rest: get-contacts
+    method: GET
+    path: /contacts
+    category: contacts
+  - name: get_contact
+    rest: get-contacts-contactId
+    method: GET
+    path: /contacts/{contactId}
+    category: contacts
+  - name: search_contacts
+    rest: get-contacts-search
+    method: GET
+    path: /contacts/search
+    category: contacts
+  - name: get_contact_history
+    rest: get-contacts-history
+    method: GET
+    path: /contacts/{contactId}/history
+    category: contacts
+  - name: list_unsubscribed_contacts
+    rest: get-contacts-unsubscribed
+    method: GET
+    path: /contacts/unsubscribed
+    category: contacts
+  - name: add_contact_to_list
+    rest: post-lists-listId-contacts
+    method: POST
+    path: /lists/{listId}/contacts
+    category: lists
+  - name: list_list_contacts
+    rest: get-lists-listId-contacts
+    method: GET
+    path: /lists/{listId}/contacts
+    category: lists
+  - name: list_lists
+    rest: get-lists
+    method: GET
+    path: /lists
+    category: lists
+  - name: create_list
+    rest: post-lists
+    method: POST
+    path: /lists
+    category: lists
+  - name: list_tags
+    rest: get-tags
+    method: GET
+    path: /tags
+    category: tags
+  - name: tag_contact
+    rest: post-contacts-contactId-tags
+    method: POST
+    path: /contacts/{contactId}/tags
+    category: tags
+  - name: list_tag_contacts
+    rest: get-tags-tagId-contacts
+    method: GET
+    path: /tags/{tagId}/contacts
+    category: tags
+  - name: list_segments
+    rest: get-segments
+    method: GET
+    path: /segments
+    category: segments
+  - name: list_segment_contacts
+    rest: get-segments-segmentId-contacts
+    method: GET
+    path: /segments/{segmentId}/contacts
+    category: segments
+  - name: list_campaigns
+    rest: get-campaigns
+    method: GET
+    path: /campaigns
+    category: reporting
+  - name: get_campaign_report
+    rest: get-campaigns-report
+    method: GET
+    path: /campaigns/{campaignId}/report
+    category: reporting
+  - name: list_sms_messages
+    rest: get-sms-messages
+    method: GET
+    path: /sms-messages
+    category: reporting
+  - name: get_sms_report
+    rest: get-sms-report
+    method: GET
+    path: /sms-messages/{messageId}/report
+    category: reporting
+  - name: add_email_consent
+    rest: post-contacts-email-consent
+    method: POST
+    path: /contacts/{contactId}/email-consent
+    category: consent
+  - name: add_sms_consent
+    rest: post-contacts-sms-consent
+    method: POST
+    path: /contacts/{contactId}/sms-consent
+    category: consent
+  - name: unsubscribe_contact
+    rest: post-contacts-unsubscribe
+    method: POST
+    path: /contacts/{contactId}/unsubscribe
+    category: consent
+  - name: suppress_email
+    rest: post-suppression
+    method: POST
+    path: /suppression/emails
+    category: suppression
+  - name: track_order_placed
+    rest: post-tracking-order-placed
+    method: POST
+    path: /tracking/order-placed
+    category: tracking
+  - name: track_checkout_started
+    rest: post-tracking-checkout-started
+    method: POST
+    path: /tracking/checkout-started
+    category: tracking
+  - name: track_custom_event
+    rest: post-tracking-event
+    method: POST
+    path: /tracking/event
+    category: tracking
+notes:
+  - >-
+    Tool names above are proposals. The `rest` field is the REAL operationId from
+    openapi/sendlane-openapi.yml — each candidate tool would inherit that
+    operation's parameters and requestBody as its inputSchema.
+  - >-
+    No tool-crosswalk artifact is written: a crosswalk binds published MCP tools to
+    REST operations, and Sendlane publishes no MCP tools. There is nothing to bind.

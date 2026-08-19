@@ -1,0 +1,145 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/sendlane-openapi.yml
+also_searched:
+  - https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+  - https://www.sendlane.com/privacy
+name: Sendlane Standards Conformance
+description: >-
+  Which cross-cutting API and industry standards the Sendlane v2 API conforms to.
+  Every entry carries evidence. A `false` is a measured absence, not a criticism —
+  several of these standards do not apply to an email/SMS marketing API.
+standards:
+  - id: openapi
+    conforms: true
+    version: 3.0.0
+    evidence: >-
+      Sendlane publishes an OpenAPI 3.0.0 document from its Stoplight project
+      (sendlane-v2.v2.yaml), covering 56 paths and 82 operations with 81 component
+      schemas. Every operation carries an operationId and a tag.
+  - id: json
+    conforms: true
+    evidence: All requests and responses are application/json.
+  - id: rest
+    conforms: true
+    evidence: >-
+      Resource-oriented paths with GET/POST/PUT/PATCH/DELETE and conventional status
+      codes (200/201/202/204 documented on the Responses page).
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      securitySchemes declares only apiKey schemes (BearerToken in the Authorization
+      header, OtherAccountBearerToken in Authorization-Destination). No authorization
+      endpoint, no token endpoint, no /.well-known/oauth-authorization-server
+      (probed 2026-08-13, 404 on every host).
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on every Sendlane host.
+  - id: rfc6750
+    conforms: partial
+    evidence: >-
+      Uses the RFC 6750 "Authorization: Bearer <token>" wire format, but the token
+      is a static account API key rather than an OAuth 2.0 access token, and no
+      WWW-Authenticate challenge is returned on 401 (observed: HTTP 401 with a
+      text/html "Unauthorized." body).
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors use a vendor envelope { message, errors } served as application/json.
+      No application/problem+json media type and no type/title/detail/instance
+      members.
+  - id: rfc9116
+    conforms: false
+    evidence: >-
+      No /.well-known/security.txt on www.sendlane.com, api.sendlane.com or the
+      docs host (all 404, probed 2026-08-13).
+  - id: rfc8594
+    conforms: false
+    evidence: No Sunset or Deprecation headers documented; no operation marked deprecated.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key header, no request-deduplication guarantee and no
+      retry-safety statement anywhere in the spec or docs.
+  - id: pagination
+    conforms: true
+    style: page-number
+    evidence: >-
+      Documented and consistent: limit + page query parameters (defaults 100 and 1),
+      response envelope with links{first,last,prev,next} and
+      meta{current_page,from,last_page,path,per_page,to,total}. Published termination
+      rule: call until links.next is null.
+  - id: rate-limiting
+    conforms: partial
+    evidence: >-
+      A numeric limit is published (240 calls/minute per account, totalled across all
+      API usage) and 429 is the documented exhaustion status, but the API returns no
+      RateLimit-* or X-RateLimit-* response headers, so the limit is not observable
+      at runtime.
+  - id: webhooks
+    conforms: partial
+    evidence: >-
+      Nine typed inbound event endpoints under /tracking/* that the provider labels
+      "Custom Integration Webhooks". No outbound webhook subscription API and no
+      signature-verification scheme, so this is event ingestion rather than a
+      two-way webhook contract.
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document is published; the event surface is HTTP POST only.
+  - id: graphql
+    conforms: false
+    evidence: No /graphql endpoint is documented or reachable.
+  - id: mcp
+    conforms: false
+    evidence: >-
+      No Model Context Protocol server. mcp.sendlane.com resolves but 302-redirects
+      to https://auth.sendlane.com/login — it is the wildcard app login, not an MCP
+      endpoint. Not listed in the public MCP registry (searched 2026-08-13, 0 results).
+  - id: a2a
+    conforms: false
+    evidence: >-
+      No agent card at /.well-known/agent-card.json or the legacy
+      /.well-known/agent.json on any host (404, probed 2026-08-13).
+  - id: gdpr
+    conforms: claimed
+    evidence: >-
+      Sendlane's published privacy policy (https://www.sendlane.com/privacy, HTTP 200)
+      addresses data subject rights. The API supports the mechanics — email and SMS
+      consent endpoints, unsubscribe, suppression lists and contact deletion — but
+      no certification or audit report is published.
+  - id: tcpa
+    conforms: claimed
+    evidence: >-
+      SMS consent is modelled as a first-class API resource with explicit add/remove
+      operations (/contacts/{contactId}/sms-consent), and the endpoint must be
+      enabled per account by Sendlane support before use — a compliance gate, stated
+      in the spec's own operation description.
+  - id: soc2
+    conforms: unknown
+    evidence: >-
+      No trust center or certification page found. probe-security-programs.py
+      returned vdp=none trust=none on 2026-08-13; www.sendlane.com/security and
+      /trust both 404, and the sitemap lists no security or compliance page.
+  - id: fhir
+    conforms: false
+    evidence: Not applicable — marketing automation, not healthcare.
+  - id: fapi
+    conforms: false
+    evidence: Not applicable — not a financial-grade API.
+  - id: scim
+    conforms: false
+    evidence: No SCIM user-provisioning endpoints.
+  - id: odata
+    conforms: false
+    evidence: Not an OData service.
+  - id: psd2
+    conforms: false
+    evidence: Not applicable — not a payments API.
+  - id: json-api
+    conforms: false
+    evidence: >-
+      Responses use a Laravel-style {data, links, meta} envelope, which resembles
+      JSON:API pagination but does not carry the application/vnd.api+json media type
+      or the type/attributes/relationships document structure.

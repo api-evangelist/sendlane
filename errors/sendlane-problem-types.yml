@@ -1,0 +1,124 @@
+generated: '2026-08-13'
+method: searched
+source: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+derived_from: openapi/sendlane-openapi.yml
+name: Sendlane API Error Catalog
+description: >-
+  Error surface for the Sendlane v2 API. Titles and meanings come from the
+  provider's own "Responses" documentation page; the envelope shape and the
+  per-operation status coverage are derived from the published OpenAPI.
+format: vendor-json
+rfc9457: false
+envelope:
+  media_type: application/json
+  schema: '#/components/schemas/ErrorResponse.v2'
+  fields:
+    - name: message
+      type: string
+      description: Human-readable summary of what went wrong.
+    - name: errors
+      type: object|array
+      description: >-
+        Shape varies by error class. Validation errors key the errors object on the
+        attribute that failed validation ({"failedAttribute": ["error message"]}).
+        All other errors return errors as a flat array of strings.
+  examples:
+    validation_error:
+      message: The given data was invalid.
+      errors:
+        failedAttribute:
+          - error message
+    standard_error:
+      message: string
+      errors:
+        - An error occurred
+problem_types:
+  - status: 400
+    title: Bad Request
+    meaning: Invalid parameters, fields or filters.
+    remediation: >-
+      Check query parameters, filter syntax and datetime formats. The from/to
+      parameters require RFC 3339 datetimes and `from` is required whenever `to`
+      is present.
+    in_openapi: true
+    operations_declaring: 9
+  - status: 401
+    title: Unauthorized
+    meaning: Authorization error — invalid or expired access token.
+    remediation: >-
+      Send a v2 access token as `Authorization: Bearer <token>`. Regenerate the
+      token from the API section of the Sendlane dashboard if it has been revoked.
+    in_openapi: false
+    observed: >-
+      Probed live 2026-08-13: GET https://api.sendlane.com/v2/lists with no
+      Authorization header returns HTTP 401 with a text/html body "Unauthorized."
+      rather than the documented JSON envelope.
+  - status: 403
+    title: Forbidden
+    meaning: >-
+      The server understood the request but refuses it — blocked due to many errors
+      in a particular time window, or the access is not allowed.
+    remediation: >-
+      Back off after repeated failures; confirm the token's account has access to
+      the resource.
+    in_openapi: false
+  - status: 404
+    title: Not Found
+    meaning: The specified resource or url-path could not be found.
+    remediation: Verify the resource id and that the path exists on the v2 base.
+    in_openapi: false
+  - status: 405
+    title: Method Not Allowed
+    meaning: The method used is not allowed on this path.
+    remediation: Check the OpenAPI for the methods each path supports.
+    in_openapi: false
+  - status: 422
+    title: Unprocessable Entity
+    meaning: Unable to validate the request. Documented as "Invalid data" in the spec.
+    remediation: >-
+      Read the keyed `errors` object — each key is the request attribute that
+      failed validation and each value is the list of messages for it.
+    in_openapi: true
+    operations_declaring: 11
+  - status: 429
+    title: Too Many Requests
+    meaning: Rate limit exceeded.
+    remediation: >-
+      Sendlane publishes 240 calls per minute per account, totalled across all API
+      usage. Back off and retry. See rate-limits/sendlane-rate-limits.yml.
+    in_openapi: false
+  - status: 500
+    title: Internal Server Error
+    meaning: Server error.
+    remediation: Retry with backoff; contact support@sendlane.com if persistent.
+    in_openapi: false
+success_codes:
+  - status: 200
+    title: Success
+    meaning: The request has succeeded.
+  - status: 201
+    title: Created
+    meaning: >-
+      API call has been accepted for processing. The sent resource has been
+      successfully inserted or updated in the Sendlane database.
+  - status: 202
+    title: Accepted
+    meaning: >-
+      API call has been accepted for processing. Used only when the sent resource
+      has been successfully deleted from the Sendlane database.
+  - status: 204
+    title: No Content
+    meaning: The request was processed successfully and no content is returned.
+gaps:
+  - >-
+    Only 400 and 422 are declared in the OpenAPI (across 9 and 11 operations
+    respectively). 401, 403, 404, 405, 429 and 500 are documented in prose on the
+    Responses page but appear in no operation's responses block, so a generated
+    client will not model them.
+  - >-
+    The error envelope is vendor-shaped, not RFC 9457 application/problem+json. No
+    machine-readable error `type` URI or per-error `code` is published, so errors
+    cannot be branched on programmatically beyond the HTTP status.
+  - >-
+    The live 401 returns text/html rather than the documented JSON envelope, so a
+    client parsing errors as JSON will fail on the most common auth failure.

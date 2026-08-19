@@ -1,8 +1,12 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.sendlane.com/pricing
+plan_count: 4
 name: Sendlane Plans and Pricing
 description: Sendlane uses a custom, usage-based pricing model for its unified email, SMS, reviews, and forms platform. Plans are built around email send credits, SMS credits, and billing frequency. All plans include unlimited contacts and 24/7/365 customer support.
 url: https://www.sendlane.com/pricing
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 plans:
   - name: Free Trial
     description: Full-featured 60-day free trial with no credit card required, allowing teams to evaluate Sendlane before committing to a paid plan.

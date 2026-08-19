@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: searched
+source: https://help.sendlane.com/collections/1130238389-release-notes
+name: Sendlane Release Notes
+description: >-
+  Sendlane's dated change log, published as a "Release notes" collection in the
+  Intercom-hosted knowledge base. It is a PRODUCT changelog, not an API changelog —
+  none of the entries reviewed announces an API change — and it has not been
+  updated since 2025-07-11.
+scheme: dated-posts
+api_specific: false
+current_api_version: v2
+url: https://help.sendlane.com/collections/1130238389-release-notes
+entry_count: 18
+date_range: 2025-01-31 .. 2025-07-11
+most_recent: '2025-07-11'
+staleness_days_at_check: 398
+rss: false
+machine_readable: false
+
+entries:
+  - date: '2025-07-11'
+    url: https://help.sendlane.com/articles/3263427872-copy-of-release-notes-7-11-25
+    breaking: false
+    api_change: false
+    highlights:
+      - Dynamic SMS images in automations — insert product images into SMS triggered by e-commerce events (browse or cart abandonment).
+      - Redesigned contact details page with updated data display.
+  - date: '2025-07-03'
+    url: https://help.sendlane.com/articles/8718863232-release-notes-7-3-25
+    breaking: false
+    api_change: false
+    highlights:
+      - Bot detection for Shopify — blocks bot email addresses from creating contacts on connected accounts.
+      - Shorter tracking links to mitigate Gmail message clipping.
+      - Redesigned onboarding replacing the overlay flow with an in-dashboard checklist.
+  - date: '2025-06-12'
+    url: https://help.sendlane.com/articles/5455163219-release-notes-6-12-25
+  - date: '2025-06-05'
+    url: https://help.sendlane.com/articles/4683143355-release-notes-6-5-25
+  - date: '2025-06-01'
+    url: https://help.sendlane.com/articles/2788502055-release-notes-6-1-25
+  - date: '2025-05-23'
+    url: https://help.sendlane.com/articles/1523238303-release-notes-5-23-25
+  - date: '2025-05-08'
+    url: https://help.sendlane.com/articles/7354828371-release-notes-5-8-25
+  - date: '2025-04-25'
+    url: https://help.sendlane.com/articles/3207168640-release-notes-4-25-25
+  - date: '2025-04-11'
+    url: https://help.sendlane.com/articles/8167605458-release-notes-4-11-25
+  - date: '2025-04-03'
+    url: https://help.sendlane.com/articles/2104885437-release-notes-4-3-25
+  - date: '2025-03-20'
+    url: https://help.sendlane.com/articles/4443852959-release-notes-3-20-25
+  - date: '2025-03-14'
+    url: https://help.sendlane.com/articles/7495394948-release-notes-3-14-25
+  - date: '2025-03-06'
+    url: https://help.sendlane.com/articles/4723337544-release-notes-3-6-25
+  - date: '2025-02-27'
+    url: https://help.sendlane.com/articles/2682014001-release-notes-2-27-25
+  - date: '2025-02-13'
+    url: https://help.sendlane.com/articles/8383218157-release-notes-2-13-25
+  - date: '2025-02-06'
+    url: https://help.sendlane.com/articles/6896156690-release-notes-2-6-25
+  - date: '2025-01-31'
+    url: https://help.sendlane.com/articles/5825873211-release-notes-1-31-25
+  - date: '2024-03-28'
+    url: https://help.sendlane.com/articles/2507858183-release-notes-3-28-24
+
+notes:
+  - >-
+    Cadence was roughly fortnightly through the first half of 2025 and then stopped.
+    Nothing has been published in the collection for over a year.
+  - >-
+    Only the two most recent entries were opened and summarized in this pass;
+    the rest are recorded with their dates and canonical URLs, unread, rather
+    than summarized from a listing page.
+  - >-
+    No RSS or Atom feed and no API changelog. An integrator has no machine-readable
+    way to learn that the v2 contract changed.

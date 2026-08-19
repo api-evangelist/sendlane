@@ -1,0 +1,153 @@
+generated: '2026-08-13'
+method: searched
+source: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+derived_from: openapi/sendlane-openapi.yml
+name: Sendlane API Conventions
+description: >-
+  Cross-cutting runtime semantics for the Sendlane v2 REST API — how to
+  authenticate, paginate, filter by time, read errors, and what the API does NOT
+  signal. Read from the provider's Overview, Authentication, Responses,
+  Pagination and Rate Limits docs pages and from the published OpenAPI.
+base_url: https://api.sendlane.com/v2
+api_style: REST/JSON
+
+authentication:
+  style: bearer-api-key
+  scheme_name: BearerToken
+  location: header
+  header: Authorization
+  format: 'Bearer <YOUR_API_TOKEN>'
+  required_accept_header: application/json
+  token_issuance: >-
+    Log in to the Sendlane dashboard, navigate to the API section, generate a v2
+    access token, and copy it. Tokens are long-lived and account-scoped.
+  secondary_scheme:
+    name: OtherAccountBearerToken
+    header: Authorization-Destination
+    purpose: >-
+      Carries a second account's token so an operation can act across two accounts.
+      Used by the automation-copy flow (POST /automations/copy) to name the
+      destination account.
+  oauth: false
+  scopes: false
+  note: >-
+    No OAuth 2.0 or OpenID Connect. No token expiry, refresh or rotation endpoint
+    is documented, and no /.well-known/ discovery document is served.
+  see: authentication/sendlane-authentication.yml
+
+pagination:
+  style: page-number
+  request_params:
+    - name: limit
+      in: query
+      default: 100
+      description: Maximum number of results per request.
+    - name: page
+      in: query
+      default: 1
+      description: Page of results to return.
+  response_envelope:
+    data: Array of resources.
+    links:
+      first: URL of the first page.
+      last: URL of the last page.
+      prev: URL of the previous page, null on the first page.
+      next: URL of the next page, null on the last page.
+    meta:
+      current_page: integer
+      from: integer
+      last_page: integer
+      path: string
+      per_page: integer
+      to: integer
+      total: integer
+  cursor: false
+  termination_rule: >-
+    Call the API until `links.next` is null. Provider's stated rule, verbatim from
+    the Pagination docs page.
+  schemas:
+    - '#/components/schemas/PaginatorLinks.v2'
+    - '#/components/schemas/PaginatorMeta.v2'
+  note: >-
+    Some index routes return a bare array rather than the paginated envelope. Check
+    per-operation response schemas in the OpenAPI.
+
+filtering:
+  time_window:
+    params:
+      - name: from
+        in: query
+        type: date-time
+        description: Starting datetime. REQUIRED whenever `to` is present.
+      - name: to
+        in: query
+        type: date-time
+        description: Ending datetime.
+    format: >-
+      RFC 3339 date-time. Provider examples: 2024-12-04T12:30:40-05:00,
+      2024-12-04T12:30:40%2b05:00, 2024-12-04T12:00:00Z. Note the `+` must be
+      percent-encoded as %2b in a query string.
+  expansion: none
+  sparse_fieldsets: none
+  metadata_fields: none
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Sendlane publishes no idempotency key, no retry-safety guarantee, and no
+    request-deduplication semantics. POSTs to the event-ingestion endpoints under
+    /tracking/* and to /contacts/* are therefore not safe to blind-retry. No
+    Idempotency pointer is emitted in apis.yml.
+
+tracing:
+  request_id_header: null
+  correlation_id: null
+  note: >-
+    No request id or correlation id is returned. Live response headers observed on
+    api.sendlane.com 2026-08-13 carry only Cloudflare's cf-ray, which is edge
+    infrastructure and not a Sendlane-supported support handle.
+
+versioning:
+  scheme: url-path
+  current: v2
+  in_url: true
+  spec_version: '2.0'
+  note: >-
+    Version is pinned in the base path (/v2). No version header, no date-based
+    versioning, and no published deprecation policy for v1.
+  see: lifecycle/sendlane-lifecycle.yml
+
+errors:
+  envelope: '{ message: string, errors: object|array }'
+  media_type: application/json
+  rfc9457: false
+  see: errors/sendlane-problem-types.yml
+
+rate_limiting:
+  published_limit: 240 requests per minute
+  scope: per account, totalled across all API usage and all keys
+  exhaustion_status: 429
+  response_headers: []
+  note: >-
+    Sendlane documents the number but the v2 API returns no RateLimit-* or
+    X-RateLimit-* headers, so a client cannot read remaining quota at runtime and
+    must track it locally. (The Sendlane web app on app/auth hosts does emit
+    x-ratelimit-limit / x-ratelimit-remaining, but that is the dashboard, not the
+    v2 API.)
+  see: rate-limits/sendlane-rate-limits.yml
+
+content_negotiation:
+  request: application/json
+  response: application/json
+  required_accept: application/json
+  compression: gzip (Cloudflare edge)
+
+webhooks:
+  outbound: false
+  inbound: true
+  note: >-
+    Sendlane's "Custom Integration Webhooks" are INBOUND — the integrator POSTs
+    e-commerce events to Sendlane at /tracking/*. Sendlane does not publish an
+    outbound webhook subscription API.
+  see: asyncapi/sendlane-webhooks.yml

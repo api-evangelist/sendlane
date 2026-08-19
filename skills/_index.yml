@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/sendlane-openapi.yml
+name: Sendlane Agent Skills
+description: >-
+  Packaged Agent Skills for the Sendlane v2 API, one per marquee flow. Every step
+  is grounded in a real operationId from the provider's published OpenAPI
+  (openapi/sendlane-openapi.yml) — no operation, path, field or status code below
+  was invented. Provider-published skills were searched for first: Sendlane
+  publishes no skills, no AGENTS.md and no llms.txt.
+api: sendlane:sendlane-api
+base_url: https://api.sendlane.com/v2
+skill_count: 4
+skills:
+  - name: sendlane-onboard-contacts
+    file: sendlane-onboard-contacts.md
+    description: >-
+      Add or update contacts on a list, resolve contact ids, record email consent
+      and apply tags.
+    operations:
+      - get-lists
+      - post-lists-listId-contacts
+      - get-contacts-search
+      - post-contacts-email-consent
+      - get-tags
+      - post-contacts-contactId-tags
+  - name: sendlane-track-ecommerce-events
+    file: sendlane-track-ecommerce-events.md
+    description: >-
+      Push browse, cart, checkout and purchase events into Sendlane so automations
+      fire and revenue attribution works.
+    operations:
+      - list-custom-integrations
+      - create-custom-integration
+      - create-custom-event
+      - index-custom-events
+      - post-tracking-product-viewed
+      - post-tracking-added-to-cart
+      - post-tracking-checkout-started
+      - post-tracking-order-placed
+      - post-tracking-back-in-stock
+      - post-tracking-event
+  - name: sendlane-manage-consent-and-suppression
+    file: sendlane-manage-consent-and-suppression.md
+    description: >-
+      Record and revoke email and SMS consent, unsubscribe contacts, and manage
+      email and domain suppression — the compliance surface.
+    operations:
+      - post-contacts-email-consent
+      - get-contacts-contactId-sms-consent
+      - post-contacts-sms-consent
+      - delete-contacts-contactId-sms-consent
+      - post-contacts-search-sms-consent
+      - post-contacts-unsubscribe
+      - get-contacts-unsubscribed
+      - get-lists-unsubscribed
+      - post-suppression
+      - get-suppression
+      - post-domain-suppression
+      - get-domain-suppression-suppressionId
+      - delete-domain-suppression-suppressionId
+  - name: sendlane-pull-campaign-performance
+    file: sendlane-pull-campaign-performance.md
+    description: >-
+      Pull email and SMS performance and revenue metrics into a warehouse,
+      paginating correctly and staying inside the account rate limit.
+    operations:
+      - get-campaigns
+      - get-campaigns-campaignId
+      - get-campaigns-report
+      - get-sms-messages
+      - get-sms-message
+      - get-sms-report
+      - get-contacts-history
+shared_rules:
+  auth: 'Authorization: Bearer <SENDLANE_API_TOKEN> plus Accept: application/json'
+  rate_limit: 240 requests/minute per account, no RateLimit-* headers returned
+  idempotency: none — writes are not safe to blind-retry
+  sandbox: none — every call hits production and can send real email and SMS
+  errors: '{ message, errors } — 422 keys errors on the failing attribute; 401 returns text/html'
+  pagination: limit + page; follow links.next until null

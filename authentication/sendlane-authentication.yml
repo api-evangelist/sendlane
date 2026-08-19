@@ -1,0 +1,93 @@
+generated: '2026-08-13'
+method: searched
+source: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+derived_from: openapi/sendlane-openapi.yml
+docs: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+name: Sendlane API Authentication
+description: >-
+  Auth profile for the Sendlane v2 API. Derived from the two securitySchemes in the
+  published OpenAPI, then upgraded from the provider's own Authentication docs page
+  with the token-issuance procedure and the required Accept header.
+summary:
+  types:
+    - apiKey
+  api_key_in:
+    - header
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  scopes: false
+  token_expiry: none documented
+  token_rotation: none documented
+schemes:
+  - name: BearerToken
+    type: apiKey
+    in: header
+    parameter: Authorization
+    format: 'Bearer <YOUR_API_TOKEN>'
+    description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    default: true
+    sources:
+      - openapi/sendlane-openapi.yml
+      - https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - name: OtherAccountBearerToken
+    type: apiKey
+    in: header
+    parameter: Authorization-Destination
+    format: 'Bearer <OTHER_ACCOUNT_API_TOKEN>'
+    description: >-
+      API token for another account, sent in the Authorization-Destination header.
+      Names the DESTINATION account of a cross-account operation — used by
+      POST /automations/copy (post-automations-copy) to copy an automation out of the
+      account owning the Authorization token into the account owning this one.
+    default: false
+    sources:
+      - openapi/sendlane-openapi.yml
+global_security:
+  - BearerToken: []
+required_headers:
+  - name: Authorization
+    value: 'Bearer <YOUR_API_TOKEN>'
+  - name: Accept
+    value: application/json
+    note: >-
+      The Authentication docs page instructs callers to "make sure to set your content
+      type to json in the header". Not enforced by the spec, but published as required.
+token_issuance:
+  self_service: true
+  steps:
+    - Log in to your Sendlane account.
+    - Navigate to the API section.
+    - Generate a v2 access token.
+    - Click Copy API Token to copy it to your clipboard.
+  source: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  note: >-
+    "Generate a v2 access token" implies a v1 token type still exists in the
+    dashboard. No v1 retirement date is published.
+observed:
+  - probe: 'GET https://api.sendlane.com/v2/lists with no Authorization header'
+    date: '2026-08-13'
+    status: 401
+    body: 'Unauthorized.'
+    content_type: text/html; charset=UTF-8
+    www_authenticate: absent
+    note: >-
+      The 401 is text/html, not the documented JSON error envelope, and carries no
+      WWW-Authenticate challenge — so the most common auth failure does not parse as
+      JSON and does not advertise the scheme.
+findings:
+  - >-
+    A single static, account-scoped bearer token with NO scopes. Any credential
+    issued can read every contact and delete lists, contacts, tags, senders and
+    integrations. There is no least-privilege option and no read-only key.
+  - >-
+    No documented expiry, no refresh endpoint, no rotation guidance and no
+    programmatic revocation — key hygiene is entirely manual in the dashboard.
+  - >-
+    No OAuth 2.0 and no OpenID Connect. /.well-known/oauth-authorization-server and
+    /.well-known/openid-configuration return 404 on every Sendlane host (probed
+    2026-08-13), which is consistent with the spec. No scopes artifact is written.
+  - >-
+    The Beacon browser script uses a SEPARATE public "integration token"
+    (data-token attribute), which is safe to expose client-side. Do not confuse it
+    with the v2 API bearer token, which is not.

@@ -1,0 +1,255 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/sendlane-openapi.yml
+name: Sendlane API Data Model
+description: >-
+  Entity-relationship graph for the Sendlane v2 API, derived from the 81 schemas
+  and 82 operations in the published OpenAPI. Relationships come from two
+  evidence sources only: $ref links between schemas, and id-reference fields
+  (`*_id`) on a schema. Nothing here is inferred from prose.
+entity_count: 24
+relationship_count: 20
+id_style:
+  type: integer
+  prefixed: false
+  note: >-
+    Resource ids are bare integers with no type prefix, so an id is not
+    self-describing — a caller cannot tell a list_id from a tag_id by looking at
+    it. The one exception is the custom integration, which is addressed by an
+    opaque `integrationToken` string in the path rather than a numeric id.
+
+entities:
+  - name: Contact
+    schema: Contact.v2
+    description: A subscriber. The hub of the model — 26 of the 82 operations touch it.
+    path: /contacts
+    key: id
+    embeds:
+      - custom_fields (array of CustomField.v2)
+      - lists (array of ContactList.v2)
+      - tags (array of ContactTag.v2)
+  - name: List
+    schema: List.v2
+    description: A subscriber list with its own default from-name, from-email and reply address.
+    path: /lists
+    key: id
+  - name: ListContact
+    schema: ListContact.v2
+    description: Membership of a contact on a list, carrying list-scoped custom fields and SMS consent.
+    path: /lists/{listId}/contacts
+  - name: Tag
+    schema: Tag.v2
+    description: Free-form label applied to contacts.
+    path: /tags
+    key: id
+  - name: CustomField
+    schema: CustomField.v2
+    description: Account-level custom field definition.
+    path: /custom-fields
+    key: id
+  - name: ContactCustomField
+    schema: ContactCustomField.v2
+    description: A custom field value bound to one contact.
+    path: /contacts/{contactId}/custom-fields
+    key: id
+  - name: Segment
+    schema: Segment.v2
+    description: A saved query over a list.
+    path: /segments
+    key: id
+  - name: Sender
+    schema: Sender.v2
+    description: Sender profile — the verified identity a campaign sends from.
+    path: /senders
+    key: id
+  - name: Campaign
+    schema: Campaign.v2
+    description: An email campaign, optionally driven by an automation.
+    path: /campaigns
+    key: id
+  - name: CampaignReport
+    schema: CampaignReport.v2
+    description: Aggregate engagement and revenue metrics for one campaign.
+    path: /campaigns/{campaignId}/report
+  - name: SmsMessage
+    schema: SmsMessage.v2
+    description: An SMS send, optionally driven by an SMS campaign or automation.
+    path: /sms-messages
+    key: id
+  - name: SmsReport
+    schema: SmsReport.v2
+    description: Aggregate metrics for one SMS message.
+    path: /sms-messages/{messageId}/report
+  - name: Subscription
+    schema: Subscription.v2
+    description: A contact's subscription state on a list.
+    path: /contacts/{contactId}/subscriptions
+    key: id
+  - name: SmsConsent
+    schema: SmsConsent.v2
+    description: SMS consent record for a contact. Must be enabled per account by Sendlane support.
+    path: /contacts/{contactId}/sms-consent
+    key: id
+  - name: ContactHistory
+    schema: ContactHistory.v2
+    description: Event timeline for a contact, referencing campaigns, lists and custom events.
+    path: /contacts/{contactId}/history
+  - name: BackInStockContact
+    schema: BackInStockContact.v2
+    description: A back-in-stock notification request tying a contact to a product.
+    path: /back-in-stock-contacts
+    key: id
+  - name: EmailSuppression
+    schema: EmailSuppression.v2
+    description: Suppressed email address, optionally scoped to one list.
+    path: /suppression/emails
+    key: id
+  - name: DomainSuppression
+    schema: DomainSuppression.v2
+    description: Suppressed sending domain.
+    path: /suppression/domains
+    key: id
+  - name: CustomIntegration
+    schema: CustomIntegration.v2
+    description: A named integration, addressed by an opaque integrationToken.
+    path: /integrations/custom
+    key: integrationToken
+  - name: CustomIntegrationEvent
+    schema: CustomIntegrationEvent.v2
+    description: A custom event type registered under an integration.
+    path: /integrations/custom/{integrationToken}/events
+    key: id
+  - name: Product
+    schema: Product.v2
+    description: Product reference embedded in e-commerce tracking payloads.
+  - name: LineItems
+    schema: LineItems.v2
+    description: Order line item inside an order-placed tracking payload.
+  - name: Discount
+    schema: Discount.v2
+    description: Discount applied to an order in a tracking payload.
+  - name: TaxLine
+    schema: TaxLine.v2
+    description: Tax line inside an order-placed tracking payload.
+
+relationships:
+  - from: Contact
+    to: CustomField
+    type: has_many
+    via: custom_fields
+    evidence: $ref
+  - from: Contact
+    to: List
+    type: has_many
+    via: lists (ContactList.v2)
+    evidence: $ref
+  - from: Contact
+    to: Tag
+    type: has_many
+    via: tags (ContactTag.v2)
+    evidence: $ref
+  - from: Contact
+    to: Segment
+    type: has_many
+    via: GET /contacts/{contactId}/segments
+    evidence: path
+  - from: Contact
+    to: Subscription
+    type: has_many
+    via: GET /contacts/{contactId}/subscriptions
+    evidence: path
+  - from: Contact
+    to: SmsConsent
+    type: has_one
+    via: /contacts/{contactId}/sms-consent
+    evidence: path
+  - from: Contact
+    to: ContactHistory
+    type: has_many
+    via: GET /contacts/{contactId}/history
+    evidence: path
+  - from: List
+    to: ListContact
+    type: has_many
+    via: /lists/{listId}/contacts
+    evidence: path
+  - from: Segment
+    to: List
+    type: belongs_to
+    via: list_id
+    evidence: id-field
+  - from: Segment
+    to: SegmentContact
+    type: has_many
+    via: GET /segments/{segmentId}/contacts
+    evidence: path
+  - from: Tag
+    to: Contact
+    type: has_many
+    via: GET /tags/{tagId}/contacts
+    evidence: path
+  - from: ContactCustomField
+    to: CustomField
+    type: belongs_to
+    via: custom_field_id
+    evidence: id-field
+  - from: Subscription
+    to: List
+    type: belongs_to
+    via: list_id
+    evidence: id-field
+  - from: Subscription
+    to: Contact
+    type: belongs_to
+    via: subscriber_id
+    evidence: id-field
+  - from: EmailSuppression
+    to: List
+    type: belongs_to
+    via: list_id
+    evidence: id-field
+  - from: Campaign
+    to: CampaignAutomation
+    type: has_one
+    via: automation
+    evidence: $ref
+  - from: Campaign
+    to: CampaignReport
+    type: has_one
+    via: GET /campaigns/{campaignId}/report
+    evidence: path
+  - from: SmsMessage
+    to: SmsCampaign
+    type: has_one
+    via: sms_campaign
+    evidence: $ref
+  - from: SmsMessage
+    to: SmsReport
+    type: has_one
+    via: GET /sms-messages/{messageId}/report
+    evidence: path
+  - from: BackInStockContact
+    to: Product
+    type: belongs_to
+    via: product_id
+    evidence: id-field
+  - from: CustomIntegration
+    to: CustomIntegrationEvent
+    type: has_many
+    via: /integrations/custom/{integrationToken}/events
+    evidence: path
+  - from: ContactHistory
+    to: Campaign
+    type: belongs_to
+    via: campaign_id
+    evidence: id-field
+
+notes:
+  - >-
+    Contact is the centre of gravity: it embeds lists, tags and custom fields, and
+    carries seven sub-resources of its own. Every other entity is reachable from it
+    in at most two hops.
+  - >-
+    The e-commerce tracking schemas (Product, LineItems, Discount, TaxLine) are
+    request-only payload shapes for the /tracking/* ingestion endpoints. They are
+    not addressable resources and have no GET.

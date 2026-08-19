@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview,
+  https://status.sendlane.com/, https://help.sendlane.com/collections/1130238389-release-notes
+derived_from: openapi/sendlane-openapi.yml
+name: Sendlane API Lifecycle
+description: >-
+  Versioning, deprecation, status and change-communication posture for the
+  Sendlane v2 API, read from the provider's own surfaces.
+
+versioning:
+  scheme: url-path
+  current_version: v2
+  spec_info_version: '2.0'
+  base_url: https://api.sendlane.com/v2
+  policy_published: false
+  note: >-
+    The major version is carried in the base path. Sendlane publishes no written
+    versioning policy, no support window for prior versions, and no statement about
+    what constitutes a breaking change.
+
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No RFC 8594 Sunset or Deprecation headers are documented and no operation in
+    the published OpenAPI carries `deprecated: true`. A v1 API existed (the token
+    generation flow explicitly says "generate a v2 access token") but no v1
+    retirement date or migration guide is published. No Deprecation pointer is
+    emitted in apis.yml, because there is no policy to point at.
+
+status_page:
+  url: https://status.sendlane.com/
+  platform: Pingdom Public Reports
+  http_status: 200
+  machine_readable: false
+  note: >-
+    A public status page exists and answers 200. It is a Pingdom Public Reports
+    overview, so it has no Statuspage-style /api/v2/status.json or /summary.json
+    feed — probed 2026-08-13, both return 404. Uptime is visible to a human but
+    not subscribable by a machine, and there is no incident RSS or webhook.
+
+sla:
+  published: false
+  note: >-
+    No uptime SLA, latency target or credit schedule is published on the pricing
+    page or in the terms. Enterprise and Enterprise Plus tiers advertise dedicated
+    support managers and proactive deliverability monitoring, but no numeric
+    availability commitment.
+
+change_communication:
+  changelog_url: https://help.sendlane.com/collections/1130238389-release-notes
+  changelog_scope: product
+  api_changelog: false
+  most_recent_entry: '2025-07-11'
+  staleness_note: >-
+    The release-notes collection carries 18 entries, all from 2025, with the most
+    recent dated 2025-07-11 — more than a year stale as of this pass. The notes are
+    product-level (dashboard, deliverability, SMS features) and none of the entries
+    reviewed announced an API change. There is no API-specific changelog.
+  see: changelog/sendlane-changelog.yml
+
+support:
+  email: support@sendlane.com
+  knowledge_base: https://help.sendlane.com/
+  contact: https://www.sendlane.com/contact-us
+  published_in_spec: true
+  note: Contact block is present in the OpenAPI info object.
