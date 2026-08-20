@@ -43,6 +43,14 @@ apis:
       - Contacts
       - Campaigns
       - Automations
+      - List
+      - Tags
+    tags_raw:
+      - Email Marketing
+      - SMS Marketing
+      - Contacts
+      - Campaigns
+      - Automations
       - Lists
       - Tags
     properties:
