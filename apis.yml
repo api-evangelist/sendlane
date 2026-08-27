@@ -31,48 +31,361 @@ tags:
   - Event Tracking
   - Revenue Attribution
 apis:
-  - aid: sendlane:sendlane-api
-    name: Sendlane API
-    description: REST API for managing contacts, lists, campaigns, automations, custom fields, sender profiles, tags, and custom integration events for e-commerce email and SMS marketing.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
-    baseURL: https://api.sendlane.com/v2
-    tags:
-      - Email Marketing
-      - SMS Marketing
-      - Contacts
-      - Campaigns
-      - Automations
-      - List
-      - Tags
-    tags_raw:
-      - Email Marketing
-      - SMS Marketing
-      - Contacts
-      - Campaigns
-      - Automations
-      - Lists
-      - Tags
-    properties:
-      - type: Documentation
-        url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
-      - type: APIReference
-        url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
-      - type: OpenAPI
-        url: openapi/sendlane-openapi.yml
-      - type: Overlay
-        url: overlays/sendlane-openapi-overlay.yaml
-      - type: PostmanCollection
-        url: https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
-      - type: RateLimits
-        url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
-      - type: Authentication
-        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
-      - type: ErrorCodes
-        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
-      - type: Pagination
-        url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-automations-api
+  name: Sendlane Automations API
+  description: The Automations API from Sendlane — 1 operation(s) for automations.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-automations-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-campaigns-api
+  name: Sendlane Campaigns API
+  description: The Campaigns API from Sendlane — 3 operation(s) for campaigns.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-contacts-api
+  name: Sendlane Contacts API
+  description: The Contacts API from Sendlane — 18 operation(s) for contacts.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-custom-fields-api
+  name: Sendlane Custom Fields API
+  description: The Custom Fields API from Sendlane — 2 operation(s) for custom fields.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-custom-integration-events-api
+  name: Sendlane Custom Integration Events API
+  description: >-
+    The Custom Integration Events API from Sendlane — 2 operation(s) for custom integration events.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Custom Integration Events
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-custom-integration-events-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-custom-integration-webhooks-api
+  name: Sendlane Custom Integration Webhooks API
+  description: >-
+    The Custom Integration Webhooks API from Sendlane — 9 operation(s) for custom integration webhooks.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Custom Integration Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-custom-integration-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-custom-integrations-api
+  name: Sendlane Custom Integrations API
+  description: The Custom Integrations API from Sendlane — 2 operation(s) for custom integrations.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Custom Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-custom-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-list-contacts-api
+  name: Sendlane List Contacts API
+  description: The List Contacts API from Sendlane — 2 operation(s) for list contacts.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - List Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-list-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-lists-api
+  name: Sendlane Lists API
+  description: The Lists API from Sendlane — 3 operation(s) for lists.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-lists-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-segments-api
+  name: Sendlane Segments API
+  description: The Segments API from Sendlane — 3 operation(s) for segments.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Segments
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-segments-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-senders-api
+  name: Sendlane Senders API
+  description: The Senders API from Sendlane — 2 operation(s) for senders.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Senders
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-senders-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-sms-api
+  name: Sendlane SMS API
+  description: The SMS API from Sendlane — 3 operation(s) for sms.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - SMS
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-sms-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-suppression-api
+  name: Sendlane Suppression API
+  description: The Suppression API from Sendlane — 3 operation(s) for suppression.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Suppression
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-suppression-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
+- aid: sendlane:sendlane-tags-api
+  name: Sendlane Tags API
+  description: The Tags API from Sendlane — 3 operation(s) for tags.
+  humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  baseURL: https://api.sendlane.com/v2
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/sendlane-tags-api-openapi.yml
+  - type: Documentation
+    url: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
+  - type: APIReference
+    url: https://sendlane.stoplight.io/docs/api-documentation/267c762bd945b-api-reference
+  - type: PostmanCollection
+    url: >-
+      https://www.postman.com/sendlane/sendlane-s-public-workspace/documentation/xl7jbbs/sendlane-api
+  - type: RateLimits
+    url: https://sendlane.stoplight.io/docs/api-documentation/80256ed7dae2a-rate-limits
+  - type: Authentication
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY2OQ-authentication
+  - type: ErrorCodes
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjQwMjk2NTQ-responses
+  - type: Pagination
+    url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
 common:
+  - type: Overlay
+    url: overlays/sendlane-openapi-overlay.yaml
   - type: Authentication
     url: authentication/sendlane-authentication.yml
   - type: DomainSecurity
