@@ -1,0 +1,1070 @@
+openapi: 3.2.0
+info:
+  title: Reference Custom Integration Webhooks API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Custom Integration Webhooks
+paths:
+  /tracking/added-to-cart:
+    post:
+      summary: Added To Cart
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddedToCartRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-added-to-cart
+      description: Added To Cart
+  /tracking/back-in-stock:
+    post:
+      summary: Back In Stock
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackInStockRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-back-in-stock
+      description: Back In Stock
+  /tracking/category-added:
+    post:
+      summary: Category Added
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-category-added
+      description: Category Added
+  /tracking/checkout-started:
+    post:
+      summary: Checkout Started
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutStartedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-checkout-started
+      description: Checkout Started
+  /tracking/customer-added:
+    post:
+      summary: Customer Added
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-customer-added
+      description: Customer Added
+  /tracking/order-placed:
+    post:
+      summary: Order Placed
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderPlacedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-order-placed
+      description: Order Placed
+  /tracking/product-added:
+    post:
+      summary: Product Added
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductAddedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-product-added
+      description: Product Added
+  /tracking/product-viewed:
+    post:
+      summary: Product Viewed
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductViewedRequest.v2'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-product-viewed
+      description: Product Viewed
+  /tracking/event:
+    post:
+      summary: Custom Event
+      tags:
+      - Custom Integration Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomEventRequest.v2'
+            examples:
+              Example 1:
+                value:
+                  token: string
+                  custom_event: string
+                  email: string
+                  data:
+                    field1: value1
+                    field2: value2
+                    list1:
+                    - item1
+                    - item2
+              Example 2:
+                value:
+                  token: string
+                  custom_event: string
+                  email: string
+                  data:
+                    password-reset-url: https://website.domain/forgotpassword
+        description: The data component of the JSON body can be free form and can contain any data that you want to add for downstream use in automations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationResponse.v2'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomIntegrationErrorResponse.v2'
+      operationId: post-tracking-event
+      description: Custom Event - This Call can be used to send an arbitrary payload to Sendlane to be used within automation sequences.  The data component of the payload is made available to emails and sms messages within automations that are setup as triggers for the custom-event.  Custom events can be created and given a name withing the Custom Integration.
+components:
+  schemas:
+    TaxLine.v2:
+      description: Tax Line Items
+      type: object
+      title: Tax Line
+      x-examples:
+        tax_line:
+          name: California State Tax
+          value: 1.01
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+    AddedToCartRequest.v2:
+      title: Added To Cart Request
+      type: object
+      x-examples:
+        Cart Request:
+          token: ABCDEFGHIJKLM1234567890
+          cart_id: 123456789
+          email: user@example.com
+          phone: '+15555555555'
+          checkout_url: https://www.example.com/checkout/123456789
+          total_items: 1
+          total: 19.99
+          currency: USD
+          line_items:
+            product_id: 123456789
+            variant_id: 123456789
+            sku: ABC123
+            product_name: string
+            quantity: 1
+            item_price: 19.99
+            total: 19.99
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        cart_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        checkout_url:
+          type: string
+        total_items:
+          type: integer
+        total:
+          type: number
+        currency:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product.v2'
+        time:
+          type: integer
+          format: time-stamp
+      required:
+      - token
+      - cart_id
+    Product.v2:
+      description: ''
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          sku: string
+          product_name: string
+          quantity: integer
+          item_price: number
+          total: number
+          compare_at_price: number
+      properties:
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        sku:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+        item_price:
+          type: number
+        total:
+          type: number
+        compare_at_price:
+          type: number
+      required:
+      - product_id
+    ProductViewedRequest.v2:
+      title: Product Viewed Request
+      type: object
+      x-examples:
+        Product Viewed Request:
+          token: ABCDEFGHIJKLM1234567890
+          product_id: 123456789
+          variant_id: 123456789
+          email: user@example.com
+          phone: 15555555555
+      properties:
+        token:
+          type: string
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+      required:
+      - token
+      - product_id
+    Discount.v2:
+      description: ''
+      type: object
+      title: Discount
+      x-examples:
+        Discounts:
+          code: string
+          value: string
+      properties:
+        code:
+          type: string
+        value:
+          type: number
+    CategoryAddedRequest.v2:
+      title: Product Request
+      type: object
+      x-examples:
+        Product Request:
+          token: ABCDEFGHIJKLM1234567890
+          category_id: ABC123
+          name: string
+          parent_id: ABC123
+      properties:
+        token:
+          type: string
+        category_id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+      required:
+      - token
+      - category_id
+      - name
+    CustomIntegrationResponse.v2:
+      title: Custom Integration Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled event
+    ProductAddedRequest.v2:
+      title: Product Request
+      type: object
+      x-examples:
+        Product Request:
+          token: ABCDEFGHIJKLM1234567890
+          product_id: 123456789
+          sku: ABC123
+          product_name: string
+          item_price: 19.99
+          product_url: https://www.example.com/product/123456789
+          image_url: https://www.example.com/product/images/123456789
+          categories:
+          - string
+          brand: string
+          compare_at_price: 29.99
+          variants:
+          - array
+      properties:
+        token:
+          type: string
+        product_id:
+          type: string
+        sku:
+          type: string
+        product_name:
+          type: string
+        item_price:
+          type: number
+        product_url:
+          type: string
+        image_url:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brand:
+          type: string
+        compare_at_price:
+          type: number
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariantProduct.v2'
+      required:
+      - token
+      - product_id
+      - product_url
+      - image_url
+    CheckoutStartedRequest.v2:
+      title: Checkout Started Request
+      type: object
+      x-examples:
+        Checkout Request:
+          token: ABCDEFGHIJKLM1234567890
+          checkout_id: 123456789
+          email: user@example.com
+          phone: 15555555555
+          status: pending
+          checkout_url: https://www.example.com/checkout/123456789
+          subtotal: 19.99
+          total_tax: 0
+          total: 19.99
+          total_items: 1
+          currency: USD
+          line_items:
+            product_id: 123456789
+            variant_id: 123456789
+            sku: ABC123
+            product_name: string
+            quantity: 1
+            item_price: 19.99
+            total: 19.99
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        checkout_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+        checkout_url:
+          type: string
+        subtotal:
+          type: number
+        total_tax:
+          type: number
+        total:
+          type: number
+        total_items:
+          type: integer
+        currency:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product.v2'
+        time:
+          type: integer
+          format: time-stamp
+      required:
+      - token
+      - checkout_id
+    CustomerAddedRequest.v2:
+      title: Customer Added Request
+      type: object
+      x-examples:
+        Customer Request:
+          token: ABCDEFGHIJKLM1234567890
+          customer_id: 123456789
+          billing_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          shipping_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          accepts_marketing: true
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        customer_id:
+          type: string
+        billing_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        shipping_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        accepts_marketing:
+          type: boolean
+        time:
+          type: integer
+          format: time-stamp
+        date-created:
+          type: string
+          format: date-time
+        initial_sync:
+          type: boolean
+      required:
+      - token
+      - customer_id
+    VariantProduct.v2:
+      description: ''
+      type: object
+      title: Variant Product
+      x-examples:
+        Variant Product:
+          id: string
+          sku: string
+          price: string
+          image_url: string
+          inventory_level: number
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        price:
+          type: number
+        image_url:
+          type: string
+        inventory_level:
+          type: number
+      required:
+      - id
+    CustomIntegrationErrorResponse.v2:
+      title: Custom Integration Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+      x-examples:
+        Error Response:
+          message: Failed to handle event
+          errors: []
+    LineItems.v2:
+      description: ''
+      x-stoplight:
+        id: 2d71f04b88fd6
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          quantity: integer
+      properties:
+        product_id:
+          type: string
+          x-stoplight:
+            id: 3ops3ihcv8aeh
+        variant_id:
+          type: string
+          x-stoplight:
+            id: 14f4ibb5n3yk5
+        quantity:
+          type: integer
+      required:
+      - product_id
+    OrderPlacedRequest.v2:
+      title: Order Placed Request
+      type: object
+      x-examples:
+        Order Request:
+          token: ABCDEFGHIJKLM1234567890
+          order_id: 123456789
+          status: Completed
+          email: user@example.com
+          subtotal: 19.99
+          tax_lines:
+          - name: San Diego County Tax
+            value: 1
+          - name: CA State Tax
+            value: 1
+          - name: Federal Tax
+            value: 1
+          total: 19.99
+          total_items: 1
+          currency: USD
+          discounts:
+            code: ABCDE
+            value: 4.99
+          line_items:
+            product_id: 123456789
+          billing_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state_code: string
+            country_code: string
+            postal_code: string
+            phone: string
+          shipping_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state_code: string
+            country_code: string
+            postal_code: string
+            phone: string
+          customer_id: 123456789
+          accepts_marketing: true
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        order_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        status:
+          type: string
+        subtotal:
+          type: number
+        tax_lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxLine.v2'
+        total:
+          type: number
+        total_items:
+          type: integer
+        currency:
+          type: string
+        discounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount.v2'
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItems.v2'
+        billing_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        shipping_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state_code:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        customer_id:
+          type: string
+        accepts_marketing:
+          type: boolean
+        time:
+          type: integer
+          format: time-stamp
+        date_created:
+          type: string
+          format: date-time
+        initial_sync:
+          type: boolean
+      required:
+      - token
+      - order_id
+    CustomEventRequest.v2:
+      title: Custom Event
+      x-stoplight:
+        id: 250f1fcf8a06e
+      type: object
+      x-examples:
+        Custom Event:
+          token: ABCDEFGHIJKLM1234567890
+          custom_event: string
+          email: user@example.com
+          data: {}
+      properties:
+        token:
+          type: string
+        custom_event:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          x-stoplight:
+            id: baj6y2i5tg4b7
+        data:
+          type: object
+      required:
+      - token
+      - custom_event
+    BackInStockRequest.v2:
+      title: Back In Stock Request
+      type: object
+      x-examples:
+        Back In Stock Request:
+          token: ABCDEFGHIJKLM1234567890
+          email: user@example.com
+          phone: 11234567890
+          platform: custom
+          other_offers: true
+          product:
+            id: 123456789
+            variant_id: 234567891
+            sku: ABC123
+      properties:
+        token:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        platform:
+          type: string
+        other_offers:
+          type: boolean
+        product:
+          type: object
+          properties:
+            product_id:
+              type: string
+            variant_id:
+              type: string
+            sku:
+              type: string
+      required:
+      - token
+      - product
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Reference SMS API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: SMS
+paths:
+  /sms-messages:
+    get:
+      summary: SMS Messages
+      tags:
+      - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SmsMessage.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-sms-messages
+      description: SMS Messages
+  /sms-messages/{messageId}:
+    parameters:
+    - schema:
+        type: integer
+      name: messageId
+      in: path
+      required: true
+    - $ref: '#/components/parameters/from'
+    - $ref: '#/components/parameters/to'
+    get:
+      summary: Get SMS Message
+      tags:
+      - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SmsMessage.v2'
+      operationId: get-sms-message
+      description: Get SMS Message
+  /sms-messages/{messageId}/report:
+    parameters:
+    - schema:
+        type: integer
+      name: messageId
+      in: path
+      required: true
+    - $ref: '#/components/parameters/from'
+    - $ref: '#/components/parameters/to'
+    get:
+      summary: SMS Report
+      tags:
+      - SMS
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SmsReport.v2'
+      operationId: get-sms-report
+      description: SMS Report
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    SmsReport.v2:
+      type: object
+      x-examples:
+        example-1:
+          sms_message_id: 1
+          sent: 0
+          delivered: 0
+          clicks: 0
+          unique_clicks: 0
+          failed: 0
+          replies: 0
+          unsubscribed: 0
+          resubscribed: 0
+          credits: 0
+          revenue: 0
+          automation:
+            id: 1
+            name: MyAutomation
+      x-internal: false
+      properties:
+        sms_message_id:
+          type: integer
+        sent:
+          type: integer
+        delivered:
+          type: integer
+        clicks:
+          type: integer
+        unique_clicks:
+          type: integer
+        failed:
+          type: integer
+        replies:
+          type: integer
+        unsubscribed:
+          type: integer
+        resubscribed:
+          type: integer
+        credits:
+          type: integer
+        revenue:
+          type: number
+        automation:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+    CampaignAutomation.v2:
+      title: CampaignAutomation
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        action_order:
+          type: integer
+    SmsMessage.v2:
+      title: Sms Message
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        sms_campaign:
+          $ref: '#/components/schemas/SmsCampaign.v2'
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    SmsCampaign.v2:
+      title: SmsCampaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          type: string
+  parameters:
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

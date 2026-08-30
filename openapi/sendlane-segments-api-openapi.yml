@@ -1,0 +1,271 @@
+openapi: 3.2.0
+info:
+  title: Reference Segments API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Segments
+paths:
+  /segments/{segmentId}/contacts:
+    parameters:
+    - schema:
+        type: integer
+      name: segmentId
+      in: path
+      required: true
+    get:
+      summary: Get Segment Contacts
+      tags:
+      - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentContactsResponse.v2'
+              examples:
+                Segments Contacts Response:
+                  value:
+                    id:
+                    - id: 1
+                      email: string
+                      first_name: string
+                      last_name: string
+                      phone: string
+                    links:
+                      first: https://example.com
+                      last: https://example.com
+                      prev: https://example.com
+                      next: https://example.com
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      to: 1
+                      total: 1
+      operationId: get-segments-segmentId-contacts
+      description: Get Segment Contacts
+  /segments:
+    get:
+      summary: Get Segments
+      tags:
+      - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SegmentIndexResponse.v2'
+              examples:
+                Segments Response:
+                  value:
+                    data:
+                    - id: 1
+                      name: string
+                      list_id: 1
+                      match: string
+                      last_count: 0
+                      processed_at: string
+                      created_at: string
+                    links:
+                      first: https://example.com
+                      last: https://example.com
+                      prev: https://example.com
+                      next: https://example.com
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      to: 1
+                      total: 1
+      operationId: get-segments
+      description: Get segments
+  /segments/{segmentId}:
+    parameters:
+    - schema:
+        type: integer
+      name: segmentId
+      in: path
+      required: true
+    get:
+      summary: Get Segment
+      tags:
+      - Segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment.v2'
+      operationId: get-segments-segmentId
+      description: Get Segment
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+    SegmentContactsResponse.v2:
+      title: Segment Contacts Response
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentContact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    Segment.v2:
+      title: Segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        list_id:
+          type: integer
+        match:
+          type: string
+        last_count:
+          type: integer
+        processed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        is_in_progress:
+          type: boolean
+    SegmentIndexResponse.v2:
+      title: SegmentsResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: 1
+            name: string
+            list_id: 1
+            match: All
+            last_count: 0
+            processed_at: string
+            created_at: string
+            is_in_progress: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

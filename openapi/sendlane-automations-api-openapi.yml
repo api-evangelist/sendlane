@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Reference Automations API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Automations
+paths:
+  /automations/copy:
+    post:
+      summary: Automation Copy
+      tags:
+      - Automations
+      security:
+      - BearerToken: []
+        OtherAccountBearerToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationCopyRequest.v2'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CreatedResponse.v2'
+      operationId: post-automations-copy
+      description: Copy Automations
+components:
+  schemas:
+    CreatedResponse.v2:
+      title: Created Response
+      type: object
+      properties:
+        messages:
+          type: array
+      x-examples:
+        Success Response:
+          messages:
+          - 'Successfully created ID: 2'
+    AutomationCopyRequest.v2:
+      title: Automation Copy Request
+      type: object
+      x-examples:
+        Automation Copy Request:
+          automation_ids:
+          - 1
+          - 2
+      properties:
+        automation_ids:
+          type: array
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

@@ -1,0 +1,260 @@
+openapi: 3.2.0
+info:
+  title: Reference Custom Integration Events API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Custom Integration Events
+paths:
+  /integrations/custom/{integrationToken}/events:
+    get:
+      summary: List Events
+      operationId: index-custom-events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndexCustomEventsResponse.v2'
+      description: List custom events related to an custom integration
+      tags:
+      - Custom Integration Events
+    post:
+      summary: Create Event
+      operationId: create-custom-event
+      parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: integrationToken
+        in: path
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreCustomIntegrationEventRequest.v2'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomEventResponse.v2'
+        '422':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ErrorResponse.v2'
+      description: Create a custom integration event
+      tags:
+      - Custom Integration Events
+  /integrations/custom/{integrationToken}/events/{eventId}:
+    get:
+      summary: Show Event
+      operationId: show-custom-event
+      parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: integrationToken
+        in: path
+        required: true
+      - schema:
+          type: string
+          format: integer
+        name: eventId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomEventResponse.v2'
+      description: Show a custom integration event related to a custom integration
+      tags:
+      - Custom Integration Events
+    delete:
+      summary: Delete Event
+      operationId: delete-custom-event
+      parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: integrationToken
+        in: path
+        required: true
+      - schema:
+          type: string
+          format: number
+        name: eventId
+        in: path
+        required: true
+      responses:
+        '204':
+          description: No Content
+      description: Delete a custom integration event
+      tags:
+      - Custom Integration Events
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    StoreCustomIntegrationEventRequest.v2:
+      title: Index Custom Integration Events
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    IndexCustomEventsResponse.v2:
+      title: Index Custom Events Response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: integer
+            name: string
+            created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    CustomIntegrationEvent.v2:
+      title: CustomIntegrationEvent
+      type: object
+      x-examples:
+        Integration:
+          id: integer
+          name: string
+          created_at: string
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name
+    ErrorResponse.v2:
+      title: Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+    SingleCustomEventResponse.v2:
+      title: Single Custom Event Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+      x-examples:
+        Response:
+          data:
+          - id: integer
+            name: string
+            created_at: string
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

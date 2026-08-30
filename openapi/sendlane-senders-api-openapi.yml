@@ -1,0 +1,347 @@
+openapi: 3.2.0
+info:
+  title: Reference Senders API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Senders
+paths:
+  /senders:
+    get:
+      summary: Sender Profiles
+      tags:
+      - Senders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Sender.v2'
+                  links:
+                    type: object
+                    required:
+                    - first
+                    - last
+                    properties:
+                      first:
+                        type: string
+                        minLength: 1
+                      last:
+                        type: string
+                        minLength: 1
+                      prev:
+                        type:
+                        - string
+                        - 'null'
+                      next:
+                        type:
+                        - string
+                        - 'null'
+                  meta:
+                    type: object
+                    required:
+                    - current_page
+                    - last_page
+                    - path
+                    - per_page
+                    - total
+                    properties:
+                      current_page:
+                        type: integer
+                      from: {}
+                      last_page:
+                        type: integer
+                      path:
+                        type: string
+                        minLength: 1
+                      per_page:
+                        type: integer
+                      to: {}
+                      total:
+                        type: integer
+                required:
+                - data
+                - links
+                - meta
+              examples: {}
+      operationId: get-senders
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+      description: Get sender profiles
+    post:
+      summary: Create Sender Profile
+      operationId: post-senders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender.v2'
+      tags:
+      - Senders
+      description: Create sender profile
+  /senders/{senderId}:
+    parameters:
+    - schema:
+        type: integer
+      name: senderId
+      in: path
+      required: true
+    get:
+      summary: Sender Profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      operationId: get-senders-senderId
+      tags:
+      - Senders
+      description: Get sender profile
+    patch:
+      summary: Update Sender Profile
+      operationId: patch-senders-senderId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Sender.v2'
+                required:
+                - data
+              examples:
+                Sender:
+                  value:
+                    data:
+                      id: 1
+                      address_1: string
+                      city: string
+                      company: string
+                      country: string
+                      from_email: user@example.com
+                      from_name: string
+                      reply_email: user@example.com
+                      state_code: string
+                      postal_code: string
+                      is_default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender.v2'
+      tags:
+      - Senders
+      description: Update sender profile
+    delete:
+      summary: Delete Sender Profile
+      operationId: delete-senders-senderId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+      - Senders
+      description: Delete sender profile
+components:
+  schemas:
+    Sender.v2:
+      description: ''
+      type: object
+      x-examples:
+        Create Sender:
+          address_1: string
+          city: string
+          company: optional
+          country: string
+          from_email: user@example.com
+          from_name: string
+          reply_email: user@example.com
+          state_code: string
+          postal_code: string
+          is_default: false
+        Update Single Field:
+          address_1: new address
+        Update Multiple Fields:
+          address_1: string
+          city: string
+          company: string
+          country: string
+          from_email: user@example.com
+          from_name: string
+          reply_email: user@example.com
+          state_code: string
+          postal_code: string
+          is_default: true
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        address_1:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        company:
+          type: string
+          minLength: 1
+        country:
+          type: string
+          minLength: 1
+        from_email:
+          type: string
+          minLength: 1
+          format: email
+        from_name:
+          type: string
+          minLength: 1
+        reply_email:
+          type: string
+          minLength: 1
+          format: email
+        state_code:
+          type: string
+          minLength: 1
+        postal_code:
+          type: string
+          minLength: 1
+        is_default:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+      required:
+      - address_1
+      - city
+      - country
+      - from_email
+      - from_name
+      - reply_email
+      - state_code
+      - postal_code
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

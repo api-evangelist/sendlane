@@ -1,0 +1,456 @@
+openapi: 3.2.0
+info:
+  title: Reference Lists API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Lists
+paths:
+  /lists:
+    get:
+      summary: Get lists
+      tags:
+      - Lists
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/List.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+              examples:
+                Lists:
+                  value:
+                    data:
+                    - id: 1
+                      list_name: string
+                      default_from_name: string
+                      default_from_email: string
+                      default_reply_email: string
+                      default_subject: string
+                      list_key: string
+                      description: string
+                      created_by: string
+                      contact_name: string
+                      contact_email: string
+                      company: string
+                      address: string
+                      city: string
+                      postal_code: string
+                      country: string
+                      state_code: string
+                      phone: string
+                      status: string
+                      date_added: string
+                      deleted_date: null
+      operationId: get-lists
+      description: Returns the lists for the authenticated user
+      parameters:
+      - schema:
+          type: integer
+          format: int64
+          default: 10
+        in: query
+        name: limit
+        description: Maximum number of results
+      - schema:
+          type: integer
+          default: 1
+        in: query
+        name: page
+        description: Page of results to return
+    post:
+      summary: Create List
+      operationId: post-lists
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Store List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      description: Create a list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreListRequest.v2'
+            examples:
+              Create list:
+                value:
+                  id: 1
+                  list_name: string
+                  default_from_name: string
+                  default_from_email: string
+                  default_reply_email: string
+                  default_subject: string
+                  list_key: string
+                  description: string
+                  created_by: string
+                  contact_name: string
+                  contact_email: string
+                  company: string
+                  address: string
+                  city: string
+                  postal_code: string
+                  country: string
+                  state_code: string
+                  phone: string
+                  status: string
+                  date_added: string
+      tags:
+      - Lists
+  /lists/{listId}:
+    parameters:
+    - schema:
+        type: integer
+      name: listId
+      in: path
+      required: true
+    delete:
+      summary: Delete List
+      operationId: delete-lists-listId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+      - Lists
+      description: Delete list
+    put:
+      summary: Update List
+      operationId: put-lists-listId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Update List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListRequest.v2'
+      description: Update list
+      tags:
+      - Lists
+    get:
+      summary: Get List
+      operationId: get-lists-listId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse.v2'
+              examples:
+                Get List Response:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      description: string
+                      status: string
+                      created: string
+                      flagged: string
+      tags:
+      - Lists
+      description: Get list
+  /lists/{listId}/unsubscribed:
+    get:
+      summary: Lists Unsubscribed
+      parameters:
+      - schema:
+          type: integer
+        name: listId
+        in: path
+        required: true
+      - $ref: '#/components/parameters/from'
+      - $ref: '#/components/parameters/to'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      tags:
+      - Lists
+      operationId: get-lists-unsubscribed
+      description: Get Lists Unsubscribed
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    StoreListRequest.v2:
+      title: Store List Request
+      type: object
+      x-examples:
+        Store List Request:
+          name: string
+          description: string
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - name
+    Contact.v2:
+      description: ''
+      type: object
+      title: Contact
+      properties:
+        id:
+          type: integer
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField.v2'
+        email:
+          type: string
+        first_name:
+          type: string
+        integration_customer:
+          type: array
+        last_name:
+          type: string
+        lifetime_value:
+          type: number
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList.v2'
+        phone:
+          type: string
+        sms_consent:
+          type: array
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactTag.v2'
+    ContactList.v2:
+      title: Contact List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ListResponse.v2:
+      title: List Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/List.v2'
+      x-examples:
+        List Response:
+          data:
+            id: 1
+            name: string
+            description: string
+            status: string
+            created: string
+            flagged: string
+    List.v2:
+      title: List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        created:
+          type: string
+        flagged:
+          type: string
+    UpdateListRequest.v2:
+      title: Update List Request
+      type: object
+      x-examples:
+        Update List Request:
+          name: string
+          description: string
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - name
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+  parameters:
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

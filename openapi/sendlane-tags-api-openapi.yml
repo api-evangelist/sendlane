@@ -1,0 +1,394 @@
+openapi: 3.2.0
+info:
+  title: Reference Tags API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Tags
+paths:
+  /tags:
+    get:
+      summary: Get Tags
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag.v2'
+                  links:
+                    $ref: '#/components/schemas/PaginatorLinks.v2'
+                  meta:
+                    $ref: '#/components/schemas/PaginatorMeta.v2'
+      operationId: get-tags
+      description: Get tags for account
+    post:
+      summary: Create Tag
+      operationId: post-tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+              examples:
+                Created Tag:
+                  value:
+                    data:
+                      id: 1
+                      name: string
+                      status: active
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag.v2'
+            examples:
+              Create tag:
+                value:
+                  name: string
+      description: Create a tag
+      tags:
+      - Tags
+  /tags/{tagId}:
+    parameters:
+    - schema:
+        type: integer
+      name: tagId
+      in: path
+      required: true
+    get:
+      description: Get tag
+      summary: Get Tag
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+      operationId: get-tags-tagId
+    patch:
+      description: Update tags
+      summary: Update Tag
+      operationId: patch-tags-tagId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Tag.v2'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag.v2'
+      tags:
+      - Tags
+    delete:
+      description: Delete tag
+      summary: Delete Tag
+      operationId: delete-tags-tagId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      tags:
+      - Tags
+  /tags/{tagId}/contacts:
+    parameters:
+    - schema:
+        type: integer
+      name: tagId
+      in: path
+      required: true
+    - $ref: '#/components/parameters/from'
+    - $ref: '#/components/parameters/to'
+    get:
+      summary: Tag Contacts
+      tags:
+      - Tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagContactIndexResponse.v2'
+      operationId: get-tags-tagId-contacts
+      description: Returns contacts for the tag
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/page'
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    TagContactIndexResponse.v2:
+      title: TagContactIndexResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            subscribed: true
+            suppressed: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    Contact.v2:
+      description: ''
+      type: object
+      title: Contact
+      properties:
+        id:
+          type: integer
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField.v2'
+        email:
+          type: string
+        first_name:
+          type: string
+        integration_customer:
+          type: array
+        last_name:
+          type: string
+        lifetime_value:
+          type: number
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList.v2'
+        phone:
+          type: string
+        sms_consent:
+          type: array
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactTag.v2'
+    ContactList.v2:
+      title: Contact List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Tag.v2:
+      title: Tag
+      type: object
+      x-examples:
+        Create Tag:
+          name: string
+        Update Tag:
+          name: string
+          status: active
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        audience_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+  parameters:
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"

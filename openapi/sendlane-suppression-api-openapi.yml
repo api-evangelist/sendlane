@@ -1,0 +1,351 @@
+openapi: 3.2.0
+info:
+  title: Reference Suppression API
+  version: '2.0'
+  contact:
+    name: Sendlane
+    url: https://sendlane.com
+    email: support@sendlane.com
+  description: Sendlane V2 API
+servers:
+- url: https://api.sendlane.com/v2
+  description: Sendlane
+security:
+- BearerToken: []
+tags:
+- name: Suppression
+paths:
+  /suppression/domains/{suppressionId}:
+    parameters:
+    - schema:
+        type: number
+      name: suppressionId
+      in: path
+      required: true
+    delete:
+      summary: Delete Domain Suppression
+      operationId: delete-domain-suppression-suppressionId
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AcceptedResponse.v2'
+      description: Remove a domain from the suppression list
+      tags:
+      - Suppression
+  /suppression/domains:
+    parameters: []
+    get:
+      summary: Domain Suppressions
+      tags:
+      - Suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomainSuppressionResponse.v2'
+              examples:
+                Domain Suppression Response:
+                  value:
+                    data:
+                    - id: string
+                      domain: string
+                    links:
+                      first: string
+                      last: string
+                      prev: string
+                      next: string
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      total: 1
+      operationId: get-domain-suppression-suppressionId
+      description: Get domain suppressions
+    post:
+      summary: Create Domain Suppression
+      operationId: post-domain-suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreDomainSuppressionResponse.v2'
+              examples:
+                Create Domain Suppression Response:
+                  value:
+                    data:
+                      id: string
+                      domain: string
+      description: Add a domain to the suppression list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainSuppression.v2'
+            examples:
+              Create Domain Suppression:
+                value:
+                  domain: string
+      tags:
+      - Suppression
+  /suppression/emails:
+    parameters: []
+    get:
+      summary: Email Suppressions
+      tags:
+      - Suppression
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSuppressionResponse.v2'
+              examples:
+                Email Suppression Response:
+                  value:
+                    data:
+                    - id: 1
+                      email: string
+                      list_id: 1
+                    links:
+                      first: string
+                      last: string
+                      prev: string
+                      next: string
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      path: string
+                      per_page: 100
+                      total: 1
+      operationId: get-suppression
+      description: Get emails in the suppression list
+    post:
+      summary: Create Email Suppression
+      operationId: post-suppression
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSuppression.v2'
+              examples:
+                Store Email Suppression Response:
+                  value:
+                    data:
+                      id: 1
+                      email: string
+                      list_id: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreEmailSuppressionRequest.v2'
+            examples:
+              Add Email to the suppression list:
+                value:
+                  email: string
+                  list_id: 1
+      description: Add an email to the suppression list
+      tags:
+      - Suppression
+components:
+  schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    DomainSuppressionResponse.v2:
+      title: Domain Suppression Response
+      type: object
+      x-examples:
+        Domain Suppression Response:
+          data:
+          - id: string
+            domain: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            total: 1
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainSuppression.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    StoreEmailSuppressionRequest.v2:
+      title: Store Email Suppression Request
+      type: object
+      x-examples:
+        Store Email Suppression:
+          email: user@example.com
+          list_id: 1
+      properties:
+        email:
+          type: string
+        list_id:
+          type: integer
+      required:
+      - email
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    EmailSuppressionResponse.v2:
+      title: Email Suppression Response
+      x-examples:
+        Email Suppression Response:
+          data:
+          - id: 1
+            email: string
+            list_id: 1
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            total: 1
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailSuppression.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    StoreDomainSuppressionResponse.v2:
+      title: Store Domain Suppression Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DomainSuppression.v2'
+      x-examples:
+        Store Domain Suppression Response:
+          data:
+            id: string
+            domain: string
+    DomainSuppression.v2:
+      title: Domain Suppression
+      type: object
+      x-examples:
+        Domain Suppression:
+          id: 1
+          domain: example.com
+      properties:
+        id:
+          type: integer
+        domain:
+          type: string
+    EmailSuppression.v2:
+      title: Email Suppression
+      type: object
+      x-examples:
+        Email Suppression:
+          id: 1
+          email: user@example.com
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        list_id:
+          type: integer
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+  securitySchemes:
+    BearerToken:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: API token sent in the Authorization header with the value "Bearer {apiToken}"
+    OtherAccountBearerToken:
+      name: Authorization-Destination
+      type: apiKey
+      in: header
+      description: API token for other account sent in the Authorization-Destination header with the value "Bearer {apiToken}"
