@@ -251,6 +251,8 @@ apis:
   humanURL: https://sendlane.stoplight.io/docs/api-documentation/c53add3c8b16f-overview
   baseURL: https://api.sendlane.com/v2
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
