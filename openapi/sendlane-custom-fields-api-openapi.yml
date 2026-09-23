@@ -188,14 +188,6 @@ components:
       required:
       - name
   parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 100
-      description: Maximum number of results per request
     page:
       name: page
       in: query
@@ -204,6 +196,14 @@ components:
         type: integer
         default: '1'
       description: Page of results to return
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
   securitySchemes:
     BearerToken:
       name: Authorization

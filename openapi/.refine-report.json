@@ -1,0 +1,48 @@
+{
+  "provider": "sendlane",
+  "sources": [
+    "_original/sendlane-openapi.yml"
+  ],
+  "outputs": [
+    "sendlane-automations-api-openapi.yml",
+    "sendlane-campaigns-api-openapi.yml",
+    "sendlane-contacts-api-openapi.yml",
+    "sendlane-custom-fields-api-openapi.yml",
+    "sendlane-custom-integration-events-api-openapi.yml",
+    "sendlane-custom-integration-webhooks-api-openapi.yml",
+    "sendlane-custom-integrations-api-openapi.yml",
+    "sendlane-list-contacts-api-openapi.yml",
+    "sendlane-lists-api-openapi.yml",
+    "sendlane-sms-api-openapi.yml",
+    "sendlane-segments-api-openapi.yml",
+    "sendlane-senders-api-openapi.yml",
+    "sendlane-suppression-api-openapi.yml",
+    "sendlane-tags-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sendlane-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/sendlane-v2.v2.yaml: archived document superseded by a larger archived document",
+    "sendlane-automations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-custom-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-custom-integration-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-custom-integration-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-custom-integrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-list-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-segments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-senders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-sms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-suppression-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sendlane-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

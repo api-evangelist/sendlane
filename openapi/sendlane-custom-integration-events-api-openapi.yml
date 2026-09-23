@@ -114,68 +114,6 @@ paths:
       - Custom Integration Events
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    StoreCustomIntegrationEventRequest.v2:
-      title: Index Custom Integration Events
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
     IndexCustomEventsResponse.v2:
       title: Index Custom Events Response
       type: object
@@ -207,6 +145,54 @@ components:
             per_page: 100
             to: 1
             total: 1
+    SingleCustomEventResponse.v2:
+      title: Single Custom Event Response
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+      x-examples:
+        Response:
+          data:
+          - id: integer
+            name: string
+            created_at: string
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    ErrorResponse.v2:
+      title: Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
     CustomIntegrationEvent.v2:
       title: CustomIntegrationEvent
       type: object
@@ -227,26 +213,40 @@ components:
           readOnly: true
       required:
       - name
-    ErrorResponse.v2:
-      title: Error Response
+    StoreCustomIntegrationEventRequest.v2:
+      title: Index Custom Integration Events
       type: object
       properties:
-        message:
+        name:
           type: string
-        errors:
-          type: object
-    SingleCustomEventResponse.v2:
-      title: Single Custom Event Response
+      required:
+      - name
+    PaginatorLinks.v2:
+      description: ''
       type: object
+      x-examples: {}
       properties:
-        data:
-          $ref: '#/components/schemas/CustomIntegrationEvent.v2'
-      x-examples:
-        Response:
-          data:
-          - id: integer
-            name: string
-            created_at: string
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
   securitySchemes:
     BearerToken:
       name: Authorization

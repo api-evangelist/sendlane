@@ -37,7 +37,6 @@ paths:
                   meta:
                     $ref: '#/components/schemas/PaginatorMeta.v2'
       operationId: get-sms-messages
-      description: SMS Messages
   /sms-messages/{messageId}:
     parameters:
     - schema:
@@ -62,7 +61,6 @@ paths:
                   data:
                     $ref: '#/components/schemas/SmsMessage.v2'
       operationId: get-sms-message
-      description: Get SMS Message
   /sms-messages/{messageId}/report:
     parameters:
     - schema:
@@ -87,7 +85,6 @@ paths:
                   data:
                     $ref: '#/components/schemas/SmsReport.v2'
       operationId: get-sms-report
-      description: SMS Report
 components:
   schemas:
     PaginatorMeta.v2:
@@ -118,32 +115,17 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
-    PaginatorLinks.v2:
-      description: ''
+    CampaignAutomation.v2:
+      title: CampaignAutomation
       type: object
-      x-examples: {}
       properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
+        id:
+          type: integer
           readOnly: true
-        last:
+        name:
           type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
+        action_order:
+          type: integer
     SmsReport.v2:
       type: object
       x-examples:
@@ -193,17 +175,41 @@ components:
               type: integer
             name:
               type: string
-    CampaignAutomation.v2:
-      title: CampaignAutomation
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    SmsCampaign.v2:
+      title: SmsCampaign
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-        name:
+        status:
           type: string
-        action_order:
-          type: integer
     SmsMessage.v2:
       title: Sms Message
       type: object
@@ -221,31 +227,22 @@ components:
           type: string
         updated_at:
           type: string
-    SmsCampaign.v2:
-      title: SmsCampaign
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        status:
-          type: string
   parameters:
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
     from:
       schema:
         type: string
         format: date-time
       name: from
       description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
       in: query
       required: false
       example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'

@@ -85,9 +85,29 @@ paths:
                   data:
                     $ref: '#/components/schemas/CampaignReport.v2'
       operationId: get-campaigns-report
-      description: Campaign Report
 components:
   schemas:
+    Campaign.v2:
+      title: Campaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        status:
+          type: string
+        scheduled_at:
+          type: string
+        sent_at:
+          type: string
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -116,64 +136,6 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    Campaign.v2:
-      title: Campaign
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        status:
-          type: string
-        scheduled_at:
-          type: string
-        sent_at:
-          type: string
-        automation:
-          $ref: '#/components/schemas/CampaignAutomation.v2'
-        created_at:
-          type: string
-        updated_at:
-          type: string
-    CampaignAutomation.v2:
-      title: CampaignAutomation
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        action_order:
-          type: integer
     CampaignReport.v2:
       type: object
       x-examples:
@@ -223,22 +185,59 @@ components:
               type: int
             name:
               type: string
+    CampaignAutomation.v2:
+      title: CampaignAutomation
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        action_order:
+          type: integer
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
   parameters:
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
     from:
       schema:
         type: string
         format: date-time
       name: from
       description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
       in: query
       required: false
       example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'

@@ -56,7 +56,6 @@ paths:
                       to: 1
                       total: 1
       operationId: get-segments-segmentId-contacts
-      description: Get Segment Contacts
   /segments:
     get:
       summary: Get Segments
@@ -117,9 +116,70 @@ paths:
                   data:
                     $ref: '#/components/schemas/Segment.v2'
       operationId: get-segments-segmentId
-      description: Get Segment
 components:
   schemas:
+    SegmentIndexResponse.v2:
+      title: SegmentsResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Segment.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: 1
+            name: string
+            list_id: 1
+            match: All
+            last_count: 0
+            processed_at: string
+            created_at: string
+            is_in_progress: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+    SegmentContactsResponse.v2:
+      title: Segment Contacts Response
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentContact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -174,32 +234,6 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    SegmentContact.v2:
-      title: SegmentContact
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
-    SegmentContactsResponse.v2:
-      title: Segment Contacts Response
-      type: object
-      properties:
-        id:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentContact.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
     Segment.v2:
       title: Segment
       type: object
@@ -222,42 +256,6 @@ components:
           format: date-time
         is_in_progress:
           type: boolean
-    SegmentIndexResponse.v2:
-      title: SegmentsResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Segment.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-      x-examples:
-        Response:
-          data:
-          - id: 1
-            name: string
-            list_id: 1
-            match: All
-            last_count: 0
-            processed_at: string
-            created_at: string
-            is_in_progress: false
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 100
-            to: 1
-            total: 1
   securitySchemes:
     BearerToken:
       name: Authorization

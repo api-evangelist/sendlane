@@ -235,74 +235,6 @@ paths:
       description: Get Lists Unsubscribed
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    CustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-      required:
-      - name
     StoreListRequest.v2:
       title: Store List Request
       type: object
@@ -317,6 +249,14 @@ components:
           type: string
       required:
       - name
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     Contact.v2:
       description: ''
       type: object
@@ -354,16 +294,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ContactTag.v2'
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
     ContactList.v2:
       title: Contact List
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    ContactTag.v2:
-      title: Contact Tag
       type: object
       properties:
         id:
@@ -385,6 +345,41 @@ components:
             status: string
             created: string
             flagged: string
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
     List.v2:
       title: List
       type: object
@@ -415,31 +410,36 @@ components:
           type: string
       required:
       - name
-    AcceptedResponse.v2:
-      title: Accepted Response
+    CustomField.v2:
+      title: CustomField
       type: object
       properties:
-        message:
+        id:
           type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
   parameters:
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
     from:
       schema:
         type: string
         format: date-time
       name: from
       description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
       in: query
       required: false
       example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
