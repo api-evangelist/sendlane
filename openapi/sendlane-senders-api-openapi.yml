@@ -222,6 +222,15 @@ paths:
       description: Delete sender profile
 components:
   schemas:
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
     Sender.v2:
       description: ''
       type: object
@@ -308,15 +317,6 @@ components:
       - reply_email
       - state_code
       - postal_code
-    AcceptedResponse.v2:
-      title: Accepted Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
   parameters:
     limit:
       name: limit

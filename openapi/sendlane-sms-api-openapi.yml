@@ -126,6 +126,58 @@ components:
           type: string
         action_order:
           type: integer
+    SmsMessage.v2:
+      title: Sms Message
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        sms_campaign:
+          $ref: '#/components/schemas/SmsCampaign.v2'
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    SmsCampaign.v2:
+      title: SmsCampaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          type: string
     SmsReport.v2:
       type: object
       x-examples:
@@ -175,58 +227,6 @@ components:
               type: integer
             name:
               type: string
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    SmsCampaign.v2:
-      title: SmsCampaign
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        status:
-          type: string
-    SmsMessage.v2:
-      title: Sms Message
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        sms_campaign:
-          $ref: '#/components/schemas/SmsCampaign.v2'
-        automation:
-          $ref: '#/components/schemas/CampaignAutomation.v2'
-        created_at:
-          type: string
-        updated_at:
-          type: string
   parameters:
     from:
       schema:

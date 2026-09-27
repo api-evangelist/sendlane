@@ -103,6 +103,98 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
+    IndexCustomIntegrationsResponse.v2:
+      title: Index Custom CustomIntegrations Response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomIntegration.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - token: uuid
+            name: string
+            url: string
+            status: string
+            created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 15
+            to: 1
+            total: 1
+    ErrorResponse.v2:
+      title: Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    CreateCustomIntegrationRequest.v2:
+      title: Destroy Integration
+      type: object
+      x-examples:
+        Update List Request:
+          name: string
+          url: string
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        default_sync_list:
+          type: integer
+        emailProfile:
+          type: string
+          enum:
+          - Shipping
+          - Billing
+      required:
+      - name
+      - url
+      - default_sync_list
+      - emailProfile
     CreateIntegrationResponse.v2:
       title: Create Integration Response
       type: object
@@ -117,14 +209,6 @@ components:
             url: string
             status: string
             created_at: string
-    ErrorResponse.v2:
-      title: Error Response
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: object
     CustomIntegration.v2:
       title: Custom Integration
       type: object
@@ -161,90 +245,6 @@ components:
       required:
       - name
       - url
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    IndexCustomIntegrationsResponse.v2:
-      title: Index Custom CustomIntegrations Response
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomIntegration.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-      x-examples:
-        Response:
-          data:
-          - token: uuid
-            name: string
-            url: string
-            status: string
-            created_at: string
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 15
-            to: 1
-            total: 1
-    CreateCustomIntegrationRequest.v2:
-      title: Destroy Integration
-      type: object
-      x-examples:
-        Update List Request:
-          name: string
-          url: string
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        default_sync_list:
-          type: integer
-        emailProfile:
-          type: string
-          enum:
-          - Shipping
-          - Billing
-      required:
-      - name
-      - url
-      - default_sync_list
-      - emailProfile
   securitySchemes:
     BearerToken:
       name: Authorization

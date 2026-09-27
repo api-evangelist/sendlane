@@ -118,6 +118,34 @@ paths:
       operationId: get-segments-segmentId
 components:
   schemas:
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
     SegmentIndexResponse.v2:
       title: SegmentsResponse
       type: object
@@ -154,20 +182,6 @@ components:
             per_page: 100
             to: 1
             total: 1
-    SegmentContact.v2:
-      title: SegmentContact
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
     SegmentContactsResponse.v2:
       title: Segment Contacts Response
       type: object
@@ -180,34 +194,6 @@ components:
           $ref: '#/components/schemas/PaginatorLinks.v2'
         meta:
           $ref: '#/components/schemas/PaginatorMeta.v2'
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -234,6 +220,20 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
     Segment.v2:
       title: Segment
       type: object

@@ -87,27 +87,6 @@ paths:
       operationId: get-campaigns-report
 components:
   schemas:
-    Campaign.v2:
-      title: Campaign
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        status:
-          type: string
-        scheduled_at:
-          type: string
-        sent_at:
-          type: string
-        automation:
-          $ref: '#/components/schemas/CampaignAutomation.v2'
-        created_at:
-          type: string
-        updated_at:
-          type: string
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -136,6 +115,64 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
+    CampaignAutomation.v2:
+      title: CampaignAutomation
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        action_order:
+          type: integer
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    Campaign.v2:
+      title: Campaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        status:
+          type: string
+        scheduled_at:
+          type: string
+        sent_at:
+          type: string
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
     CampaignReport.v2:
       type: object
       x-examples:
@@ -185,43 +222,6 @@ components:
               type: int
             name:
               type: string
-    CampaignAutomation.v2:
-      title: CampaignAutomation
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        action_order:
-          type: integer
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
   parameters:
     from:
       schema:

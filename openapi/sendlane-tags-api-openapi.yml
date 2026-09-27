@@ -156,15 +156,77 @@ paths:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/page'
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
   schemas:
-    ContactTag.v2:
-      title: Contact Tag
+    TagContactIndexResponse.v2:
+      title: TagContactIndexResponse
       type: object
       properties:
-        id:
-          type: integer
-        name:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            subscribed: true
+            suppressed: false
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -201,39 +263,6 @@ components:
           type: integer
         name:
           type: string
-    Tag.v2:
-      title: Tag
-      type: object
-      x-examples:
-        Create Tag:
-          name: string
-        Update Tag:
-          name: string
-          status: active
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        audience_count:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-      required:
-      - name
-    AcceptedResponse.v2:
-      title: Accepted Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -260,41 +289,6 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    TagContactIndexResponse.v2:
-      title: TagContactIndexResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-      x-examples:
-        Response:
-          data:
-          - id: 1
-            email: string
-            first_name: string
-            last_name: string
-            phone: string
-            subscribed: true
-            suppressed: false
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 100
-            to: 1
-            total: 1
     Contact.v2:
       description: ''
       type: object
@@ -332,6 +326,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ContactTag.v2'
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+    Tag.v2:
+      title: Tag
+      type: object
+      x-examples:
+        Create Tag:
+          name: string
+        Update Tag:
+          name: string
+          status: active
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        audience_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name
     CustomField.v2:
       title: CustomField
       type: object
@@ -346,41 +381,6 @@ components:
           type: string
       required:
       - name
-  parameters:
-    page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: '1'
-      description: Page of results to return
-    from:
-      schema:
-        type: string
-        format: date-time
-      name: from
-      description: Starting datetime. Required if the "to" parameter is in the query.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 100
-      description: Maximum number of results per request
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
   securitySchemes:
     BearerToken:
       name: Authorization

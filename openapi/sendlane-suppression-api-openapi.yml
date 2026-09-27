@@ -165,49 +165,6 @@ paths:
       - Suppression
 components:
   schemas:
-    DomainSuppressionResponse.v2:
-      title: Domain Suppression Response
-      type: object
-      x-examples:
-        Domain Suppression Response:
-          data:
-          - id: string
-            domain: string
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 100
-            total: 1
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainSuppression.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-    StoreEmailSuppressionRequest.v2:
-      title: Store Email Suppression Request
-      type: object
-      x-examples:
-        Store Email Suppression:
-          email: user@example.com
-          list_id: 1
-      properties:
-        email:
-          type: string
-        list_id:
-          type: integer
-      required:
-      - email
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -266,6 +223,89 @@ components:
           $ref: '#/components/schemas/PaginatorLinks.v2'
         meta:
           $ref: '#/components/schemas/PaginatorMeta.v2'
+    StoreEmailSuppressionRequest.v2:
+      title: Store Email Suppression Request
+      type: object
+      x-examples:
+        Store Email Suppression:
+          email: user@example.com
+          list_id: 1
+      properties:
+        email:
+          type: string
+        list_id:
+          type: integer
+      required:
+      - email
+    DomainSuppressionResponse.v2:
+      title: Domain Suppression Response
+      type: object
+      x-examples:
+        Domain Suppression Response:
+          data:
+          - id: string
+            domain: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            total: 1
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainSuppression.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+    EmailSuppression.v2:
+      title: Email Suppression
+      type: object
+      x-examples:
+        Email Suppression:
+          id: 1
+          email: user@example.com
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        list_id:
+          type: integer
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
     DomainSuppression.v2:
       title: Domain Suppression
       type: object
@@ -298,46 +338,6 @@ components:
           data:
             id: string
             domain: string
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    EmailSuppression.v2:
-      title: Email Suppression
-      type: object
-      x-examples:
-        Email Suppression:
-          id: 1
-          email: user@example.com
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-        list_id:
-          type: integer
   securitySchemes:
     BearerToken:
       name: Authorization

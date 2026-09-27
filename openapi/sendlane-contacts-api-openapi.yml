@@ -590,69 +590,105 @@ paths:
       - Contacts
 components:
   schemas:
-    PaginatorMeta.v2:
+    BackInStockContactResponse.v2:
       description: ''
       type: object
-      x-examples: {}
+      x-examples:
+        BackInStockContact Response:
+          data:
+            id: 1
+            email: string
+            phone: string
+            shop: string
+            platform: string
+            product_id: string
+            sku: string
       properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
+        data:
+          $ref: '#/components/schemas/BackInStockContact.v2'
+      required:
+      - data
+      title: BackInStockContact Response
+    ContactHistory.v2:
+      title: Contact History
+      type: object
+      properties:
+        type:
           type: string
-          minLength: 1
-          readOnly: true
-        per_page:
+        campaign_id:
           type: integer
-          readOnly: true
-        to:
+        title:
+          type: string
+        list_id:
           type: integer
-          readOnly: true
-        total:
+        list_name:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        event_id:
           type: integer
-          readOnly: true
-      title: Paginator Meta
-    ContactCustomFieldStoreRequest.v2:
-      title: Contact Custom Field Store Request
+        event_name:
+          type: string
+        event_location:
+          type: string
+        completed_at:
+          type: string
+          format: date-time
+        restock:
+          type: boolean
+        processed_at:
+          type: string
+          format: date-time
+        event_date:
+          type: string
+          format: date-time
+    ContactEmailConsentRequest.v2:
+      title: Contact Email Consent Request
       type: object
       x-examples:
-        Contact Custom Field Store Request:
-          custom_fields:
-          - id: 1
-            value: value1
-          - id: 2
-            value: value2
+        Email Consent Request:
+          email_consent: true
       properties:
-        custom_fields:
+        email_consent:
+          type: boolean
+          example: true
+        list_ids:
           type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              value:
-                type: string
+          example:
+          - 1
+          - 2
       required:
-      - custom_fields
-    ContactList.v2:
-      title: Contact List
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
+      - email_consent
     ContactSubscriptionsRequest.v2:
       title: Contact Subscriptions Request
       type: object
       x-examples:
         Contact Subscriptions Request:
+          email: string
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+    ContactHistoryRequest.v2:
+      title: Contact History Request
+      type: object
+      x-examples:
+        Contact History Request:
+          filter: email_open
+      properties:
+        filter:
+          type: string
+          format: email, email_open, email_click, subscribe, unsubscribe, global_unsubscribe, tracked_event, conversion, shopify_checkout, shopify_order, shopify_refund
+      optional:
+      - filter
+    ContactSearchRequest.v2:
+      title: Contact Search Request
+      type: object
+      x-examples:
+        Contact Search Request:
           email: string
       properties:
         email:
@@ -692,156 +728,34 @@ components:
             per_page: 100
             to: 1
             total: 1
-    SmsConsent.v2:
-      title: SMS Consent
-      type: object
-      properties:
-        id:
-          type: integer
-        phone:
-          type: string
-        has_sms_consent:
-          type: boolean
-        sms_consent:
-          type: object
-          properties:
-            consent_type:
-              type: string
-              example: sms_keyword,web_form,integration
-            ip_address:
-              type: string
-              format: ip
-              example: 12.34.567.89
-            optin_date:
-              type: string
-              format: date-time
-              example: 202X-01-01 09:00:00
-            sms_consent:
-              type: boolean
-              example: true
-            user_agent:
-              type: string
-              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
-            optin_url:
-              type: string
-              format: url
-              example: http://example.com/optin-url
-            consent_language:
-              type: string
-              description: text snippet or url to language
-              example: http://example.com/terms-of-service
-            cookie_uuid:
-              type: string
-              example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
-    PaginatorLinks.v2:
+    PaginatorMeta.v2:
       description: ''
       type: object
       x-examples: {}
       properties:
-        first:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
           type: string
           minLength: 1
-          format: uri
           readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
+        per_page:
+          type: integer
           readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
+        to:
+          type: integer
           readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
+        total:
+          type: integer
           readOnly: true
-      title: Paginator Links
-    ContactSearchRequest.v2:
-      title: Contact Search Request
-      type: object
-      x-examples:
-        Contact Search Request:
-          email: string
-      properties:
-        email:
-          type: string
-        phone:
-          type: string
-    Contact.v2:
-      description: ''
-      type: object
-      title: Contact
-      properties:
-        id:
-          type: integer
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField.v2'
-        email:
-          type: string
-        first_name:
-          type: string
-        integration_customer:
-          type: array
-        last_name:
-          type: string
-        lifetime_value:
-          type: number
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactList.v2'
-        phone:
-          type: string
-        sms_consent:
-          type: array
-        subscribed:
-          type: boolean
-        suppressed:
-          type: boolean
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactTag.v2'
-    ContactHistory.v2:
-      title: Contact History
-      type: object
-      properties:
-        type:
-          type: string
-        campaign_id:
-          type: integer
-        title:
-          type: string
-        list_id:
-          type: integer
-        list_name:
-          type: string
-        amount:
-          type: number
-        currency:
-          type: string
-        event_id:
-          type: integer
-        event_name:
-          type: string
-        event_location:
-          type: string
-        completed_at:
-          type: string
-          format: date-time
-        restock:
-          type: boolean
-        processed_at:
-          type: string
-          format: date-time
-        event_date:
-          type: string
-          format: date-time
+      title: Paginator Meta
     SmsConsentResponse.v2:
       title: SMS Consent Response
       type: object
@@ -855,25 +769,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/SmsConsent.v2'
-      required:
-      - data
-    ContactResponse.v2:
-      title: Contact Response
-      type: object
-      x-examples:
-        Contact Response:
-          data:
-            id: 1
-            email: string
-            first_name: string
-            last_name: string
-            phone: string
-            sms_consent: []
-            subscribed: true
-            suppressed: false
-      properties:
-        data:
-          $ref: '#/components/schemas/Contact.v2'
       required:
       - data
     ContactCustomField.v2:
@@ -895,6 +790,27 @@ components:
       required:
       - custom_field_id
       - value
+    TagResponse.v2:
+      title: TagResponse
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Tag.v2'
+      x-examples:
+        Tag Response:
+          data:
+            id: 1
+            name: string
+            audience_count: 1
+            created_at: string
+    ContactList.v2:
+      title: Contact List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     ContactTagStoreRequest.v2:
       title: Contact Tag Store Request
       type: object
@@ -910,47 +826,75 @@ components:
             type: integer
       required:
       - tag_ids
-    Segment.v2:
-      title: Segment
+    ContactResponse.v2:
+      title: Contact Response
       type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            sms_consent: []
+            subscribed: true
+            suppressed: false
       properties:
-        id:
-          type: integer
-        name:
-          type: string
-        list_id:
-          type: integer
-        match:
-          type: string
-        last_count:
-          type: integer
-        processed_at:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        is_in_progress:
-          type: boolean
-    BackInStockContact.v2:
-      description: ''
+        data:
+          $ref: '#/components/schemas/Contact.v2'
+      required:
+      - data
+    ContactSmsConsentRequest.v2:
+      title: Contact SMS Consent Request
       type: object
-      title: BackInStockContact
+      x-examples:
+        SMS Consent Request:
+          phone: 15551234567
+          ip_address: 12.34.567.89
+          optin_date: 202X-01-01 09:00:00
+          sms_consent: true
+          user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
+          optin_url: http://example.com/optin-url
+          consent_language: http://example.com/terms-of-service
+          cookie_uuid: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
       properties:
-        id:
-          type: integer
-        email:
-          type: string
         phone:
           type: string
-        shop:
+          format: phone
+          example: 15551234567
+        ip_address:
           type: string
-        platform:
+          format: ip
+          example: 12.34.567.89
+        optin_date:
           type: string
-        product_id:
+          format: date-time
+          example: 202X-01-01 09:00:00
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
           type: string
-        sku:
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
+        optin_url:
           type: string
+          format: url
+          example: http://example.com/optin-url
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: http://example.com/terms-of-service
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+      required:
+      - phone
+      - ip_address
+      - optin_date
+      - sms_consent
+      - user_agent
+      - optin_url
     ContactSearchSmsConsentRequest.v2:
       title: Contact SMS Consent Request
       type: object
@@ -1006,161 +950,6 @@ components:
       - sms_consent
       - user_agent
       - optin_url
-    ContactUnsubscribeResponse.v2:
-      title: Contact Unsubscribe Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Contact unsubscribed successfully
-    BackInStockContactResponse.v2:
-      description: ''
-      type: object
-      x-examples:
-        BackInStockContact Response:
-          data:
-            id: 1
-            email: string
-            phone: string
-            shop: string
-            platform: string
-            product_id: string
-            sku: string
-      properties:
-        data:
-          $ref: '#/components/schemas/BackInStockContact.v2'
-      required:
-      - data
-      title: BackInStockContact Response
-    Subscription.v2:
-      title: Subscription
-      type: object
-      properties:
-        id:
-          type: integer
-        subscriber_id:
-          type: integer
-        list_id:
-          type: integer
-        list_name:
-          type: string
-        subscribed:
-          type: boolean
-        suppressed:
-          type: boolean
-        added_by:
-          type: string
-        date_added:
-          type: string
-          format: date-time
-    ContactHistoryRequest.v2:
-      title: Contact History Request
-      type: object
-      x-examples:
-        Contact History Request:
-          filter: email_open
-      properties:
-        filter:
-          type: string
-          format: email, email_open, email_click, subscribe, unsubscribe, global_unsubscribe, tracked_event, conversion, shopify_checkout, shopify_order, shopify_refund
-      optional:
-      - filter
-    AcceptedResponse.v2:
-      title: Accepted Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
-    TagResponse.v2:
-      title: TagResponse
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Tag.v2'
-      x-examples:
-        Tag Response:
-          data:
-            id: 1
-            name: string
-            audience_count: 1
-            created_at: string
-    ContactSmsConsentRequest.v2:
-      title: Contact SMS Consent Request
-      type: object
-      x-examples:
-        SMS Consent Request:
-          phone: 15551234567
-          ip_address: 12.34.567.89
-          optin_date: 202X-01-01 09:00:00
-          sms_consent: true
-          user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
-          optin_url: http://example.com/optin-url
-          consent_language: http://example.com/terms-of-service
-          cookie_uuid: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
-      properties:
-        phone:
-          type: string
-          format: phone
-          example: 15551234567
-        ip_address:
-          type: string
-          format: ip
-          example: 12.34.567.89
-        optin_date:
-          type: string
-          format: date-time
-          example: 202X-01-01 09:00:00
-        sms_consent:
-          type: boolean
-          example: true
-        user_agent:
-          type: string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
-        optin_url:
-          type: string
-          format: url
-          example: http://example.com/optin-url
-        consent_language:
-          type: string
-          description: text snippet or url to language
-          example: http://example.com/terms-of-service
-        cookie_uuid:
-          type: string
-          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
-      required:
-      - phone
-      - ip_address
-      - optin_date
-      - sms_consent
-      - user_agent
-      - optin_url
-    CustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-      required:
-      - name
-    ContactTag.v2:
-      title: Contact Tag
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
     ContactCustomFieldResponse.v2:
       title: Contact Custom Field Response
       type: object
@@ -1177,6 +966,15 @@ components:
           $ref: '#/components/schemas/ContactCustomField.v2'
       required:
       - data
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
     Tag.v2:
       title: Tag
       type: object
@@ -1201,39 +999,241 @@ components:
           readOnly: true
       required:
       - name
-    ContactEmailConsentRequest.v2:
-      title: Contact Email Consent Request
+    ContactUnsubscribeResponse.v2:
+      title: Contact Unsubscribe Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Contact unsubscribed successfully
+    Contact.v2:
+      description: ''
+      type: object
+      title: Contact
+      properties:
+        id:
+          type: integer
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField.v2'
+        email:
+          type: string
+        first_name:
+          type: string
+        integration_customer:
+          type: array
+        last_name:
+          type: string
+        lifetime_value:
+          type: number
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList.v2'
+        phone:
+          type: string
+        sms_consent:
+          type: array
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactTag.v2'
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    SmsConsent.v2:
+      title: SMS Consent
+      type: object
+      properties:
+        id:
+          type: integer
+        phone:
+          type: string
+        has_sms_consent:
+          type: boolean
+        sms_consent:
+          type: object
+          properties:
+            consent_type:
+              type: string
+              example: sms_keyword,web_form,integration
+            ip_address:
+              type: string
+              format: ip
+              example: 12.34.567.89
+            optin_date:
+              type: string
+              format: date-time
+              example: 202X-01-01 09:00:00
+            sms_consent:
+              type: boolean
+              example: true
+            user_agent:
+              type: string
+              example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
+            optin_url:
+              type: string
+              format: url
+              example: http://example.com/optin-url
+            consent_language:
+              type: string
+              description: text snippet or url to language
+              example: http://example.com/terms-of-service
+            cookie_uuid:
+              type: string
+              example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    Subscription.v2:
+      title: Subscription
+      type: object
+      properties:
+        id:
+          type: integer
+        subscriber_id:
+          type: integer
+        list_id:
+          type: integer
+        list_name:
+          type: string
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        added_by:
+          type: string
+        date_added:
+          type: string
+          format: date-time
+    ContactCustomFieldStoreRequest.v2:
+      title: Contact Custom Field Store Request
       type: object
       x-examples:
-        Email Consent Request:
-          email_consent: true
+        Contact Custom Field Store Request:
+          custom_fields:
+          - id: 1
+            value: value1
+          - id: 2
+            value: value2
       properties:
-        email_consent:
-          type: boolean
-          example: true
-        list_ids:
+        custom_fields:
           type: array
-          example:
-          - 1
-          - 2
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              value:
+                type: string
       required:
-      - email_consent
+      - custom_fields
+    BackInStockContact.v2:
+      description: ''
+      type: object
+      title: BackInStockContact
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        phone:
+          type: string
+        shop:
+          type: string
+        platform:
+          type: string
+        product_id:
+          type: string
+        sku:
+          type: string
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Segment.v2:
+      title: Segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        list_id:
+          type: integer
+        match:
+          type: string
+        last_count:
+          type: integer
+        processed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        is_in_progress:
+          type: boolean
   parameters:
-    from:
-      schema:
-        type: string
-        format: date-time
-      name: from
-      description: Starting datetime. Required if the "to" parameter is in the query.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
     to:
       schema:
         type: string
         format: date-time
       name: to
       description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
       in: query
       required: false
       example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
