@@ -75,34 +75,20 @@ paths:
       - Custom Integrations
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
+    CreateIntegrationResponse.v2:
+      title: Create Integration Response
       type: object
-      x-examples: {}
       properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
+        data:
+          $ref: '#/components/schemas/CustomIntegration.v2'
+      x-examples:
+        Response:
+          data:
+          - token: uuid
+            name: string
+            url: string
+            status: string
+            created_at: string
     IndexCustomIntegrationsResponse.v2:
       title: Index Custom CustomIntegrations Response
       type: object
@@ -136,14 +122,6 @@ components:
             per_page: 15
             to: 1
             total: 1
-    ErrorResponse.v2:
-      title: Error Response
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: object
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -170,45 +148,42 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    CreateCustomIntegrationRequest.v2:
-      title: Destroy Integration
+    PaginatorMeta.v2:
+      description: ''
       type: object
-      x-examples:
-        Update List Request:
-          name: string
-          url: string
+      x-examples: {}
       properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        default_sync_list:
+        current_page:
           type: integer
-        emailProfile:
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
           type: string
-          enum:
-          - Shipping
-          - Billing
-      required:
-      - name
-      - url
-      - default_sync_list
-      - emailProfile
-    CreateIntegrationResponse.v2:
-      title: Create Integration Response
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    ErrorResponse.v2:
+      title: Error Response
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/CustomIntegration.v2'
-      x-examples:
-        Response:
-          data:
-          - token: uuid
-            name: string
-            url: string
-            status: string
-            created_at: string
+        message:
+          type: string
+        errors:
+          type: object
     CustomIntegration.v2:
       title: Custom Integration
       type: object
@@ -245,6 +220,31 @@ components:
       required:
       - name
       - url
+    CreateCustomIntegrationRequest.v2:
+      title: Destroy Integration
+      type: object
+      x-examples:
+        Update List Request:
+          name: string
+          url: string
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        default_sync_list:
+          type: integer
+        emailProfile:
+          type: string
+          enum:
+          - Shipping
+          - Billing
+      required:
+      - name
+      - url
+      - default_sync_list
+      - emailProfile
   securitySchemes:
     BearerToken:
       name: Authorization

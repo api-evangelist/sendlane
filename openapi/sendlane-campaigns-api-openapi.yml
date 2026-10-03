@@ -87,34 +87,6 @@ paths:
       operationId: get-campaigns-report
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
     CampaignAutomation.v2:
       title: CampaignAutomation
       type: object
@@ -152,27 +124,6 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    Campaign.v2:
-      title: Campaign
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        status:
-          type: string
-        scheduled_at:
-          type: string
-        sent_at:
-          type: string
-        automation:
-          $ref: '#/components/schemas/CampaignAutomation.v2'
-        created_at:
-          type: string
-        updated_at:
-          type: string
     CampaignReport.v2:
       type: object
       x-examples:
@@ -222,6 +173,55 @@ components:
               type: int
             name:
               type: string
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    Campaign.v2:
+      title: Campaign
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        status:
+          type: string
+        scheduled_at:
+          type: string
+        sent_at:
+          type: string
+        automation:
+          $ref: '#/components/schemas/CampaignAutomation.v2'
+        created_at:
+          type: string
+        updated_at:
+          type: string
   parameters:
     from:
       schema:

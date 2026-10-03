@@ -118,34 +118,6 @@ paths:
       operationId: get-segments-segmentId
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
     SegmentIndexResponse.v2:
       title: SegmentsResponse
       type: object
@@ -182,18 +154,6 @@ components:
             per_page: 100
             to: 1
             total: 1
-    SegmentContactsResponse.v2:
-      title: Segment Contacts Response
-      type: object
-      properties:
-        id:
-          type: array
-          items:
-            $ref: '#/components/schemas/SegmentContact.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -220,20 +180,46 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    SegmentContact.v2:
-      title: SegmentContact
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    SegmentContactsResponse.v2:
+      title: Segment Contacts Response
       type: object
       properties:
         id:
-          type: integer
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/SegmentContact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
     Segment.v2:
       title: Segment
       type: object
@@ -256,6 +242,20 @@ components:
           format: date-time
         is_in_progress:
           type: boolean
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
   securitySchemes:
     BearerToken:
       name: Authorization

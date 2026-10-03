@@ -118,24 +118,47 @@ paths:
       tags:
       - Custom Fields
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 100
-      description: Maximum number of results per request
-    page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: '1'
-      description: Page of results to return
   schemas:
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -164,46 +187,23 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    CustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-      required:
-      - name
+  parameters:
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
   securitySchemes:
     BearerToken:
       name: Authorization

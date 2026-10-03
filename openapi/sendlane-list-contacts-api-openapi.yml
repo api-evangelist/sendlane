@@ -138,235 +138,6 @@ paths:
       - List Contacts
 components:
   schemas:
-    PaginatorMeta.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        current_page:
-          type: integer
-          readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
-          type: string
-          minLength: 1
-          readOnly: true
-        per_page:
-          type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
-    SmsConsentField.v2:
-      title: SMS Consent Field
-      type: object
-      properties:
-        consent_type:
-          type: string
-          example: sms_keyword,web_form,integration
-        ip_address:
-          type: string
-          format: ip
-          example: 12.34.567.89
-        optin_date:
-          type: string
-          format: date-time
-          example: 202X-01-01 09:00:00
-        sms_consent:
-          type: boolean
-          example: true
-        user_agent:
-          type: string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
-        optin_url:
-          type: string
-          format: url
-          example: http://example.com/optin-url
-        consent_language:
-          type: string
-          description: text snippet or url to language
-          example: http://example.com/terms-of-service
-        cookie_uuid:
-          type: string
-          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
-    ListContactCustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-    ContactList.v2:
-      title: Contact List
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    Contact.v2:
-      description: ''
-      type: object
-      title: Contact
-      properties:
-        id:
-          type: integer
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField.v2'
-        email:
-          type: string
-        first_name:
-          type: string
-        integration_customer:
-          type: array
-        last_name:
-          type: string
-        lifetime_value:
-          type: number
-        lists:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactList.v2'
-        phone:
-          type: string
-        sms_consent:
-          type: array
-        subscribed:
-          type: boolean
-        suppressed:
-          type: boolean
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactTag.v2'
-    ContactIndexResponse.v2:
-      title: ContactIndexResponse
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-      x-examples:
-        Response:
-          data:
-          - id: 1
-            custom_fields: []
-            email: string
-            first_name: string
-            integration_customer: []
-            last_name: string
-            lifetime_value: 0
-            lists: []
-            phone: string
-            subscribed: boolean
-            suppressed: boolean
-            tags: []
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 100
-            to: 1
-            total: 1
-    ContactResponse.v2:
-      title: Contact Response
-      type: object
-      x-examples:
-        Contact Response:
-          data:
-            id: 1
-            email: string
-            first_name: string
-            last_name: string
-            phone: string
-            sms_consent: []
-            subscribed: true
-            suppressed: false
-      properties:
-        data:
-          $ref: '#/components/schemas/Contact.v2'
-      required:
-      - data
-    PaginatorLinks.v2:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        first:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        last:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        prev:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-        next:
-          type: string
-          minLength: 1
-          format: uri
-          readOnly: true
-      title: Paginator Links
-    ContactTag.v2:
-      title: Contact Tag
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    AcceptedResponse.v2:
-      title: Accepted Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
-    CustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-      required:
-      - name
     ListContact.v2:
       description: ''
       type: object
@@ -420,22 +191,251 @@ components:
       - email
       required-without-email:
       - phone
+    SmsConsentField.v2:
+      title: SMS Consent Field
+      type: object
+      properties:
+        consent_type:
+          type: string
+          example: sms_keyword,web_form,integration
+        ip_address:
+          type: string
+          format: ip
+          example: 12.34.567.89
+        optin_date:
+          type: string
+          format: date-time
+          example: 202X-01-01 09:00:00
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
+          type: string
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
+        optin_url:
+          type: string
+          format: url
+          example: http://example.com/optin-url
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: http://example.com/terms-of-service
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    ContactList.v2:
+      title: Contact List
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    ContactResponse.v2:
+      title: Contact Response
+      type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            sms_consent: []
+            subscribed: true
+            suppressed: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Contact.v2'
+      required:
+      - data
+    PaginatorLinks.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        first:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        last:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        prev:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+        next:
+          type: string
+          minLength: 1
+          format: uri
+          readOnly: true
+      title: Paginator Links
+    AcceptedResponse.v2:
+      title: Accepted Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
+    ListContactCustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+    ContactIndexResponse.v2:
+      title: ContactIndexResponse
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: 1
+            custom_fields: []
+            email: string
+            first_name: string
+            integration_customer: []
+            last_name: string
+            lifetime_value: 0
+            lists: []
+            phone: string
+            subscribed: boolean
+            suppressed: boolean
+            tags: []
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
+    ContactTag.v2:
+      title: Contact Tag
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Contact.v2:
+      description: ''
+      type: object
+      title: Contact
+      properties:
+        id:
+          type: integer
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField.v2'
+        email:
+          type: string
+        first_name:
+          type: string
+        integration_customer:
+          type: array
+        last_name:
+          type: string
+        lifetime_value:
+          type: number
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactList.v2'
+        phone:
+          type: string
+        sms_consent:
+          type: array
+        subscribed:
+          type: boolean
+        suppressed:
+          type: boolean
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactTag.v2'
   parameters:
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
     from:
       schema:
         type: string
         format: date-time
       name: from
       description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
       in: query
       required: false
       example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
