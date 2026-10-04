@@ -389,6 +389,313 @@ paths:
       description: Custom Event - This Call can be used to send an arbitrary payload to Sendlane to be used within automation sequences. The data component of the payload is made available to emails and sms messages within automations that are setup as triggers for the custom-event. Custom events can be created and given a name withing the Custom Integration.
 components:
   schemas:
+    AddedToCartRequest.v2:
+      title: Added To Cart Request
+      type: object
+      x-examples:
+        Cart Request:
+          token: ABCDEFGHIJKLM1234567890
+          cart_id: 123456789
+          email: user@example.com
+          phone: '+15555555555'
+          checkout_url: https://www.example.com/checkout/123456789
+          total_items: 1
+          total: 19.99
+          currency: USD
+          line_items:
+            product_id: 123456789
+            variant_id: 123456789
+            sku: ABC123
+            product_name: string
+            quantity: 1
+            item_price: 19.99
+            total: 19.99
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        cart_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        checkout_url:
+          type: string
+        total_items:
+          type: integer
+        total:
+          type: number
+        currency:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product.v2'
+        time:
+          type: integer
+          format: time-stamp
+      required:
+      - token
+      - cart_id
+    CustomIntegrationResponse.v2:
+      title: Custom Integration Response
+      type: object
+      properties:
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled event
+    ProductViewedRequest.v2:
+      title: Product Viewed Request
+      type: object
+      x-examples:
+        Product Viewed Request:
+          token: ABCDEFGHIJKLM1234567890
+          product_id: 123456789
+          variant_id: 123456789
+          email: user@example.com
+          phone: 15555555555
+      properties:
+        token:
+          type: string
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+      required:
+      - token
+      - product_id
+    CustomEventRequest.v2:
+      title: Custom Event
+      x-stoplight:
+        id: 250f1fcf8a06e
+      type: object
+      x-examples:
+        Custom Event:
+          token: ABCDEFGHIJKLM1234567890
+          custom_event: string
+          email: user@example.com
+          data: {}
+      properties:
+        token:
+          type: string
+        custom_event:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          x-stoplight:
+            id: baj6y2i5tg4b7
+        data:
+          type: object
+      required:
+      - token
+      - custom_event
+    CustomerAddedRequest.v2:
+      title: Customer Added Request
+      type: object
+      x-examples:
+        Customer Request:
+          token: ABCDEFGHIJKLM1234567890
+          customer_id: 123456789
+          billing_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          shipping_address:
+            first_name: string
+            last_name: string
+            email: user@example.com
+            company: string
+            address_1: string
+            address_2: string
+            city: string
+            state: string
+            state_code: string
+            country: string
+            country_code: string
+            postal_code: string
+            phone: string
+          accepts_marketing: true
+          time: 1629825213
+      properties:
+        token:
+          type: string
+        customer_id:
+          type: string
+        billing_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        shipping_address:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            company:
+              type: string
+            address_1:
+              type: string
+            address_2:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            state_code:
+              type: string
+            country:
+              type: string
+            country_code:
+              type: string
+            postal_code:
+              type: string
+            phone:
+              type: string
+        accepts_marketing:
+          type: boolean
+        time:
+          type: integer
+          format: time-stamp
+        date-created:
+          type: string
+          format: date-time
+        initial_sync:
+          type: boolean
+      required:
+      - token
+      - customer_id
+    LineItems.v2:
+      description: ''
+      x-stoplight:
+        id: 2d71f04b88fd6
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          quantity: integer
+      properties:
+        product_id:
+          type: string
+          x-stoplight:
+            id: 3ops3ihcv8aeh
+        variant_id:
+          type: string
+          x-stoplight:
+            id: 14f4ibb5n3yk5
+        quantity:
+          type: integer
+      required:
+      - product_id
+    VariantProduct.v2:
+      description: ''
+      type: object
+      title: Variant Product
+      x-examples:
+        Variant Product:
+          id: string
+          sku: string
+          price: string
+          image_url: string
+          inventory_level: number
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sku:
+          type: string
+        price:
+          type: number
+        image_url:
+          type: string
+        inventory_level:
+          type: number
+      required:
+      - id
+    TaxLine.v2:
+      description: Tax Line Items
+      type: object
+      title: Tax Line
+      x-examples:
+        tax_line:
+          name: California State Tax
+          value: 1.01
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+    CategoryAddedRequest.v2:
+      title: Product Request
+      type: object
+      x-examples:
+        Product Request:
+          token: ABCDEFGHIJKLM1234567890
+          category_id: ABC123
+          name: string
+          parent_id: ABC123
+      properties:
+        token:
+          type: string
+        category_id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+      required:
+      - token
+      - category_id
+      - name
     BackInStockRequest.v2:
       title: Back In Stock Request
       type: object
@@ -426,54 +733,6 @@ components:
       required:
       - token
       - product
-    VariantProduct.v2:
-      description: ''
-      type: object
-      title: Variant Product
-      x-examples:
-        Variant Product:
-          id: string
-          sku: string
-          price: string
-          image_url: string
-          inventory_level: number
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        sku:
-          type: string
-        price:
-          type: number
-        image_url:
-          type: string
-        inventory_level:
-          type: number
-      required:
-      - id
-    CategoryAddedRequest.v2:
-      title: Product Request
-      type: object
-      x-examples:
-        Product Request:
-          token: ABCDEFGHIJKLM1234567890
-          category_id: ABC123
-          name: string
-          parent_id: ABC123
-      properties:
-        token:
-          type: string
-        category_id:
-          type: string
-        name:
-          type: string
-        parent_id:
-          type: string
-      required:
-      - token
-      - category_id
-      - name
     CheckoutStartedRequest.v2:
       title: Checkout Started Request
       type: object
@@ -532,54 +791,6 @@ components:
       required:
       - token
       - checkout_id
-    CustomIntegrationResponse.v2:
-      title: Custom Integration Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled event
-    CustomIntegrationErrorResponse.v2:
-      title: Custom Integration Error Response
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-      x-examples:
-        Error Response:
-          message: Failed to handle event
-          errors: []
-    CustomEventRequest.v2:
-      title: Custom Event
-      x-stoplight:
-        id: 250f1fcf8a06e
-      type: object
-      x-examples:
-        Custom Event:
-          token: ABCDEFGHIJKLM1234567890
-          custom_event: string
-          email: user@example.com
-          data: {}
-      properties:
-        token:
-          type: string
-        custom_event:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-          x-stoplight:
-            id: baj6y2i5tg4b7
-        data:
-          type: object
-      required:
-      - token
-      - custom_event
     ProductAddedRequest.v2:
       title: Product Request
       type: object
@@ -630,103 +841,6 @@ components:
       - product_id
       - product_url
       - image_url
-    AddedToCartRequest.v2:
-      title: Added To Cart Request
-      type: object
-      x-examples:
-        Cart Request:
-          token: ABCDEFGHIJKLM1234567890
-          cart_id: 123456789
-          email: user@example.com
-          phone: '+15555555555'
-          checkout_url: https://www.example.com/checkout/123456789
-          total_items: 1
-          total: 19.99
-          currency: USD
-          line_items:
-            product_id: 123456789
-            variant_id: 123456789
-            sku: ABC123
-            product_name: string
-            quantity: 1
-            item_price: 19.99
-            total: 19.99
-          time: 1629825213
-      properties:
-        token:
-          type: string
-        cart_id:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        checkout_url:
-          type: string
-        total_items:
-          type: integer
-        total:
-          type: number
-        currency:
-          type: string
-        line_items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product.v2'
-        time:
-          type: integer
-          format: time-stamp
-      required:
-      - token
-      - cart_id
-    ProductViewedRequest.v2:
-      title: Product Viewed Request
-      type: object
-      x-examples:
-        Product Viewed Request:
-          token: ABCDEFGHIJKLM1234567890
-          product_id: 123456789
-          variant_id: 123456789
-          email: user@example.com
-          phone: 15555555555
-      properties:
-        token:
-          type: string
-        product_id:
-          type: string
-        variant_id:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-      required:
-      - token
-      - product_id
-    LineItems.v2:
-      description: ''
-      x-stoplight:
-        id: 2d71f04b88fd6
-      type: object
-      title: Product
-      x-examples:
-        Product:
-          product_id: string
-          variant_id: string
-          quantity: integer
-      properties:
-        product_id:
-          type: string
-          x-stoplight:
-            id: 3ops3ihcv8aeh
-        variant_id:
-          type: string
-          x-stoplight:
-            id: 14f4ibb5n3yk5
-        quantity:
-          type: integer
-      required:
-      - product_id
     Discount.v2:
       description: ''
       type: object
@@ -740,6 +854,51 @@ components:
           type: string
         value:
           type: number
+    CustomIntegrationErrorResponse.v2:
+      title: Custom Integration Error Response
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+      x-examples:
+        Error Response:
+          message: Failed to handle event
+          errors: []
+    Product.v2:
+      description: ''
+      type: object
+      title: Product
+      x-examples:
+        Product:
+          product_id: string
+          variant_id: string
+          sku: string
+          product_name: string
+          quantity: integer
+          item_price: number
+          total: number
+          compare_at_price: number
+      properties:
+        product_id:
+          type: string
+        variant_id:
+          type: string
+        sku:
+          type: string
+        product_name:
+          type: string
+        quantity:
+          type: integer
+        item_price:
+          type: number
+        total:
+          type: number
+        compare_at_price:
+          type: number
+      required:
+      - product_id
     OrderPlacedRequest.v2:
       title: Order Placed Request
       type: object
@@ -890,165 +1049,6 @@ components:
       required:
       - token
       - order_id
-    TaxLine.v2:
-      description: Tax Line Items
-      type: object
-      title: Tax Line
-      x-examples:
-        tax_line:
-          name: California State Tax
-          value: 1.01
-      properties:
-        name:
-          type: string
-        value:
-          type: number
-    CustomerAddedRequest.v2:
-      title: Customer Added Request
-      type: object
-      x-examples:
-        Customer Request:
-          token: ABCDEFGHIJKLM1234567890
-          customer_id: 123456789
-          billing_address:
-            first_name: string
-            last_name: string
-            email: user@example.com
-            company: string
-            address_1: string
-            address_2: string
-            city: string
-            state: string
-            state_code: string
-            country: string
-            country_code: string
-            postal_code: string
-            phone: string
-          shipping_address:
-            first_name: string
-            last_name: string
-            email: user@example.com
-            company: string
-            address_1: string
-            address_2: string
-            city: string
-            state: string
-            state_code: string
-            country: string
-            country_code: string
-            postal_code: string
-            phone: string
-          accepts_marketing: true
-          time: 1629825213
-      properties:
-        token:
-          type: string
-        customer_id:
-          type: string
-        billing_address:
-          type: object
-          properties:
-            first_name:
-              type: string
-            last_name:
-              type: string
-            email:
-              type: string
-            company:
-              type: string
-            address_1:
-              type: string
-            address_2:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            state_code:
-              type: string
-            country:
-              type: string
-            country_code:
-              type: string
-            postal_code:
-              type: string
-            phone:
-              type: string
-        shipping_address:
-          type: object
-          properties:
-            first_name:
-              type: string
-            last_name:
-              type: string
-            email:
-              type: string
-            company:
-              type: string
-            address_1:
-              type: string
-            address_2:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            state_code:
-              type: string
-            country:
-              type: string
-            country_code:
-              type: string
-            postal_code:
-              type: string
-            phone:
-              type: string
-        accepts_marketing:
-          type: boolean
-        time:
-          type: integer
-          format: time-stamp
-        date-created:
-          type: string
-          format: date-time
-        initial_sync:
-          type: boolean
-      required:
-      - token
-      - customer_id
-    Product.v2:
-      description: ''
-      type: object
-      title: Product
-      x-examples:
-        Product:
-          product_id: string
-          variant_id: string
-          sku: string
-          product_name: string
-          quantity: integer
-          item_price: number
-          total: number
-          compare_at_price: number
-      properties:
-        product_id:
-          type: string
-        variant_id:
-          type: string
-        sku:
-          type: string
-        product_name:
-          type: string
-        quantity:
-          type: integer
-        item_price:
-          type: number
-        total:
-          type: number
-        compare_at_price:
-          type: number
-      required:
-      - product_id
   securitySchemes:
     BearerToken:
       name: Authorization

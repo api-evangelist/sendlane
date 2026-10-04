@@ -114,37 +114,6 @@ paths:
       - Custom Integration Events
 components:
   schemas:
-    IndexCustomEventsResponse.v2:
-      title: Index Custom Events Response
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomIntegrationEvent.v2'
-        links:
-          $ref: '#/components/schemas/PaginatorLinks.v2'
-        meta:
-          $ref: '#/components/schemas/PaginatorMeta.v2'
-      x-examples:
-        Response:
-          data:
-          - id: integer
-            name: string
-            created_at: string
-          links:
-            first: string
-            last: string
-            prev: string
-            next: string
-          meta:
-            current_page: 1
-            from: 1
-            last_page: 1
-            path: string
-            per_page: 100
-            to: 1
-            total: 1
     CustomIntegrationEvent.v2:
       title: CustomIntegrationEvent
       type: object
@@ -163,6 +132,14 @@ components:
           type: string
           format: date-time
           readOnly: true
+      required:
+      - name
+    StoreCustomIntegrationEventRequest.v2:
+      title: Index Custom Integration Events
+      type: object
+      properties:
+        name:
+          type: string
       required:
       - name
     SingleCustomEventResponse.v2:
@@ -203,14 +180,6 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    StoreCustomIntegrationEventRequest.v2:
-      title: Index Custom Integration Events
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
     PaginatorMeta.v2:
       description: ''
       type: object
@@ -239,6 +208,37 @@ components:
           type: integer
           readOnly: true
       title: Paginator Meta
+    IndexCustomEventsResponse.v2:
+      title: Index Custom Events Response
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomIntegrationEvent.v2'
+        links:
+          $ref: '#/components/schemas/PaginatorLinks.v2'
+        meta:
+          $ref: '#/components/schemas/PaginatorMeta.v2'
+      x-examples:
+        Response:
+          data:
+          - id: integer
+            name: string
+            created_at: string
+          links:
+            first: string
+            last: string
+            prev: string
+            next: string
+          meta:
+            current_page: 1
+            from: 1
+            last_page: 1
+            path: string
+            per_page: 100
+            to: 1
+            total: 1
     ErrorResponse.v2:
       title: Error Response
       type: object

@@ -86,6 +86,25 @@ paths:
                     $ref: '#/components/schemas/SmsReport.v2'
       operationId: get-sms-report
 components:
+  parameters:
+    from:
+      schema:
+        type: string
+        format: date-time
+      name: from
+      description: Starting datetime. Required if the "to" parameter is in the query.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
+    to:
+      schema:
+        type: string
+        format: date-time
+      name: to
+      description: Ending datetime.
+      in: query
+      required: false
+      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
   schemas:
     SmsMessage.v2:
       title: Sms Message
@@ -104,17 +123,6 @@ components:
           type: string
         updated_at:
           type: string
-    CampaignAutomation.v2:
-      title: CampaignAutomation
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-        action_order:
-          type: integer
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -141,6 +149,34 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
+    PaginatorMeta.v2:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        current_page:
+          type: integer
+          readOnly: true
+        from:
+          type: integer
+          readOnly: true
+        last_page:
+          type: integer
+          readOnly: true
+        path:
+          type: string
+          minLength: 1
+          readOnly: true
+        per_page:
+          type: integer
+          readOnly: true
+        to:
+          type: integer
+          readOnly: true
+        total:
+          type: integer
+          readOnly: true
+      title: Paginator Meta
     SmsReport.v2:
       type: object
       x-examples:
@@ -199,53 +235,17 @@ components:
           readOnly: true
         status:
           type: string
-    PaginatorMeta.v2:
-      description: ''
+    CampaignAutomation.v2:
+      title: CampaignAutomation
       type: object
-      x-examples: {}
       properties:
-        current_page:
+        id:
           type: integer
           readOnly: true
-        from:
-          type: integer
-          readOnly: true
-        last_page:
-          type: integer
-          readOnly: true
-        path:
+        name:
           type: string
-          minLength: 1
-          readOnly: true
-        per_page:
+        action_order:
           type: integer
-          readOnly: true
-        to:
-          type: integer
-          readOnly: true
-        total:
-          type: integer
-          readOnly: true
-      title: Paginator Meta
-  parameters:
-    from:
-      schema:
-        type: string
-        format: date-time
-      name: from
-      description: Starting datetime. Required if the "to" parameter is in the query.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
-    to:
-      schema:
-        type: string
-        format: date-time
-      name: to
-      description: Ending datetime.
-      in: query
-      required: false
-      example: '`2024-12-04T12:30:40-05:00` or `2024-12-04T12:30:40%2b05:00` or `2024-12-04T12:00:00%2b00:00` or `2024-12-04T12:00:00Z`'
   securitySchemes:
     BearerToken:
       name: Authorization

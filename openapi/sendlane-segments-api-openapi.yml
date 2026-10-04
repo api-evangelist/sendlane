@@ -118,6 +118,42 @@ paths:
       operationId: get-segments-segmentId
 components:
   schemas:
+    SegmentContact.v2:
+      title: SegmentContact
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+    Segment.v2:
+      title: Segment
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        list_id:
+          type: integer
+        match:
+          type: string
+        last_count:
+          type: integer
+        processed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        is_in_progress:
+          type: boolean
     SegmentIndexResponse.v2:
       title: SegmentsResponse
       type: object
@@ -220,42 +256,6 @@ components:
           $ref: '#/components/schemas/PaginatorLinks.v2'
         meta:
           $ref: '#/components/schemas/PaginatorMeta.v2'
-    Segment.v2:
-      title: Segment
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        list_id:
-          type: integer
-        match:
-          type: string
-        last_count:
-          type: integer
-        processed_at:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        is_in_progress:
-          type: boolean
-    SegmentContact.v2:
-      title: SegmentContact
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
   securitySchemes:
     BearerToken:
       name: Authorization

@@ -221,6 +221,23 @@ paths:
       - Senders
       description: Delete sender profile
 components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+      description: Maximum number of results per request
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: '1'
+      description: Page of results to return
   schemas:
     AcceptedResponse.v2:
       title: Accepted Response
@@ -317,23 +334,6 @@ components:
       - reply_email
       - state_code
       - postal_code
-  parameters:
-    page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: '1'
-      description: Page of results to return
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 100
-      description: Maximum number of results per request
   securitySchemes:
     BearerToken:
       name: Authorization

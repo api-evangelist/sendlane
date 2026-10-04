@@ -191,52 +191,6 @@ components:
       - email
       required-without-email:
       - phone
-    SmsConsentField.v2:
-      title: SMS Consent Field
-      type: object
-      properties:
-        consent_type:
-          type: string
-          example: sms_keyword,web_form,integration
-        ip_address:
-          type: string
-          format: ip
-          example: 12.34.567.89
-        optin_date:
-          type: string
-          format: date-time
-          example: 202X-01-01 09:00:00
-        sms_consent:
-          type: boolean
-          example: true
-        user_agent:
-          type: string
-          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
-        optin_url:
-          type: string
-          format: url
-          example: http://example.com/optin-url
-        consent_language:
-          type: string
-          description: text snippet or url to language
-          example: http://example.com/terms-of-service
-        cookie_uuid:
-          type: string
-          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
-    CustomField.v2:
-      title: CustomField
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        created_at:
-          type: string
-      required:
-      - name
     ContactList.v2:
       title: Contact List
       type: object
@@ -245,25 +199,15 @@ components:
           type: integer
         name:
           type: string
-    ContactResponse.v2:
-      title: Contact Response
+    AcceptedResponse.v2:
+      title: Accepted Response
       type: object
-      x-examples:
-        Contact Response:
-          data:
-            id: 1
-            email: string
-            first_name: string
-            last_name: string
-            phone: string
-            sms_consent: []
-            subscribed: true
-            suppressed: false
       properties:
-        data:
-          $ref: '#/components/schemas/Contact.v2'
-      required:
-      - data
+        message:
+          type: string
+      x-examples:
+        Success Response:
+          message: Successfully handled request
     PaginatorLinks.v2:
       description: ''
       type: object
@@ -290,15 +234,6 @@ components:
           format: uri
           readOnly: true
       title: Paginator Links
-    AcceptedResponse.v2:
-      title: Accepted Response
-      type: object
-      properties:
-        message:
-          type: string
-      x-examples:
-        Success Response:
-          message: Successfully handled request
     ListContactCustomField.v2:
       title: CustomField
       type: object
@@ -383,6 +318,52 @@ components:
           type: integer
         name:
           type: string
+    CustomField.v2:
+      title: CustomField
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+      required:
+      - name
+    SmsConsentField.v2:
+      title: SMS Consent Field
+      type: object
+      properties:
+        consent_type:
+          type: string
+          example: sms_keyword,web_form,integration
+        ip_address:
+          type: string
+          format: ip
+          example: 12.34.567.89
+        optin_date:
+          type: string
+          format: date-time
+          example: 202X-01-01 09:00:00
+        sms_consent:
+          type: boolean
+          example: true
+        user_agent:
+          type: string
+          example: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_5_3 rv:6.0; sl-SI) AppleWebKit/533.24.5 (KHTML, like Gecko) Version/4.0 Safari/533.24.5
+        optin_url:
+          type: string
+          format: url
+          example: http://example.com/optin-url
+        consent_language:
+          type: string
+          description: text snippet or url to language
+          example: http://example.com/terms-of-service
+        cookie_uuid:
+          type: string
+          example: 0H28vBAcx8PBbAmXqamTjY3BDyvMcyN8Xy5nAquShpB
     Contact.v2:
       description: ''
       type: object
@@ -420,6 +401,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ContactTag.v2'
+    ContactResponse.v2:
+      title: Contact Response
+      type: object
+      x-examples:
+        Contact Response:
+          data:
+            id: 1
+            email: string
+            first_name: string
+            last_name: string
+            phone: string
+            sms_consent: []
+            subscribed: true
+            suppressed: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Contact.v2'
+      required:
+      - data
   parameters:
     from:
       schema:
