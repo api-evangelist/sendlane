@@ -400,6 +400,9 @@ apis:
   - type: Pagination
     url: https://sendlane.stoplight.io/docs/api-documentation/ZG9jOjk3NDY3MA-pagination
 common:
+  - type: CapabilityMap
+    url: capabilities/sendlane-capability-edges.yml
+    name: Sendlane Business Capability Map
   - type: Overlay
     url: overlays/sendlane-openapi-overlay.yaml
   - type: Authentication
