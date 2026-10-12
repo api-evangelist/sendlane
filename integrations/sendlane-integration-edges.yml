@@ -1,0 +1,434 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/sendlane/integrations
+- https://composio.dev/toolkits/sendlane
+checked:
+- https://composio.dev/toolkits/sendlane
+- https://monid.ai/tools/sendlane
+- https://n8n.io/integrations/sendlane/
+- https://zapier.com/apps/sendlane/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: sendlane
+  url: https://zapier.com/apps/sendlane/integrations
+  external_url: https://sendlane.com/
+  partner_tier: SILVER
+  triggers:
+  - key: contact_saved
+    label: Contact Saved
+  - key: contact_tagged
+    label: Contact Tagged
+  actions:
+  - key: add_subscriber
+    label: Create Subscriber
+  - key: unsubscribe_contact
+    label: Unsubscribe Contact
+  searches: []
+- marketplace: composio
+  channel: agent-gateway
+  app: sendlane
+  url: https://composio.dev/toolkits/sendlane
+  identity: action-prefix
+  actions:
+  - key: SENDLANE_GET_CAMPAIGNS
+  - key: SENDLANE_GET_CUSTOM_FIELDS
+  - key: SENDLANE_GET_LISTS
+  - key: SENDLANE_LIST_DELETE
+  - key: SENDLANE_POST_LIST
+  - key: SENDLANE_TAG_CREATE
+edges:
+- partner_name: Poptin
+  partner: poptin
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/poptin
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.poptin.com/
+- partner_name: AWeber
+  partner: aweber
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/aweber
+  direction: third-party
+  category: Email Newsletters
+  partner_url: http://zpr.io/6S2qW
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Stripe (Legacy)
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/stripe-legacy
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: KonnektiveCRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/konnektivecrm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://crm.konnektive.com/
+- partner_name: Lofty
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/lofty
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://lofty.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Bucket.io
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/bucketio
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://bucket.io/
+- partner_name: JVZoo
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/jvzoo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.jvzoo.com/
+- partner_name: LeadConnector
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/leadconnector
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.leadconnectorhq.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Jotform
+  partner: jotform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/jotform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://www.jotform.com/
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Instapage
+  partner: instapage
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/instapage
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://instapage.com/
+- partner_name: Postscript
+  partner: postscript
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/postscript-1
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://postscript.io/
+- partner_name: PayKickstart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/paykickstart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://paykickstart.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: BDOW (FKA Sumo)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/bdow-fka-sumo
+  direction: third-party
+  category: Marketing
+  partner_url: https://bdow.com/
+- partner_name: RingCentral Events
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/ringcentral-events
+  direction: third-party
+  category: Event Management
+  partner_url: https://events.ringcentral.com/
+- partner_name: Klaviyo
+  partner: klaviyo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/klaviyo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.klaviyo.com/
+- partner_name: Google Forms (Legacy)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/google-forms-legacy
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: Tidio
+  partner: tidio
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/tidio
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.tidiochat.com/
+- partner_name: Uscreen
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/uscreen
+  direction: third-party
+  category: Video & Audio
+  partner_url: https://uscreen.tv/
+- partner_name: Riddle Quiz Maker
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/riddle-quiz-maker
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.riddle.com/
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: TikTok Lead Generation
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/sendlane/integrations/tiktok-lead-generation
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.tiktok.com/
+templates:
+- title: Add new Postscript opt-in subscribers to Sendlane as subscribers
+  url: https://zapier.com/apps/postscript-1/integrations/sendlane/1740741/add-new-postscript-opt-in-subscribers-to-sendlane-as-subscribers
+  apps:
+  - postscript-1
+  - sendlane
+- title: Create Sendlane subscribers from new Explodely sales
+  url: https://zapier.com/apps/explodely/integrations/sendlane/1186749/create-sendlane-subscribers-from-new-explodely-sales
+  apps:
+  - explodely
+  - sendlane
+- title: Add subscribers in Sendlane for new email addresses in Google Sheets
+  url: https://zapier.com/apps/google-sheets/integrations/sendlane/18911/add-subscribers-in-sendlane-for-new-email-addresses-in-google-sheets
+  apps:
+  - google-sheets
+  - sendlane
+- title: Turn GetResponse contacts into Sendlane Subscribers
+  url: https://zapier.com/apps/getresponse/integrations/sendlane/18915/turn-getresponse-contacts-into-sendlane-subscribers
+  apps:
+  - getresponse
+  - sendlane
+- title: Turn Aweber subscribers into Sendlane subscribers
+  url: https://zapier.com/apps/aweber/integrations/sendlane/18916/turn-aweber-subscribers-into-sendlane-subscribers
+  apps:
+  - aweber
+  - sendlane
+- title: Turn MailChimp subscribers into Sendlane subscribers
+  url: https://zapier.com/apps/mailchimp/integrations/sendlane/18917/turn-mailchimp-subscribers-into-sendlane-subscribers
+  apps:
+  - mailchimp
+  - sendlane
+- title: Turn ActiveCampaign subscribers into Sendlane subscribers
+  url: https://zapier.com/apps/activecampaign/integrations/sendlane/18920/turn-activecampaign-subscribers-into-sendlane-subscribers
+  apps:
+  - activecampaign
+  - sendlane
+- title: Create Sendlane subscribers from new Constant Contact contacts
+  url: https://zapier.com/apps/constant-contact/integrations/sendlane/18921/create-sendlane-subscribers-from-new-constant-contact-contacts
+  apps:
+  - constant-contact
+  - sendlane
+- title: Add new Kit subscribers as Sendlane subscribers
+  url: https://zapier.com/apps/kit/integrations/sendlane/18922/add-new-kit-subscribers-as-sendlane-subscribers
+  apps:
+  - kit
+  - sendlane
+- title: Turn Drip subscribers into Sendlane subscribers
+  url: https://zapier.com/apps/drip/integrations/sendlane/18923/turn-drip-subscribers-into-sendlane-subscribers
+  apps:
+  - drip
+  - sendlane
+- title: Create Sendlane subscribers from Mailjet subscribers
+  url: https://zapier.com/apps/mailjet/integrations/sendlane/18924/create-sendlane-subscribers-from-mailjet-subscribers
+  apps:
+  - mailjet
+  - sendlane
+- title: Convert captured leads from Facebook Lead Ads into Sendlane subscribers
+  url: https://zapier.com/apps/facebook-lead-ads/integrations/sendlane/18925/convert-captured-leads-from-facebook-lead-ads-into-sendlane-subscribers
+  apps:
+  - facebook-lead-ads
+  - sendlane
+template_total: 132
