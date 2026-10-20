@@ -385,3 +385,15 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
+- slug: sendlane-gorgias-own
+  label: Gorgias (own)
+  partner: gorgias
+  partner_name: Gorgias (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.gorgias.com/apps/sendlane
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

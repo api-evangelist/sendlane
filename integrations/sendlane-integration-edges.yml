@@ -4,6 +4,7 @@ source:
 - https://zapier.com/apps/sendlane/integrations
 - https://composio.dev/toolkits/sendlane
 checked:
+- gorgias/integrations/gorgias-integration-edges.yml
 - https://composio.dev/toolkits/sendlane
 - https://monid.ai/tools/sendlane
 - https://n8n.io/integrations/sendlane/
@@ -396,6 +397,22 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Gorgias (own)
+  partner: gorgias
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.gorgias.com/apps/sendlane
+  mirror_of: gorgias/integrations/gorgias-integration-edges.yml
+  apps:
+  - Sendlane
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
 templates:
 - title: Add new Postscript opt-in subscribers to Sendlane as subscribers
   url: https://zapier.com/apps/postscript-1/integrations/sendlane/1740741/add-new-postscript-opt-in-subscribers-to-sendlane-as-subscribers
