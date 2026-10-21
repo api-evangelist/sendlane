@@ -10,6 +10,7 @@ checked:
 - https://n8n.io/integrations/sendlane/
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/sendlane/integrations
+- bigcommerce/integrations/bigcommerce-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -67,22 +68,6 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
-- partner_name: Gorgias (own)
-  partner: gorgias
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.gorgias.com/apps/sendlane
-  mirror_of: gorgias/integrations/gorgias-integration-edges.yml
-  apps:
-  - Sendlane
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
 - partner_name: Poptin
   partner: poptin
   partner_match: domain
@@ -443,6 +428,39 @@ edges:
   direction: third-party
   category: Ads & Conversion
   partner_url: https://ads.tiktok.com/
+- partner_name: Gorgias (own)
+  partner: gorgias
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.gorgias.com/apps/sendlane
+  mirror_of: gorgias/integrations/gorgias-integration-edges.yml
+  apps:
+  - Sendlane
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+- partner_name: BigCommerce (own)
+  partner: bigcommerce
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.bigcommerce.com/apps/sendlane-marketing-automation/
+  mirror_of: bigcommerce/integrations/bigcommerce-integration-edges.yml
+  apps:
+  - Sendlane Marketing Automation
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Marketing, Marketing Automation
 templates:
 - title: Add new Postscript opt-in subscribers to Sendlane as subscribers
   url: https://zapier.com/apps/postscript-1/integrations/sendlane/1740741/add-new-postscript-opt-in-subscribers-to-sendlane-as-subscribers

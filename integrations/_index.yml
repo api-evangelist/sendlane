@@ -103,18 +103,6 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
-- slug: sendlane-gorgias-own
-  label: Gorgias (own)
-  partner: gorgias
-  partner_name: Gorgias (own)
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.gorgias.com/apps/sendlane
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: sendlane-poptin
   label: Poptin
   partner: poptin
@@ -429,4 +417,29 @@
   source: edge
   relationship: ipaas-bridge
   status: pending-generation
+  arazzo: null
+- slug: sendlane-gorgias-own
+  label: Gorgias (own)
+  partner: gorgias
+  partner_name: Gorgias (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.gorgias.com/apps/sendlane
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: sendlane-bigcommerce-own
+  label: BigCommerce (own)
+  partner: bigcommerce
+  partner_name: BigCommerce (own)
+  category: Marketing, Marketing Automation
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.bigcommerce.com/apps/sendlane-marketing-automation/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
   arazzo: null
