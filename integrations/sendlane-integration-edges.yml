@@ -11,6 +11,9 @@ checked:
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/sendlane/integrations
 - bigcommerce/integrations/bigcommerce-integration-edges.yml
+- https://hex.pm/api
+- https://packagist.org/packages
+- https://pub.dev/api
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -461,6 +464,36 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: Marketing, Marketing Automation
+- partner_name: Packagist
+  partner: packagist
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (PHP)
+  evidence: https://packagist.org/packages/sendlane/module-ordermanagement
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: sendlane/module-ordermanagement
+      version: null
+      released: null
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/sendlane/module-ordermanagement
+      repo_leg: github-org:sendlane
+      publisher_leg: org:sendlane
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  detected_by: sweep-php-dart-elixir-package-registries.py
+  first_seen: '2026-10-22'
 templates:
 - title: Add new Postscript opt-in subscribers to Sendlane as subscribers
   url: https://zapier.com/apps/postscript-1/integrations/sendlane/1740741/add-new-postscript-opt-in-subscribers-to-sendlane-as-subscribers
